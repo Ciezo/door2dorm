@@ -2,10 +2,10 @@
 require("../../config.php");
 session_start(); 
 // Check if admin is logged in.
-// if (!isset($_SESSION["admin-username"])) {
-//     // If not logged in, then redirect to log-in page.
-//     header("location: admin-login.php");
-// }
+if (!isset($_SESSION["admin-username"])) {
+    // If not logged in, then redirect to log-in page.
+    header("location: admin-login.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +23,7 @@ session_start();
     <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
 
     <!-- CSS Global theming and styles -->
-    <link href="../css/globals.css" rel="stylesheet">
+    <link href="../../css/globals.css" rel="stylesheet">
 
     <style>
         .wrapper {
@@ -32,6 +32,11 @@ session_start();
         }
         .navbar .navbar-brand {
             padding-left: 35px;
+        }
+        .navbar .collapse .navbar-nav .active {
+            background-color: white;
+            border-radius: 5px;
+            color:black;
         }
     </style>
 </head>
@@ -53,6 +58,7 @@ session_start();
                 <a class="nav-item nav-link active" href="#">Security Logs</a>
                 <a class="nav-item nav-link" href="admin-facenet.php">FaceNet</a>
                 <a class="nav-item nav-link" href="admin-messages.php">Messages</a>
+                <a class="nav-item nav-link logout" href="../../components/custom/logout.php">Logut</a>
             </div>
         </div>
     </nav>

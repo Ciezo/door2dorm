@@ -18,12 +18,25 @@ session_start();
     <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
 
     <!-- CSS Global theming and styles -->
-    <link href="../css/globals.css" rel="stylesheet">
+    <link href="../../css/globals.css" rel="stylesheet">
 
     <style>
         .wrapper {
             padding-top: 50px;
             margin: 0 auto;
+            width: 500px;
+            height: auto;
+        }
+        .wrapper .admin-login label {
+            font-size: 20px;
+            padding-bottom: 15px;
+        }
+        .wrapper .admin-login input:focus {
+            box-shadow: 0px 0px 10px 0px #333;
+        }
+        .wrapper .admin-login .btn.btn-primary {
+            margin-top: 50px;
+            width: 100%;
         }
         .navbar .navbar-brand {
             padding-left: 35px;
@@ -51,8 +64,44 @@ session_start();
 
     <!-- Content goes here -->
     <div class="wrapper">
-        <a href="admin-home.php">Admin home (placeholder button)</a>
+        <center>
+            <img src="../../assets/images/placeholder_img.png" alt="Friendly Admin Image Icon">
+            <form action="admin-login.php" class="admin-login" method="POST">
+                <h1>Welcome, Admin</h1>
+                <label>Username</label>
+                <input type="text" class="form-control" name="admin-username" placeholder="" required="">
+                <br>
+                <label>Password</label>
+                <input type="password" class="form-control" name="admin-password" placeholder="" required="">
+                <input class="btn btn-primary" name="admin-login" type="submit" value="LOGIN"><br>
+            </form>
+        </center>
     </div>
-
 </body>
 </html>
+
+<?php
+error_reporting(0);
+if(isset($_POST['admin-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {    
+    $username = ($_POST["admin-username"]);
+    $password = ($_POST["admin-password"]);
+
+    // Create a query to select a single entry from the USERS table
+    $query = "SELECT * FROM ADMIN WHERE username='$username' AND password='$password'"; 
+    $results = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($results);
+
+    // If all input credentials are matched from the database then
+    if ($username == $row["username"] && $password == $row["password"]) {
+        // Set up SESSION VARIABLES
+        $_SESSION["admin-username"] = $username; 
+        $_SESSION["admin-password"] = $password; 
+        /** Redirect to admin session checking */
+        header("location: ../sessions/admin_session_check.php");
+    }
+
+    else {
+        Print '<script>alert("Incorrect Username or Password!");</script>';
+    }
+}
+?>

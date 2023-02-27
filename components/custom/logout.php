@@ -1,6 +1,6 @@
 <?php
 session_destroy();
-header("location: ../../views/index.php");
+header("location: ../../views/landing_page.php");
 setcookie("admin_cookie_username", "", time() - 3600);
 setcookie("admin_cookie_password", "", time() - 3600);
 setcookie("resident_cookie_username", "", time() - 3600);
