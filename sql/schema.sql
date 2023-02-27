@@ -58,5 +58,5 @@ CREATE TABLE IF NOT EXISTS AVAILABLE_ROOMS(
     details        VARCHAR(100) NOT NULL,
     pricing        DOUBLE       NOT NULL,
 
-    PRIMARY KEY(room_id);     
+    PRIMARY KEY(room_id)     
 );
