@@ -6,9 +6,9 @@
 <?php
 // Auto-generated credentials by ClearDB MySQL database at Heroku
 $host = "us-cdbr-east-06.cleardb.net"; 
-$user = "bd22e71ea9fc1e";
-$password = "34602037";
-$database = "heroku_5388512170af7bf";
+$user = "b08c35ce866050";
+$password = "d2655c71";
+$database = "heroku_9ee0e413f16e154";
 
 // database link connection
 $conn = new mysqli($host, $user, $password, $database);
