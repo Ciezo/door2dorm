@@ -6,10 +6,11 @@
 #       This shall run the .sql script
 
 # Credentials
+# App name: door2dorm-backend
 host="us-cdbr-east-06.cleardb.net" 
-user="bd22e71ea9fc1e"
-password="34602037"
-database="heroku_5388512170af7bf"
+user="b08c35ce866050"
+password="d2655c71"
+database="heroku_9ee0e413f16e154"
 
 echo "Creating schema to the remote database!"
-cat "create_tables.sql" | mysql -h "$host" -u "$user" "-p$password" "$database"
+cat "schema.sql" | mysql -h "$host" -u "$user" "-p$password" "$database"
