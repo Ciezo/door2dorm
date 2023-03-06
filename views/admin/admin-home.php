@@ -14,7 +14,7 @@ if (!isset($_SESSION["admin-username"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login, Administrator</title>
+    <title>Home</title>
 
     <!-- Bootstrap from https://getbootstrap.com/ -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -29,6 +29,7 @@ if (!isset($_SESSION["admin-username"])) {
         .wrapper {
             padding-top: 50px;
             margin: 0 auto;
+            width: 1050px;
         }
         .navbar .navbar-brand {
             padding-left: 35px;
@@ -37,6 +38,12 @@ if (!isset($_SESSION["admin-username"])) {
             background-color: white;
             border-radius: 5px;
             color:black;
+        }
+        .admin-avail-rooms-list table {
+            margin-top: 22px;
+        }
+        table tr td {
+            width: auto;
         }
     </style>
 </head>
@@ -65,6 +72,76 @@ if (!isset($_SESSION["admin-username"])) {
 
     <!-- Content goes here -->
     <div class="wrapper">
+        <!-- Admin creates list of available rooms -->
+        <div class="admin-avail-rooms-list">
+            <h2>Available Rooms/Units</h2>
+            <a class="btn btn-outline-primary" href="../../api/rooms/create.php">Set an available room</a>
+            
+            <!-- Get a local list of rooms/units in a table -->
+            <table class="table table-striped">
+                <!-- Table headers -->
+                <!-- Table body in a loop. Data is fetched from the database -->
+                <?php
+                // Create a query to fetch all data for available rooms
+                $sql = "SELECT * FROM AVAILABLE_ROOMS";
+                $results = mysqli_query($conn, $sql); 
+
+                if ($results->num_rows > 0) {
+
+                    echo '<thead class="thead-dark">';
+                    echo    '<tr>';
+                    echo        '<th scope="col">#</th>';
+                    echo        '<th scope="col">Room No.</th>';
+                    echo        '<th scope="col">Room Type</th>';
+                    echo        '<th scope="col">Room Category</th>';
+                    echo        '<th scope="col">Genders Assigned</th>';
+                    echo        '<th scope="col">Pricing per month</th>';
+                    echo        '<th scope="col">No. Of Occupants</th>';
+                    echo        '<th scope="col">Status</th>';
+                    echo        '<th scope="col">Actions</th>';
+                    echo    '</tr>';
+                    echo '</thead>';
+
+                    echo '<tbody>';
+                    // Begin fetching the results as rows
+                    while($row = mysqli_fetch_array($results)) {
+                        echo '<tr>';    // A row entry
+                        echo    '<td>'.$row['room_id'].'</td>';                      // ID 
+                        echo    '<td>'.$row['room_number'].'</td>';             // Room No.
+                        echo    '<td>'.$row['room_type'].'</td>';               // Room Type
+                        echo    '<td>'.$row['room_category'].'</td>';           // Room Category
+                        echo    '<td>'.$row['gender_assign'].'</td>';           // Genders Assigned
+                        echo    '<td>'.$row['details'].'</td>';                 // Pricing
+                        echo    '<td>'.$row['num_of_occupants'].'</td>';        // No. of occupants
+                        echo    '<td>'.$row['occupancy_status'].'</td>';        // Status
+
+                        // Actions to Update or Remove a Room
+                        echo    '<td>';
+                        echo        '<a class="btn btn-outline-success" href="../../api/rooms/update.php?id='.$row['room_id'].'">Update</a>';    // Update room  api/rooms/update
+                        echo        '<a class="btn btn-outline-danger" href="../../api/rooms/delete.php?id='.$row['room_id'].'">Remove</a>';     // Remove room  api/rooms/delete
+                        echo    '</td>';
+                        echo '</tr>'; 
+                    }
+
+                    echo '</tbody>';
+                    echo '</table>';
+                }
+
+                else {
+                    echo '<br>';
+                    echo '<br>';
+                    echo '<div class="alert alert-danger"><em>There are no records found for available rooms!</em></div>';
+                }
+                ?>
+        </div>
+        
+        <!-- Overview of Tenants Listing and Balances -->
+
+        <!-- Security logs -->
+
+        <!-- Messages overview -->
+
+        <!-- Scheduled Visits -->
 
     </div>
 
