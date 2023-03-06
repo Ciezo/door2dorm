@@ -137,6 +137,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
+    // Validate uploaded photo 
+    /** Submit the chosen photo -
+     * @todo Begin file validation and ensure that it is no longer than 5 MB */
+    if (isset($_FILES["file_photo_upload"])) {
+        if ($_FILES["file_photo_upload"]["size"] > 500000) {
+            $_err_file_size = "Less than 5 MB only!";
+        }
+        $image_to_upload = addslashes(file_get_contents($_FILES["file_photo_upload"]["tmp_name"]));
+    }
+
     /**
      * @todo Begin MySQL Query using this api to interface to the database
      */
@@ -162,8 +172,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_occupy_status = $room->getOccupancyStatus();
 
             // Create an INSERT statement
-            $sql = "INSERT INTO AVAILABLE_ROOMS (room_number, room_type, room_category, gender_assign, details, pricing, num_of_occupants, occupancy_status) 
-                    VALUES('$param_roomNum', '$param_roomType', '$param_roomCateg', '$param_assignGender', '$param_roomDetails', '$param_roomPrice', '$param_numOfOccupants', '$param_occupy_status')";
+            $sql = "INSERT INTO AVAILABLE_ROOMS (room_number, room_type, room_category, gender_assign, details, pricing, num_of_occupants, occupancy_status, room_photo) 
+                    VALUES('$param_roomNum', '$param_roomType', '$param_roomCateg', '$param_assignGender', '$param_roomDetails', '$param_roomPrice', '$param_numOfOccupants', '$param_occupy_status', '$image_to_upload')";
 
             // Once the query executes, redirect to admin home page
             if (mysqli_query($conn, $sql)) {
@@ -235,7 +245,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>Setup an available unit or room</h2>
         <p><i>Using this page you can list available units or rooms for visitors and tenants to see</i></p>
         <hr><br>
-        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="POST">
+        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="POST" enctype="multipart/form-data">
             <!-- Room or Unit number || name="room-number"-->
             <div class="form-group">
                 <label for="Room/Unit Number">Room or Unit Number</label>
@@ -302,6 +312,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value="Available">Available</option>
                     <option value="Taken">Taken</option>
                 </select>
+            </div>
+            <br>
+            <!-- Room Photo -->
+            <div class="form-group">
+                <label for="Upload a photo">Upload a photo of the unit</label>
+                <input type="file" class="form-control" name="file_photo_upload">
+                <span class="invalid-feedback"><?php echo $_err_file_size ;?></span>
             </div>
             <br><br>
             <!-- Submit form -->

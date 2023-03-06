@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS AVAILABLE_ROOMS(
     pricing        DOUBLE       NOT NULL,
     num_of_occupants INT        NOT NULL,
     occupancy_status VARCHAR(100)   NOT NULL,
+    room_photo       LONGBLOB    NOT NULL,
 
     PRIMARY KEY(room_id)   
 

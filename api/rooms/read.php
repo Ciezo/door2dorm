@@ -57,7 +57,7 @@ else {
             $pricing = $rows["pricing"];
             $num_Of_occupants = $rows["num_of_occupants"];
             $occupy_status  = $rows["occupancy_status"];
-
+            $fetch_img = $rows["room_photo"];
         }
     }  
     
@@ -126,7 +126,10 @@ else {
         <div class="card" style="width: 70rem;">
             <div class="card-body">
                 <!-- Room Image -->
-                <img class="card-img-top" src="../../assets/images/placeholder_img.png" alt="Card image cap" width="auto" height="auto">
+                <?php 
+                        echo    '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($fetch_img).'"'; 
+                        echo    'alt="Card image cap" width="auto" height="auto">'; 
+                ?>
                 <!-- Room Number -->
                 <h5 class="card-title">Room Number: <?php echo $room_number; ?></h5>  
                 <!-- Room type -->
