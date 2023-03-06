@@ -61,6 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $room_category = $input_room_category; 
     }
 
+
+
     // Validate Room gender
     $input_room_gender = trim($_POST["room-gender"]); 
     if (empty($input_room_gender)) {
@@ -233,7 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>Setup an available unit or room</h2>
         <p><i>Using this page you can list available units or rooms for visitors and tenants to see</i></p>
         <hr><br>
-        <form action="create.php" method="POST">
+        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="POST">
             <!-- Room or Unit number || name="room-number"-->
             <div class="form-group">
                 <label for="Room/Unit Number">Room or Unit Number</label>
@@ -257,8 +259,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <label for="Selecting a Room Category">Select room category</label>
                 <select class="form-control" name="room-category" id="" required="">
-                    <option value="with_aircon">With Airconditiong Unit</option>
-                    <option value="no_aircon">Without Airconditiong Unit</option>
+                    <option value="With Airconditiong Unit">With Airconditiong Unit</option>
+                    <option value="Without Airconditiong Unit">Without Airconditiong Unit</option>
                 </select>
             </div>
             <br>
@@ -266,9 +268,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="form-group">
                 <label for="Assigning Genders">Assign genders to occupy the room</label>
                 <select class="form-control" name="room-gender" id="" required="">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="mix">Mix</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Mix">Mix</option>
                 </select>
             </div>
             <br>
@@ -304,6 +306,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br><br>
             <!-- Submit form -->
             <input type="submit" name="post-room-form" class="btn btn-outline-success" value="Post">
+            <!-- Back/Cancel button -->
+            <a href="../../views/admin/admin-home.php" class="btn btn-outline-danger">Cancel</a>
         </form>
     </div>
 </body>
