@@ -21,14 +21,14 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
     // Fetch the results as rows 
     while($rows = mysqli_fetch_array($result)) {
         $room_number = $rows["room_number"];
-        $room_type = $rows["room_number"];
-        $room_category = $rows["room_number"];
+        $room_type = $rows["room_type"];
+        $room_category = $rows["room_category"];
         $gender_assign = $rows["gender_assign"];
         $room_details = $rows["details"];
         $pricing = $rows["pricing"];
         $num_Of_occupants = $rows["num_of_occupants"];
         $occupy_status  = $rows["occupancy_status"];
-
+        $fetch_img = $rows["room_photo"];
     }
 
     // Close connection
