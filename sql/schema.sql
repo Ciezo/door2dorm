@@ -55,8 +55,26 @@ CREATE TABLE IF NOT EXISTS AVAILABLE_ROOMS(
     room_id        INT          NOT NULL auto_increment,
     room_number    INT          NOT NULL, 
     room_type      VARCHAR(100) NOT NULL,
-    details        VARCHAR(100) NOT NULL,
+    room_category  VARCHAR(100) NOT NULL,
+    gender_assign  VARCHAR(100) NOT NULL,
+    details        LONGTEXT     NOT NULL,
     pricing        DOUBLE       NOT NULL,
+    num_of_occupants INT        NOT NULL,
+    occupancy_status VARCHAR(100)   NOT NULL,
 
-    PRIMARY KEY(room_id)     
+    PRIMARY KEY(room_id)   
+
+    -- reference the category id  
 );
+
+-- Category of Rooms facts
+-- Ac rooms
+-- - All gender
+-- - Male
+-- - Female
+
+-- Fan rooms
+-- - All gender
+-- - Male
+-- - Female 
+-- CREATE TABLE IF NOT EXISTS ROOM_CATEG(); 
