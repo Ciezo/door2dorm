@@ -29,7 +29,15 @@ session_start();
         .navbar .navbar-brand {
             padding-left: 35px;
         }
-        
+        .rooms-avail-table {
+            padding-bottom: 50px;
+        }
+        .rooms-avail-table table {
+            margin-top: 22px;
+        }
+        table tr td {
+            width: auto;
+        }
     </style>
 
 </head>
@@ -59,6 +67,46 @@ session_start();
         <div class="rooms-avail-table">
             <h1>List Of Available Rooms</h1>
             <!-- Dynamic Table: Listing of Available rooms -->
+            <!-- Create a query to select all available rooms -->
+            <?php
+                //  Select statement to fetch all available rooms
+                $sql = "SELECT * FROM AVAILABLE_ROOMS where occupancy_status = 'Available'";
+                $results = mysqli_query($conn, $sql);
+
+                if ($results->num_rows > 0) {
+                    echo    '<table class="table table-striped">';
+                    echo        '<thead class="thead-dark">';
+                    echo            '<tr class="table-dark">';
+                    echo                '<th scope="col">Room No.</th>';
+                    echo                '<th scope="col">Room Type</th>';
+                    echo                '<th scope="col">Pricing per month</th>';
+                    echo                '<th scope="col">Details</th>';
+                    echo                '<th scope="col"></th>';
+                    echo            '</tr>';
+                    echo        '</thead>';
+
+                    // Begin retrieving all entries as rows in a while loop
+                    while ($row = mysqli_fetch_array($results)) {
+                        echo '<tbody>';
+                        echo    '<td>'.$row['room_number'].'</td>';         // Room No.
+                        echo    '<td>'.$row['room_type'].'</td>';          // Room Type
+                        echo    '<td>'.$row['pricing'].'</td>';            // Pricing per month
+                        echo    '<td>'.$row['details'].'</td>';            // Room Details
+                        
+                        // Actions to View More
+                        echo    '<td>';
+                        echo        '<a class="btn btn-outline-primary" href="../api/rooms/read.php?id='.$row['room_id'].'">More details</a>';
+                        echo    '</td>';         
+                        echo '</tbody>';
+                    }
+                    echo '</table>';
+                }
+
+                else {
+                    echo '<div class="alert alert-danger"><em>There are no records found for available rooms!</em></div>';
+                }
+
+            ?>
         </div>
 
         <div class="request-visit">
