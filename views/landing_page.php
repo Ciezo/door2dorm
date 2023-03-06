@@ -24,6 +24,7 @@ session_start();
         .wrapper {
             padding-top: 50px;
             margin: 0 auto;
+            width: 1050px;
         }
         .navbar .navbar-brand {
             padding-left: 35px;
