@@ -175,6 +175,7 @@ else {
     }
     
     else {
+        header("location: ../../views/error/error2.php");
         echo "Oops! Something went wrong. Please try again later.";
         exit();
     }
