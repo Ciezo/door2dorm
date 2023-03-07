@@ -25,6 +25,10 @@ if (!isset($_SESSION["admin-username"])) {
     <!-- CSS Global theming and styles -->
     <link href="../../css/globals.css" rel="stylesheet">
 
+    <!-- jQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
         .wrapper {
             padding-top: 50px;
@@ -236,43 +240,13 @@ if (!isset($_SESSION["admin-username"])) {
         </div>
         <br>
         <!-- Scheduled Visits -->
-        <div class="admin-listAll-sched-booked-visits">
-            <h2>Scheduled Visitors</h2>
-            <p>This section presents all bookings and visits</p>
-
-            <table class="table table-striped">
-                    <thead class="thead-dark">
-                        <tr class="table-dark">
-                            <th scope="col">Name</th>
-                            <th scope="col">Vising Purpose</th>
-                            <th scope="col">Date</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Sample Name 1</td>
-                            <td>Lorem Ipsum sheesh</td>
-                            <td>Date</td>
-                            <td><a class="btn btn-outline-success" href="">View ID</a></td>
-                        </tr>
-                        <tr>
-                            <td>Sample Name 1</td>
-                            <td>Lorem Ipsum sheesh</td>
-                            <td>Date</td>
-                            <td><a class="btn btn-outline-success" href="">View ID</a></td>
-                        </tr>
-                        <tr>
-                            <td>Sample Name 1</td>
-                            <td>Lorem Ipsum sheesh</td>
-                            <td>Date</td>
-                            <td><a class="btn btn-outline-success" href="">View ID</a></td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div id="refresh-5secs-bookings" class="admin-listAll-sched-booked-visits">
+            <!-- Dyanmic content, loads every 5 secs -->
+            <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
         </div>
 
     </div>
-
+    <!-- Script src to dynamically refresh and load bookings -->
+    <script type="text/javascript" src="../../js/dynamic-load-Bookings.js"></script>
 </body>
 </html>

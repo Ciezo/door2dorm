@@ -105,9 +105,9 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             if ($_FILES["visitor-ID"]["size"] > 500000) {
                 $_err_visitor_ID = "Less than 5 MB only!";
             }
-            $image_to_upload = addslashes(file_get_contents($_FILES["visitor-ID"]["tmp_name"]));
-            // Now, assign the image to the expected variable
-            $visitor_ID = $image_to_upload; 
+            $temp_path = $_FILES["visitor-ID"]["tmp_name"];
+            // Now, assign the temporary path to the expected variable
+            $visitor_ID = $temp_path; 
         }
     }
 
@@ -122,7 +122,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["visitor-purpose"] = $visit_purpose; 
                 $_SESSION["visitor-picked-date"] = $visit_date; 
                 $_SESSION["visitor-picked-time"] = $visit_time; 
-                $_SESSION["visitor-uploaded-ID"] = $visitor_ID; 
+                $_SESSION["visitor-uploaded-ID"] = $temp_path; 
 
                 // Send form data to request the local API
                 header("location: ../api/visitor/create.php");
