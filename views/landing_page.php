@@ -19,7 +19,12 @@ session_start();
 
     <!-- CSS Global theming and styles -->
     <link href="../css/globals.css" rel="stylesheet">
-    
+
+    <!-- Loading screen animation -->
+    <link href="../css/loading.css" rel="stylesheet">   
+
+    <!-- jQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <style>
         .wrapper {
             padding-top: 50px;
@@ -66,53 +71,56 @@ session_start();
 
     <!-- Content Wrapper -->
     <div class="wrapper">
-        
-        <div class="rooms-avail-table">
-            <h1>List Of Available Rooms</h1>
+        <div id="loadingDiv"><img src="../assets/images/Rolling-1s-200px.gif" alt="Loading screen"></div>
+        <div id="periodic-refresh-5secs" class="rooms-avail-table">
             <!-- Dynamic Table: Listing of Available rooms -->
             <!-- Create a query to select all available rooms -->
-            <?php
-                //  Select statement to fetch all available rooms
-                $sql = "SELECT * FROM AVAILABLE_ROOMS where occupancy_status = 'Available'";
-                $results = mysqli_query($conn, $sql);
-
-                if ($results->num_rows > 0) {
-                    // Begin retrieving all entries as rows in a while loop
-                    while ($row = mysqli_fetch_array($results)) {
-                        echo    '<div class="card">';
-                        echo        '<div class="card-header text-center">'; 
-                        echo            $row["room_category"];
-                        echo        '</div>';
-              
-                        echo        '<div class="card-body">';
-                        echo            '<h5 class="card-title">'.$row["room_type"].'</h5>';
-                        echo            '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($row["room_photo"]).'" alt="Card image cap">'; 
-                        echo            '<div class="card-body text-center">';
-                        echo                '<h2 class="card-text">Rent starts at </h2>';
-                        echo                '<button class="btn btn-warning">PHP '.$row["pricing"].'</button>';
-                        echo                '<a class="btn btn-outline-primary" href="../api/rooms/read.php?id='.$row['room_id'].'">More info</a>';
-                        echo        '</div>';
-
-                        echo        '<div class="card-footer text-muted"> Maximum number of occupants allowed: ';
-                        echo            '<b>'.$row["num_of_occupants"].'</b>';
-                        echo        '</div>';
-                        echo       '</div>';
-                        echo    '</div>';
-                    }
-                }
-
-                else {
-                    echo '<div class="alert alert-danger"><em>There are no records found for available rooms!</em></div>';
-                }
-
-            ?>
         </div>
 
-        <div class="request-visit">
+        <div id="sched-book-visit" class="request-visit">
             <h1>Schedule Visits</h1>
             <!-- Fill up form for a visitor -->
+            <form action="../api/visitor/create.php" method="POST">
+                <!-- Visitor full name -->
+                <div class="form-group">
+                    <label for="Full name of visitor">Full Name</label>
+                    <input type="text" name="visitor-full-name" placeholder="Juan Dela Cruz" class="form-control">
+                </div>
+                <br>
+                <!-- Visitor purpose -->
+                <div class="form-group">
+                    <label for="Full name of visitor">Purpose of visit</label>
+                    <input type="text" name="visitor-purpose" placeholder="Write here your visiting reasons" class="form-control">
+                </div>
+                <br>
+                <!-- Visitor pick date -->
+                <div class="form-group">
+                    <label for="Full name of visitor">Pick a date</label>
+                    <input type="date" name="visitor-date" placeholder="" class="form-control">
+                </div>
+                <br>
+                <!-- Visitor pick time -->
+                <div class="form-group">
+                    <label for="Full name of visitor">Pick a time</label>
+                    <input type="time" name="visitor-time" placeholder="" class="form-control">
+                </div>
+                <br>
+                <!-- Visitor ID upload -->
+                <div class="form-group">
+                    <label for="Upload a photo">Upload a photo of your valid ID</label>
+                    <input type="file" class="form-control" name="file_photo_upload">
+                    <span class="invalid-feedback"></span>
+                </div>
+                <br>
+                <!-- Submit form -->
+                <div class="form-group">
+                    <input type="submit" name="schedule-visit-submit-form" class="btn btn-primary" value="Book now!">
+                </div>
+            </form>
         </div>
         
     </div>
+    <!-- Script file to dynamic load and refresh list of available rooms -->
+    <script type="text/javascript" src="../js/dynamic-load-AvailableRooms.js"></script>
 </body>
 </html>
