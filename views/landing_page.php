@@ -1,6 +1,135 @@
 <?php
 require("../config.php");
 session_start(); 
+
+/**
+ * @note Create a token based interaction to send a request to the local PHP api
+ */
+// Initialize a session token upon loading
+$_SESSION["user-request-token"] = "";
+date_default_timezone_set('Asia/Manila');
+$request_date_taken = date("d/m/Y");
+$request_token = "req-user-".rand(10,100).$request_date_taken;
+// Assign the request token to the specified declared SESSION variable
+$_SESSION["user-request-token"] = $request_token;
+
+/** @todo Set form validation for visitor */
+// Values to retrieve
+$visitor_fullName = $visit_purpose = $visit_date = $visit_time = $visitor_ID = "";
+$_err_visitor_fullName = $_err_visit_purpose = $_err_visit_date = $_err_visit_time = $_err_visitor_ID = "";
+
+// Check if form is submitted 
+if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
+    /**
+     * Input validation
+     * @note values to retrieve: 
+     *  name="visitor-full-name"
+     *  name="visitor-purpose"
+     *  name="visitor-date"
+     *  name="visitor-time"
+     *  name="visitor"
+     */
+
+    // Validate name
+    $input_full_name = trim($_POST["visitor-full-name"]);
+    if (empty($input_full_name)) {
+        $_err_visitor_fullName = "Please, enter your full name!";
+    }
+
+    else if (!filter_var($input_full_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_full_name)) {
+        $_err_visitor_fullName = "Special characters [-!$%^&*()_+|~=`{}\[\]: are not allowed!";
+    }
+
+    else if (!filter_var($input_full_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))) {
+        $_err_visitor_fullName = "Please, enter a valid name full name!";
+    }
+
+    else {
+        $visitor_fullName = $input_full_name; 
+    }
+
+
+
+    // Validate visit purpose
+    $input_visit_purpose = trim($_POST["visitor-purpose"]);
+    if (empty($input_visit_purpose)) {
+        $_err_visit_purpose = "Please, write your visiting purpose";
+    }
+
+    else if (!filter_var($input_visit_purpose, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_visit_purpose)) {
+        $_err_visit_purpose = "Special characters [-!$%^&*()_+|~=`{}\[\]: are not allowed!";
+    }
+
+    else if (!filter_var($input_visit_purpose, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))) {
+        $_err_visit_purpose = "Please, write your visiting purpose";
+    }
+
+    else {
+        $visit_purpose = $input_visit_purpose; 
+    }
+
+
+
+    // Validate date
+    $input_visit_date = trim($_POST["visitor-date"]); 
+    if (empty($input_visit_date)) {
+        $_err_visit_date = "Please, pick a scheduled date!";
+    } 
+
+    else {
+        $visit_date = $input_visit_date; 
+    }
+
+
+
+    // Validate time
+    $input_visit_time = trim($_POST["visitor-time"]); 
+    if (empty($input_visit_time)) {
+        $_err_visit_time = "Please, pick a scheduled time!";
+    } 
+    else {
+        $visit_time = $input_visit_time; 
+    }
+
+
+
+    // Validate uploaded ID photo
+    $input_id_photo = trim($_POST["visitor-ID"]);
+    if (empty($input_id_photo)) {
+        $_err_visitor_ID = "Please, upload a copy of your valid ID";
+    } 
+
+    else {
+        // If there is an uploaded file, check if it exceeds 5 MB
+        if (isset($_FILES["visitor-ID"])) {
+            if ($_FILES["visitor-ID"]["size"] > 500000) {
+                $_err_visitor_ID = "Less than 5 MB only!";
+            }
+            $image_to_upload = addslashes(file_get_contents($_FILES["visitor-ID"]["tmp_name"]));
+            // Now, assign the image to the expected variable
+            $visitor_ID = $image_to_upload; 
+        }
+    }
+
+    // If all values are correct. And error variables are empty 
+    // @todo set SESSION variables and request to API/visitor/create 
+    if (empty($_err_visitor_fullName) && empty($_err_visit_purpose) && 
+            empty($_err_visit_date) && empty($_err_visit_time) && empty($_err_visitor_ID)) {
+                
+                // Set SESSION VARIABLES
+                $_SESSION["public-request"] = "SET_VISITOR_ENTITY";
+                $_SESSION["visitor-FullName"] = $visitor_fullName; 
+                $_SESSION["visitor-purpose"] = $visit_purpose; 
+                $_SESSION["visitor-picked-date"] = $visit_date; 
+                $_SESSION["visitor-picked-time"] = $visit_time; 
+                $_SESSION["visitor-uploaded-ID"] = $visitor_ID; 
+
+                // Send form data to request the local API
+                header("location: ../api/visitor/create.php");
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +154,8 @@ session_start();
 
     <!-- jQuery-->
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
         .wrapper {
             padding-top: 50px;
@@ -80,41 +211,101 @@ session_start();
         <div id="sched-book-visit" class="request-visit">
             <h1>Schedule Visits</h1>
             <!-- Fill up form for a visitor -->
-            <form action="../api/visitor/create.php" method="POST">
+            <form action="landing_page.php" method="POST">
                 <!-- Visitor full name -->
                 <div class="form-group">
                     <label for="Full name of visitor">Full Name</label>
-                    <input type="text" name="visitor-full-name" placeholder="Juan Dela Cruz" class="form-control">
+                    <input type="text" name="visitor-full-name" id="fetch_fullName" placeholder="My full name" class="form-control <?php echo (!empty($_err_visitor_fullName)) ? 'is-invalid' : ''; ?>" value="<?php echo $visitor_fullName ; ?>">
+                    <span class="invalid-feedback"><?php echo $_err_visitor_fullName ;?></span>
                 </div>
                 <br>
                 <!-- Visitor purpose -->
                 <div class="form-group">
                     <label for="Full name of visitor">Purpose of visit</label>
-                    <input type="text" name="visitor-purpose" placeholder="Write here your visiting reasons" class="form-control">
+                    <input type="text" name="visitor-purpose" id="fetch_visitPurpose" placeholder="Write here your visiting reasons" class="form-control <?php echo (!empty($_err_visit_purpose)) ? 'is-invalid' : ''; ?>" value="<?php echo $visit_purpose ; ?>">
+                    <span class="invalid-feedback"><?php echo $_err_visit_purpose ;?></span>
                 </div>
                 <br>
                 <!-- Visitor pick date -->
                 <div class="form-group">
                     <label for="Full name of visitor">Pick a date</label>
-                    <input type="date" name="visitor-date" placeholder="" class="form-control">
+                    <input type="date" name="visitor-date" id="fetch_visitDate" placeholder="" class="form-control">
+                    <span class="invalid-feedback"><?php echo $_err_visit_date ;?></span>
                 </div>
                 <br>
                 <!-- Visitor pick time -->
                 <div class="form-group">
                     <label for="Full name of visitor">Pick a time</label>
-                    <input type="time" name="visitor-time" placeholder="" class="form-control">
+                    <input type="time" name="visitor-time" id="fetch_visitTime" placeholder="" class="form-control">
+                    <span class="invalid-feedback"><?php echo $_err_visit_time ;?></span>
                 </div>
                 <br>
                 <!-- Visitor ID upload -->
                 <div class="form-group">
                     <label for="Upload a photo">Upload a photo of your valid ID</label>
-                    <input type="file" class="form-control" name="file_photo_upload">
+                    <input type="file" class="form-control" name="visitor-ID" id="fetch_photo">
                     <span class="invalid-feedback"></span>
+                    <span class="invalid-feedback"><?php echo $_err_visitor_ID ;?></span>
                 </div>
                 <br>
-                <!-- Submit form -->
+                <!-- Submit form, and trigger modal -->
                 <div class="form-group">
-                    <input type="submit" name="schedule-visit-submit-form" class="btn btn-primary" value="Book now!">
+                    <input type="button" name="schedule-visit-submit-form" data-toggle="modal" data-target="#exampleModalCenter" onclick="submitForm()" class="btn btn-primary" value="Book now!">
+                </div>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Review booking details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card" style="width: 100%;">
+                                <img class="card-img-top" src="" alt="Visitor valid ID" align="center" id="modal_preview_VisitorID">
+                                <div class="card-header" id="modal_preview_VisitorFullName"></div>
+                                <div class="card-body">
+                                    <p id="modal_preview_visitPurpose"></p>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item" id="modal_preview_VisitDate"></li>
+                                        <li class="list-group-item" id="modal_preview_VisitTime"></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <input type="submit" name="confirm-booking" class="btn btn-primary">
+                            </div>
+
+                            <script>
+                                // Get the input values
+                                /**
+                                 * id="fetch_visitTime" 
+                                    id="fetch_visitDate" 
+                                    id="fetch_visitPurpose" 
+                                    id="fetch_fullName"
+                                */
+
+                                function submitForm() {
+                                    var photo = document.getElementById("fetch_photo").value;
+                                    var full_name = document.getElementById("fetch_fullName").value;
+                                    var visit_purpose = document.getElementById("fetch_visitPurpose").value;
+                                    var visit_time = document.getElementById("fetch_visitTime").value;
+                                    var visit_date = document.getElementById("fetch_visitDate").value;
+                                    
+                                    document.getElementById("modal_preview_VisitorID").src=photo;
+                                    document.getElementById("modal_preview_VisitorFullName").innerHTML = full_name;
+                                    document.getElementById("modal_preview_visitPurpose").innerHTML = "<b>My Visiting Purpose:</b><br>" + visit_purpose;
+                                    document.getElementById("modal_preview_VisitDate").innerHTML = "<b>Scheduled at: </b>" + visit_date;
+                                    document.getElementById("modal_preview_VisitTime").innerHTML = "<b>On: </b>" + visit_time;
+                                }
+                            </script>
+
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
