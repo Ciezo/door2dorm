@@ -75,6 +75,7 @@ if (!isset($_SESSION["admin-username"])) {
         <!-- Admin creates list of available rooms -->
         <div class="admin-avail-rooms-list">
             <h2>Available Rooms/Units</h2>
+            <p>You may set to list or post your available rooms/units here</p>
             <a class="btn btn-outline-primary" href="../../api/rooms/create.php">Set an available room</a>
             
             <!-- Get a local list of rooms/units in a table -->
@@ -89,7 +90,7 @@ if (!isset($_SESSION["admin-username"])) {
                 if ($results->num_rows > 0) {
 
                     echo '<thead class="thead-dark">';
-                    echo    '<tr>';
+                    echo    '<tr class="table-dark">';
                     echo        '<th scope="col">#</th>';
                     echo        '<th scope="col">Room No.</th>';
                     echo        '<th scope="col">Room Type</th>';
@@ -134,14 +135,142 @@ if (!isset($_SESSION["admin-username"])) {
                 }
                 ?>
         </div>
-        
+        <br>
         <!-- Overview of Tenants Listing and Balances -->
+        <div class="admin-listAll-tenants-balances">
+            <h2>Overview of Tenants' Balances</h2>
+            <p>This is where you can see all your tenants' balances both paid and unpaid</p>
 
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr class="table-dark">
+                        <th scope="col">Name</th>
+                        <th scope="col">Room No.</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Payment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sample Name 1</td>
+                        <td>Sample Room 1</td>
+                        <td>Room Details 1</td>
+                        <td>Payment Status</td>
+                    </tr>
+                    <tr>
+                        <td>Sample Name 2</td>
+                        <td>Sample Room 2</td>
+                        <td>Room Details 2</td>
+                        <td>Payment Status</td>
+                    </tr>
+                    <tr>
+                        <td>Sample Name 3</td>
+                        <td>Sample Room 3</td>
+                        <td>Room Details 3</td>
+                        <td>Payment Status</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
         <!-- Security logs -->
+        <div class="admin-viewAll-securityLogs">
+            <h2>Security Logs</h2>
+            <p>This section presents the security loggings retrieved by FaceNet</p>
 
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr class="table-dark">
+                        <th scope="col">Name</th>
+                        <th scope="col">Room No.</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sample Name 1</td>
+                        <td>Sample Room 1</td>
+                        <td>Checked In or Checked Out</td>
+                    </tr>
+                    <tr>
+                        <td>Sample Name 1</td>
+                        <td>Sample Room 1</td>
+                        <td>Checked In or Checked Out</td>
+                    </tr>
+                    <tr>
+                        <td>Sample Name 1</td>
+                        <td>Sample Room 1</td>
+                        <td>Checked In or Checked Out</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
         <!-- Messages overview -->
+        <div class="admin-viewAll-messages">
+            <h2>Messages</h2>
+            <p>Overview of all messages from tenants</p>
 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tenants</th>
+                        <th>Messages</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><button class="btn btn-outline-primary w-100">Tenant Name</button></td>
+                        <td><textarea readonly class="form-control" name="" id="" cols="auto" rows="1"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><button class="btn btn-outline-primary w-100">Tenant Name</button></td>
+                        <td><textarea readonly class="form-control" name="" id="" cols="auto" rows="1"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><button class="btn btn-outline-primary w-100">Tenant Name</button></td>
+                        <td><textarea readonly class="form-control" name="" id="" cols="auto" rows="1"></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
         <!-- Scheduled Visits -->
+        <div class="admin-listAll-sched-booked-visits">
+            <h2>Scheduled Visitors</h2>
+            <p>This section presents all bookings and visits</p>
+
+            <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr class="table-dark">
+                            <th scope="col">Name</th>
+                            <th scope="col">Vising Purpose</th>
+                            <th scope="col">Date</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sample Name 1</td>
+                            <td>Lorem Ipsum sheesh</td>
+                            <td>Date</td>
+                            <td><a class="btn btn-outline-success" href="">View ID</a></td>
+                        </tr>
+                        <tr>
+                            <td>Sample Name 1</td>
+                            <td>Lorem Ipsum sheesh</td>
+                            <td>Date</td>
+                            <td><a class="btn btn-outline-success" href="">View ID</a></td>
+                        </tr>
+                        <tr>
+                            <td>Sample Name 1</td>
+                            <td>Lorem Ipsum sheesh</td>
+                            <td>Date</td>
+                            <td><a class="btn btn-outline-success" href="">View ID</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
 
     </div>
 
