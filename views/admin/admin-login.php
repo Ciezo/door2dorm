@@ -65,7 +65,7 @@ session_start();
     <!-- Content goes here -->
     <div class="wrapper">
         <center>
-            <img src="../../assets/images/placeholder_img.png" alt="Friendly Admin Image Icon">
+            <img src="../../assets/images/admin-vector.png" alt="Friendly Admin Image Icon" width="250" height="250">
             <form action="admin-login.php" class="admin-login" method="POST">
                 <h1>Welcome, Admin</h1>
                 <label>Username</label>

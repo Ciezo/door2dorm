@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS VISITOR (
     date_visit      VARCHAR(100)    NOT NULL,
 
     -- Photo Valid ID of visitor 
-    -- id_visitor_photo    BLOB        NOT NULL
+    id_visitor_photo    LONGBLOB    NOT NULL,
 
     PRIMARY KEY(visitor_id)  
 ); 
