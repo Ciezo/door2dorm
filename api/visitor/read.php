@@ -144,6 +144,7 @@ else {
             </div>
             <div class="card-footer">
                 <a href="../../views/admin/admin-home.php" class="btn btn-outline-primary">Back</a>
+                <?php echo '<a class="btn btn-outline-danger" href="delete.php?id='.$id.'">Remove</a>';  ?>
             </div>
         </div>
 
