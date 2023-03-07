@@ -1,8 +1,8 @@
 <?php
 require("../../config.php");
 session_start(); 
-// Check if admin is logged in.
-if (!isset($_SESSION["admin-username"])) {
+// Check if a user has proper session to make requests to the local API
+if (!isset($_SESSION["user-request-token"])) {
     // If not logged in, then redirect to error page
     header("location: ../../views/error/error.php");
 }
@@ -149,7 +149,7 @@ else {
                 <br>
                 <!-- Room Pricing -->
                 <a href="#" class="btn btn-outline-info">Php <?php echo $pricing ; ?></a>
-                <a href="#" class="btn btn-outline-success">Book for unit visitation</a>
+                <a href="../../views/landing_page.php#sched-book-visit" class="btn btn-outline-success">Book for unit visitation</a>
             </div>
             <a href="../../views/landing_page.php" class="btn btn-primary">Back</a>
         </div>

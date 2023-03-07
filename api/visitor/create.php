@@ -1,7 +1,7 @@
 <?php
 require("../../config.php");
 session_start(); 
-// Check if admin is logged in.
+// Check if a user has proper session to make requests to the local API
 if (!isset($_SESSION["user-request-token"])) {
     // If not logged in, then redirect to error page
     header("location: ../../views/error/error.php");
