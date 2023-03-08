@@ -24,11 +24,15 @@ if (!isset($_SESSION["admin-username"])) {
 
     <!-- CSS Global theming and styles -->
     <link href="../../css/globals.css" rel="stylesheet">
-
+    <!-- jQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
         .wrapper {
             padding-top: 50px;
             margin: 0 auto;
+            width: 1050px;
         }
         .navbar .navbar-brand {
             padding-left: 35px;
@@ -38,6 +42,19 @@ if (!isset($_SESSION["admin-username"])) {
             border-radius: 5px;
             color:black;
         }
+
+        table tr td {
+            width: auto;
+        }
+        .dynamic-tenant-selector {
+            margin-bottom: 20px;
+        }
+        .dynamic-tenant-selector label {
+            transform: translate(0%, -50%);
+        }
+        .dynamic-tenant-selector .tenant-btn {
+            margin-top: 20px;
+        } 
     </style>
 </head>
 <body>
@@ -65,6 +82,125 @@ if (!isset($_SESSION["admin-username"])) {
 
     <!-- Content goes here -->
     <div class="wrapper">
+        <!-- Current outstanding each tenant payments table -->
+        <div id="periodic-refresh5secs-tenants-payments" class="current-tenants-payments">
+            <h2>Payments</h2>
+            <p>This section presents the outstanding balances of tenants</p>
+
+            <div class="dynamic-tenant-selector">
+                <label for="Tenant's balances">Choose a tenant</label>
+                <!-- Dynamic options listing based on registered tenants -->
+                <select name="" id="tenant-selector" class="form-control">
+                    <option value="dyanamic-tenantName-listings">Tenant Name</option>
+                    <option value="dyanamic-tenantName-listings">Tenant Name</option>
+                    <option value="dyanamic-tenantName-listings">Tenant Name</option>
+                    <option value="dyanamic-tenantName-listings">Tenant Name</option>
+                    <option value="dyanamic-tenantName-listings">Tenant Name</option>
+                </select>
+                <button class="btn btn-outline-primary tenant-btn">Review tenant payment</button>
+            </div>
+            <!-- Editable table with live reflected changed to the database -->
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr class="table-dark">
+                        <th scope="col">Tenant ID</th>
+                        <th scope="col">Bill Type</th>
+                        <th scope="col">Charges</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">Payment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rental row billing type-->
+                    <tr>
+                        <td>Tenant ID</td>
+                        <td>Rental</td>
+                        <td>Php 999.99</td>
+                        <td>MM-DD-YY</td>
+                        <td>
+                            <select name="payment-status-option" id="" class="form-control">
+                                <option value="Paid">Paid</option>
+                                <option value="Unpaid">Unpaid</option>
+                                <option value="Overdue">Overdue</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <!-- Electricty row billing type -->
+                    <tr>
+                        <td>Tenant ID</td>
+                        <td>Electricity</td>
+                        <td>Php 999.99</td>
+                        <td>MM-DD-YY</td>
+                        <td>
+                            <select name="payment-status-option" id="" class="form-control">
+                                <option value="Paid">Paid</option>
+                                <option value="Unpaid">Unpaid</option>
+                                <option value="Overdue">Overdue</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <!-- Water row billing type -->
+                    <tr>
+                        <td>Tenant ID</td>
+                        <td>Water</td>
+                        <td>Php 999.99</td>
+                        <td>MM-DD-YY</td>
+                        <td>
+                            <select name="payment-status-option" id="" class="form-control">
+                                <option value="Paid">Paid</option>
+                                <option value="Unpaid">Unpaid</option>
+                                <option value="Overdue">Overdue</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <!-- Payment history of each tenant. Displays all previous transactions which are paid -->
+        <div id="periodic-refresh5secs-payment-history" class="tenant-payment-history">
+            <h2>Payment History</h2>
+            <p>This section displays all paid transactions from the tenant</p>
+
+            <!-- This table will load and refresh based on the selected tenant from the tenant-selector -->
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr class="table-dark">
+                        <th scope="col">Tenant ID</th>
+                        <th scope="col">Bill Type</th>
+                        <th scope="col">Charges</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">Payment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rental row billing type-->
+                    <tr>
+                        <td>Tenant ID</td>
+                        <td>Rental</td>
+                        <td>Php 999.99</td>
+                        <td>MM-DD-YY</td>
+                        <td>Paid</td>
+                    </tr>
+                    <!-- Electricty row billing type -->
+                    <tr>
+                        <td>Tenant ID</td>
+                        <td>Electricity</td>
+                        <td>Php 999.99</td>
+                        <td>MM-DD-YY</td>
+                        <td>Paid</td>
+                    </tr>
+                    <!-- Water row billing type -->
+                    <tr>
+                        <td>Tenant ID</td>
+                        <td>Water</td>
+                        <td>Php 999.99</td>
+                        <td>MM-DD-YY</td>
+                        <td>Paid</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
     </div>
 
