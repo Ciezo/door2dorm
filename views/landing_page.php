@@ -15,8 +15,8 @@ $_SESSION["user-request-token"] = $request_token;
 
 /** @todo Set form validation for visitor */
 // Values to retrieve
-$visitor_fullName = $visit_purpose = $visit_date = $visit_time = $visitor_ID = "";
-$_err_visitor_fullName = $_err_visit_purpose = $_err_visit_date = $_err_visit_time = $_err_visitor_ID = "";
+$visitor_fullName = $visit_purpose = $visitor_contact = $visit_date = $visit_time = $visitor_ID = "";
+$_err_visitor_fullName = $_err_visitor_contact = $_err_visit_purpose = $_err_visit_date = $_err_visit_time = $_err_visitor_ID = "";
 
 // Check if form is submitted 
 if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,6 +25,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
      * @note values to retrieve: 
      *  name="visitor-full-name"
      *  name="visitor-purpose"
+     *  name="visitor-contact"
      *  name="visitor-date"
      *  name="visitor-time"
      *  name="visitor"
@@ -37,7 +38,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     else if (!filter_var($input_full_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_full_name)) {
-        $_err_visitor_fullName = "Special characters [-!$%^&*()_+|~=`{}\[\]: are not allowed!";
+        $_err_visitor_fullName = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
     }
 
     else if (!filter_var($input_full_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))) {
@@ -56,18 +57,37 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
         $_err_visit_purpose = "Please, write your visiting purpose";
     }
 
-    else if (!filter_var($input_visit_purpose, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_visit_purpose)) {
-        $_err_visit_purpose = "Special characters [-!$%^&*()_+|~=`{}\[\]: are not allowed!";
+    else if (!filter_var($input_visit_purpose, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_visit_purpose)) {
+        $_err_visit_purpose = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
     }
 
-    else if (!filter_var($input_visit_purpose, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))) {
-        $_err_visit_purpose = "Please, write your visiting purpose";
+    else if (!filter_var($input_visit_purpose, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s]+$/")))) {
+        $_err_visit_purpose = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
     }
 
     else {
         $visit_purpose = $input_visit_purpose; 
     }
 
+
+
+    // Validate contact number
+    $input_contact_num = trim($_POST["visitor-contact"]);
+    if (empty($input_contact_num)) {
+        $_err_visitor_contact = "Please, provide your mobile number!";
+    }
+
+    else if (!ctype_digit($input_contact_num)) {
+        $_err_visitor_contact = "Please, provide your mobile number!";
+    }
+
+    else if (!filter_var($input_contact_num, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_contact_num)) {
+        $_err_visitor_contact = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
+    }
+    
+    else {
+        $visitor_contact = $input_contact_num; 
+    }
 
 
     // Validate date
@@ -113,13 +133,14 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
     // If all values are correct. And error variables are empty 
     // @todo set SESSION variables and request to API/visitor/create 
-    if (empty($_err_visitor_fullName) && empty($_err_visit_purpose) && 
+    if (empty($_err_visitor_fullName) && empty($_err_visit_purpose) && (empty($_err_visitor_contact)) &&
             empty($_err_visit_date) && empty($_err_visit_time) && empty($_err_visitor_ID)) {
                 
                 // Set SESSION VARIABLES
                 $_SESSION["public-request"] = "SET_VISITOR_ENTITY";
                 $_SESSION["visitor-FullName"] = $visitor_fullName; 
                 $_SESSION["visitor-purpose"] = $visit_purpose; 
+                $_SESSION["visitor-contact"] = $visitor_contact;
                 $_SESSION["visitor-picked-date"] = $visit_date; 
                 $_SESSION["visitor-picked-time"] = $visit_time; 
                 $_SESSION["visitor-uploaded-ID"] = $temp_path; 
@@ -226,6 +247,13 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                     <span class="invalid-feedback"><?php echo $_err_visit_purpose ;?></span>
                 </div>
                 <br>
+                <!-- Visitor contact number -->
+                <div class="form-group">
+                    <label for="Contact Number of Visitor">Contact Number</label>
+                    <input type="text" name="visitor-contact" id="fetch_visitContact" placeholder="09XXXXXXXXX" class="form-control <?php echo (!empty($_err_visitor_contact)) ? 'is-invalid' : ''; ?>" value="<?php echo $visitor_contact ; ?>">
+                    <span class="invalid-feedback"><?php echo $_err_visitor_contact ;?></span>
+                </div>
+                <br>
                 <!-- Visitor pick date -->
                 <div class="form-group">
                     <label for="Full name of visitor">Pick a date</label>
@@ -272,6 +300,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item" id="modal_preview_VisitDate"></li>
                                         <li class="list-group-item" id="modal_preview_VisitTime"></li>
+                                        <li class="list-group-item" id="modal_preview_VisitContact"></li>
                                     </ul>
                                 </div>
                             </div>
@@ -286,6 +315,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                                  * id="fetch_visitTime" 
                                     id="fetch_visitDate" 
                                     id="fetch_visitPurpose" 
+                                    id="fetch_visitContact"
                                     id="fetch_fullName"
                                 */
 
@@ -293,6 +323,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                                     var photo = document.getElementById("fetch_photo").value;
                                     var full_name = document.getElementById("fetch_fullName").value;
                                     var visit_purpose = document.getElementById("fetch_visitPurpose").value;
+                                    var visit_contact = document.getElementById("fetch_visitContact").value;
                                     var visit_time = document.getElementById("fetch_visitTime").value;
                                     var visit_date = document.getElementById("fetch_visitDate").value;
                                     
@@ -301,6 +332,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                                     document.getElementById("modal_preview_visitPurpose").innerHTML = "<b>My Visiting Purpose:</b><br>" + visit_purpose;
                                     document.getElementById("modal_preview_VisitDate").innerHTML = "<b>Scheduled at: </b>" + visit_date;
                                     document.getElementById("modal_preview_VisitTime").innerHTML = "<b>On: </b>" + visit_time;
+                                    document.getElementById("modal_preview_VisitContact").innerHTML = "<b>Contact No.: </b>" + visit_contact;
                                 }
                             </script>
 

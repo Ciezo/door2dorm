@@ -21,6 +21,7 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
     // Fetch the results as rows 
     while($rows = mysqli_fetch_array($result)) {
         $visitor_fullName = $rows["full_name"];
+        $visitor_contact = $rows["contact_no"]; 
         $visit_purpose = $rows["visit_purpose"];
         $visit_date = $rows["date_visit"];
         $visit_time = $rows["time_visit"];
@@ -46,6 +47,7 @@ else {
         // Fetch the results as rows 
         while($rows = mysqli_fetch_array($result)) {
             $visitor_fullName = $rows["full_name"];
+            $visitor_contact = $rows["contact_no"]; 
             $visit_purpose = $rows["visit_purpose"];
             $visit_date = $rows["date_visit"];
             $visit_time = $rows["time_visit"];
@@ -140,7 +142,7 @@ else {
                 </li>
             </ul>
             <div class="card-body">
-               <b>Contact No.: </b>
+               <b>Contact No.: <?php echo $visitor_contact; ?></b>
             </div>
             <div class="card-footer">
                 <a href="../../views/admin/admin-home.php" class="btn btn-outline-primary">Back</a>

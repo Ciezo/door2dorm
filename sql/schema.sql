@@ -35,7 +35,8 @@ CREATE TABLE IF NOT EXISTS TENANT (
 --            full name, purpose of visit, time of visit, date of visit, and photo of valid
 CREATE TABLE IF NOT EXISTS VISITOR (
     visitor_id      INT             NOT NULL auto_increment,
-    full_name       VARCHAR(255)    NOT NULL, 
+    full_name       VARCHAR(255)    NOT NULL,
+    contact_no      VARCHAR(255)    NOT NULL, 
     visit_purpose   VARCHAR(255)    NOT NULL, 
     time_visit      VARCHAR(100)    NOT NULL,
     date_visit      VARCHAR(100)    NOT NULL,

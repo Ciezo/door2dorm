@@ -1,22 +1,22 @@
 <?php require("../../config.php"); ?>
 <h2>Scheduled Visitors</h2>
 <p>This section presents all bookings and visits</p>
-<table class="table table-striped">
-                    <thead class="thead-dark">
-                        <tr class="table-dark">
-                            <th scope="col">Name</th>
-                            <th scope="col">Vising Purpose</th>
-                            <th scope="col">Date</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-
                     <?php
                         // Create a query to retrive all data for bookings
                         $sql = "SELECT * FROM VISITOR"; 
                         $results = mysqli_query($conn, $sql); 
 
                         if ($results->num_rows > 0) {
+                            echo    '<table class="table table-striped">';
+                            echo        '<thead class="thead-dark">';
+                            echo            '<tr class="table-dark">';
+                            echo                '<th scope="col">Name</th>';
+                            echo                '<th scope="col">Vising Purpose</th>';
+                            echo                '<th scope="col">Date</th>';
+                            echo                '<th scope="col"></th>';
+                            echo            '</tr>';
+                            echo    '</thead>';
+
                             while($row = mysqli_fetch_array($results)) {
                                 echo    '<tbody>';
                                 echo        '<tr>';
@@ -30,8 +30,6 @@
                         }
 
                         else {
-                            echo '<br>';
-                            echo '<br>';
                             echo '<div class="alert alert-danger"><em>There are no bookings</em></div>';
                         }
                     ?>
