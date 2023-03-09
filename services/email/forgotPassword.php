@@ -59,7 +59,7 @@ try {
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Account Recovery   '. $username_recovery;
+    $mail->Subject = 'Door2Dorm - Account Recovery   '. $username_recovery;
     $mail->Body    = '<h2>Your Account Credentials: </h2>
                     <table>
                         <thead>
