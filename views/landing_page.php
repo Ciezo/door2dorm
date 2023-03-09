@@ -278,11 +278,11 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 <br>
                 <!-- Submit form, and trigger modal -->
                 <div class="form-group">
-                    <input type="button" name="schedule-visit-submit-form" data-toggle="modal" data-target="#exampleModalCenter" onclick="submitForm()" class="btn btn-primary" value="Book now!">
+                    <input type="button" name="schedule-visit-submit-form" data-toggle="modal" data-target="#previewBookingDetails" onclick="submitForm()" class="btn btn-primary" value="Book now!">
                 </div>
                 
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal fade" id="previewBookingDetails" tabindex="-1" role="dialog" aria-labelledby="previewBookingDetails" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                         <div class="modal-header">

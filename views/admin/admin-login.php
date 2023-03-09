@@ -20,10 +20,6 @@ session_start();
     <!-- CSS Global theming and styles -->
     <link href="../../css/globals.css" rel="stylesheet">
 
-    <!-- jQuery-->
-    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
         .wrapper {
             padding-top: 50px;
@@ -31,14 +27,14 @@ session_start();
             width: 500px;
             height: auto;
         }
-        .wrapper .admin-login label {
+        .wrapper .admin-login-form label {
             font-size: 20px;
             padding-bottom: 15px;
         }
-        .wrapper .admin-login input:focus {
+        .wrapper .admin-login-form input:focus {
             box-shadow: 0px 0px 10px 0px #333;
         }
-        .wrapper .admin-login .btn.btn-primary {
+        .wrapper .admin-login-form .btn.btn-primary {
             margin-top: 50px;
             width: 100%;
         }
@@ -70,7 +66,7 @@ session_start();
     <div class="wrapper">
         <center>
             <img src="../../assets/images/admin-vector.png" alt="Friendly Admin Image Icon" width="250" height="250">
-            <form action="admin-login.php" class="admin-login" method="POST">
+            <form action="admin-login.php" class="admin-login-form" method="POST">
                 <h1>Welcome, Admin</h1>
                 <label>Username</label>
                 <input type="text" class="form-control" name="admin-username" placeholder="" required="">
@@ -81,7 +77,7 @@ session_start();
             </form>
         </center>
     </div>
-</body>
+    </body>
 </html>
 
 <?php
