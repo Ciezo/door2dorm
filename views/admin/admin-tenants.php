@@ -230,8 +230,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .all-tenants-balances {
             margin-bottom: 50px;
         }
-        .list-of-all-registered-tenants, 
-        .list-of-all-registered-tenants table {
+        .list-of-all-registered-tenants {
+            margin-bottom: 50px;
+        }        
+        .card {
             margin-bottom: 50px;
         }
         .create-tenant-profile {
@@ -324,67 +326,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <!-- List of all tenants -->
         <div id="periodic-refresh10secs-ListAll-Tenants" class="list-of-all-registered-tenants">
-            <h2>List of All Tenants</h2>
-            <p>This section displays all registered tenants and their personal information</p>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Your Tenants</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Dynamic tenant listings to select -->
-                    <tr>
-                        <!-- Tenant name -->
-                        <td>
-                            <input type="button" name="tenant-modal-selector" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-outline-dark" value="Tenant Name">
-                        </td>
-                    </tr>
-                    <tr>
-                        <!-- Tenant name -->
-                        <td>
-                            <input type="button" name="tenant-modal-selector" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-outline-dark" value="Tenant Name">
-                        </td>
-                    </tr>
-                    <tr>
-                        <!-- Tenant name -->
-                        <td>
-                            <input type="button" name="tenant-modal-selector" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-outline-dark" value="Tenant Name">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Tenant Information modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Tenant Information</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="card" style="width: 100%;">
-                                <img class="card-img-top" src="../../assets/images/placeholder_img.png" alt="Tenant ID" align="center" id="">
-                                <div class="card-header" id="">Tenant Full Name</div>
-                                <div class="card-body">
-                                    <p id=""></p>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item" id=""><b>Email: username@domain.com</b></li>
-                                        <li class="list-group-item" id=""><b>Mobile No.: 09XXXXXXXXX</b></li>
-                                        <li class="list-group-item" id=""><b>Emergency Contact No.: 09XXXXXXXXX</b></li>
-                                        <li class="list-group-item" id=""><b>Assigned Room</b></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Dynamic content loads every 10 seconds -->
+            <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
         </div>
+        
+        <br><br>
 
         <!-- Creating Tenant Profile -->
         <div id= "tenant-acc-form" class="create-tenant-profile">
@@ -544,6 +490,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>       
         </div>
     </div>
-
+    <!-- Script src to dynamically load list of tenants -->
+    <script type="text/javascript" src="../../js/dynamic-load-ListAllTenants.js"></script>
 </body>
 </html>
