@@ -4,8 +4,8 @@ session_start();
 
 // Check if admin is logged in.
 if (!isset($_SESSION["admin-username"])) {
-    // If not logged in, then redirect to log-in page.
-    header("location: admin-login.php");
+    // If not logged in, then redirect to error page
+    header("location: ../../views/error/error.php");
 }
 
 // Retrieve the CONSTANT key
