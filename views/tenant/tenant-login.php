@@ -73,6 +73,7 @@ session_start();
                 <br>
                 <label>Password</label>
                 <input type="password" class="form-control" name="tenant-password" placeholder="" required="">
+                <a href="tenant-forgot-pw.php" class="btn btn-outline-danger mt-2">Forgot password?</a>
                 <input class="btn btn-primary" name="tenant-login" type="submit" value="LOGIN"><br>
             </form>
         </center>
