@@ -43,7 +43,11 @@ if (!isset($_SESSION["admin-username"])) {
             border-radius: 5px;
             color:black;
         }
-
+        .navbar .collapse .navbar-nav .logout:hover {
+            background-color: red;
+            color: white; 
+            border-radius: 5px;
+        }
         table tr td {
             width: auto;
         }
@@ -76,7 +80,7 @@ if (!isset($_SESSION["admin-username"])) {
                 <a class="nav-item nav-link" href="admin-securityLogs.php">Security Logs</a>
                 <a class="nav-item nav-link" href="admin-facenet.php">FaceNet</a>
                 <a class="nav-item nav-link" href="admin-messages.php">Messages</a>
-                <a class="nav-item nav-link logout" href="../../components/custom/logout.php">Logut</a>
+                <a class="nav-item nav-link logout" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>
     </nav>
