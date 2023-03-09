@@ -6,6 +6,48 @@ if (!isset($_SESSION["tenant-username"])) {
     // If not logged in, then redirect to log-in page.
     header("location: tenant-login.php");
 }
+
+// Values to retrieve to render tenant account information
+$tenant_id =  $tenant_full_name = $tenant_number = $tenant_emergNum = $tenant_email = $tenant_room_assign = $tenant_photo = ""; 
+$tenant_username = $_SESSION["tenant-username"] ;
+// Create a query to select tenant_acc 
+$sql = "SELECT * FROM TENANT WHERE username = '$tenant_username'";
+
+// Begin fetching results
+$results = mysqli_query($conn, $sql);
+// Fetch as rows 
+if($results->num_rows > 0) {
+    while ($rows = mysqli_fetch_array($results)) {
+        $tenant_id = $rows["tenant_id"];
+        $tenant_full_name = $rows["full_name"];
+        $tenant_number = $rows["mobile_num"];
+        $tenant_emergNum = $rows["emergency_contact_num"];
+        $tenant_email = $rows["email"];
+        $tenant_room_assign = $rows["room_assign"];
+        $tenant_photo = $rows["tenant_photo"];
+    }
+}
+
+// Values to retrieve for tenant assigned room
+$room_number = $room_type = $room_category = $room_details = $room_pricing = $room_no_of_occupants = "";
+// Create a query to select a room
+$sql = "SELECT * FROM AVAILABLE_ROOMS WHERE room_number = '$tenant_room_assign'";
+
+// Begin fetching results
+$results = mysqli_query($conn, $sql);
+// Fetch as rows 
+if($results->num_rows > 0) {
+    while ($rows = mysqli_fetch_array($results)) {
+        $room_number = $rows["room_number"];
+        $room_type = $rows["room_type"];
+        $room_category = $rows["room_category"];
+        $room_details = $rows["details"];
+        $room_pricing = $rows["pricing"];
+        $room_no_of_occupants = $rows["num_of_occupants"];
+    }
+}
+$conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +86,17 @@ if (!isset($_SESSION["tenant-username"])) {
             color:black;
             box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
         }
+        
+        .tenant-account-information {
+            padding-bottom: 50px;
+        }
+        .tenant-assigned-room {
+            padding-bottom: 50px;
+        }
+        .tenant-eContract {
+            padding-bottom: 50px;
+        }
+
     </style>
 </head>
 <body>
@@ -70,7 +123,61 @@ if (!isset($_SESSION["tenant-username"])) {
 
     <!-- Content goes here -->
     <div class="wrapper">
-       hello
+       <!-- Tenant Account Information  -->
+       <div id="periodic-refresh10secs-tenant-acc-info" class="tenant-account-information">
+            <h2>Tenant Account Information</h2>
+            <p>This is your profile where your personal information resides</p>
+            <div class="card" style="width: 50%">
+                <div class="card-header"><?php echo $tenant_full_name; ?></div>
+                <!-- Tenant Photo -->
+                <div class="card">
+                    <?php '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($tenant_photo).'" alt="Tenant Photo">'; ?>
+                </div>
+                <!-- Tenant Info -->
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Tenant ID: <?php echo $tenant_id; ?></li>
+                        <li class="list-group-item">Email: <?php echo $tenant_email; ?></li>
+                        <li class="list-group-item">Mobile No.: <?php echo $tenant_number; ?></li>
+                        <li class="list-group-item">Emergency Contact No.: <?php echo $tenant_emergNum; ?></li>
+                    </ul>
+                </div>
+            </div>
+       </div>
+
+       <!-- Tenant Assigned Rooms -->
+       <div id="periodic-refresh10secs-tenant-room" class="tenant-assigned-room">
+            <h2>My Room</h2>
+            <p>This is your current occupying room</p>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr class="table-dark">
+                        <th>Room No.</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Details</th>
+                        <th>Monthly Pricing</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?php echo $room_number ?></td>
+                        <td><?php echo $room_type ?></td>
+                        <td><?php echo $room_category ?></td>
+                        <td><?php echo $room_details ?></td>
+                        <td><?php echo $room_pricing ?></td>
+                    </tr>
+                </tbody>
+            </table>
+       </div>
+
+       <!-- Tenant E-contract -->
+       <div class="tenant-eContract">
+            <h2>Review your contact</h2>
+            <p>You can review your signed contract here</p>
+            <button class="btn btn-outline-primary">Download Copy</button>
+            <button class="btn btn-outline-primary">View E-contract</button>
+       </div>
     </div>
 </body>
 </html>

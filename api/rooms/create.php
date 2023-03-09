@@ -271,6 +271,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <select class="form-control" name="room-category" id="" required="">
                     <option value="With Airconditiong Unit">With Airconditiong Unit</option>
                     <option value="Without Airconditiong Unit">Without Airconditiong Unit</option>
+                    <option value="With Electric Fans">With Electric Fans</option>
+                    <option value="Without Electric Fans">Without Electric Fans</option>
                 </select>
             </div>
             <br>

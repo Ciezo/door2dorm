@@ -6,6 +6,48 @@ if (!isset($_SESSION["tenant-username"])) {
     // If not logged in, then redirect to log-in page.
     header("location: tenant-login.php");
 }
+
+// Values to retrieve to render tenant account information
+$tenant_id =  $tenant_full_name = $tenant_number = $tenant_emergNum = $tenant_email = $tenant_room_assign = $tenant_photo = ""; 
+$tenant_username = $_SESSION["tenant-username"] ;
+// Create a query to select tenant_acc 
+$sql = "SELECT * FROM TENANT WHERE username = '$tenant_username'";
+
+// Begin fetching results
+$results = mysqli_query($conn, $sql);
+// Fetch as rows 
+if($results->num_rows > 0) {
+    while ($rows = mysqli_fetch_array($results)) {
+        $tenant_id = $rows["tenant_id"];
+        $tenant_full_name = $rows["full_name"];
+        $tenant_number = $rows["mobile_num"];
+        $tenant_emergNum = $rows["emergency_contact_num"];
+        $tenant_email = $rows["email"];
+        $tenant_room_assign = $rows["room_assign"];
+        $tenant_photo = $rows["tenant_photo"];
+    }
+}
+
+// Values to retrieve for tenant assigned room
+$room_number = $room_type = $room_category = $room_details = $room_pricing = $room_no_of_occupants = "";
+// Create a query to select a room
+$sql = "SELECT * FROM AVAILABLE_ROOMS WHERE room_number = '$tenant_room_assign'";
+
+// Begin fetching results
+$results = mysqli_query($conn, $sql);
+// Fetch as rows 
+if($results->num_rows > 0) {
+    while ($rows = mysqli_fetch_array($results)) {
+        $room_number = $rows["room_number"];
+        $room_type = $rows["room_type"];
+        $room_category = $rows["room_category"];
+        $room_details = $rows["details"];
+        $room_pricing = $rows["pricing"];
+        $room_no_of_occupants = $rows["num_of_occupants"];
+    }
+}
+$conn->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +86,12 @@ if (!isset($_SESSION["tenant-username"])) {
             color:black;
             box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
         }
+        .tenant-acc-overview {
+            padding-bottom: 50px;
+        }
+        .tenant-balances-overview {
+            padding-bottom: 50px;
+        }
     </style>
 </head>
 <body>
@@ -70,7 +118,69 @@ if (!isset($_SESSION["tenant-username"])) {
 
     <!-- Content goes here -->
     <div class="wrapper">
-       hello
+       <!-- Tenant Account Overview -->
+       <div class="tenant-acc-overview">
+            <h2>My Account</h2>
+            <p>Account overview</p>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1"><?php echo $tenant_full_name; ?></h5>
+                            <small>Tenant ID: <?php echo $tenant_id; ?></small>
+                        </div>
+                        <i class="fa-solid fa-person-shelter pb-3"></i>
+                        Room: <?php echo $tenant_room_assign; ?>
+                        <div class="card px-2">
+                            <label for="Room details">Room details:</label>
+                            <p class="mb-1"><?php echo $room_details; ?></p>
+                        </div>
+                    </a>
+                </div>
+            </div> 
+       </div>
+       
+       <!-- Tenant Balances overview -->
+       <div class="tenant-balances-overview">
+            <h2>My Balances</h2>
+            <p>List of my current balances</p>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr class="table-dark">
+                        <th scope="col">Type</th>
+                        <th scope="col">Charges</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">Payment Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rental billings -->
+                    <tr>
+                        <td>Rental</td>
+                        <td>Php 99.999</td>
+                        <td>MM-DD-YY</td>
+                        <td>Paid or Unpaid</td>
+                    </tr>
+
+                    <!-- Electricity Billings -->
+                    <tr>
+                        <td>Electricity</td>
+                        <td>Php 99.999</td>
+                        <td>MM-DD-YY</td>
+                        <td>Paid or Unpaid</td>
+                    </tr>
+
+                    <!-- Water Billings -->
+                    <tr>
+                        <td>Water</td>
+                        <td>Php 99.999</td>
+                        <td>MM-DD-YY</td>
+                        <td>Paid or Unpaid</td>
+                    </tr>
+
+                </tbody>
+            </table>
+       </div>
     </div>
 </body>
 </html>
