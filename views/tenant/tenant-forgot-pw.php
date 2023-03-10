@@ -101,7 +101,7 @@ if (isset($_POST["recover-account"])) {
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" href="../landing_page.php">Home <span class="sr-only"></span></a>
-                <a class="nav-item nav-link active" href="#">Tenant</a>
+                <a class="nav-item nav-link active" href="tenant-login.php">Tenant</a>
                 <a class="nav-item nav-link" href="../admin/admin-login.php">Admin</a>
             </div>
         </div>

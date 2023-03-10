@@ -72,10 +72,8 @@ $conn->close();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
-        .wrapper {
+        .container {
             padding-top: 50px;
-            margin: 0 auto;
-            width: 1050px;
         }
         .navbar .navbar-brand {
             padding-left: 35px;
@@ -96,7 +94,7 @@ $conn->close();
 </head>
 <body>
     <!-- Bootstrap navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
         <a class="navbar-brand" href="#">      
             <i class="fa-solid fa-house-user"></i>
                 Welcome, <?php echo $_SESSION["tenant-username"]?>! 
@@ -106,18 +104,18 @@ $conn->close();
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Home <span class="sr-only"></span></a>
-                <a class="nav-item nav-link" href="tenant-account.php">My Account </span></a>
-                <a class="nav-item nav-link" href="tenant-payment.php">Payment </span></a>
-                <a class="nav-item nav-link" href="tenant-securityLogs.php">Security Logs </span></a>
-                <a class="nav-item nav-link" href="tenant-messages.php">Message </span></a>
-                <a class="nav-item nav-link" href="../../components/custom/logout.php">Logout </span></a>
+                <a class="nav-item nav-link active px-2" href="#">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link px-2" href="tenant-account.php">My Account </span></a>
+                <a class="nav-item nav-link px-2" href="tenant-payment.php">Payment </span></a>
+                <a class="nav-item nav-link px-2" href="tenant-securityLogs.php">Security Logs </span></a>
+                <a class="nav-item nav-link px-2" href="tenant-messages.php">Message </span></a>
+                <a class="nav-item nav-link px-2" href="../../components/custom/logout.php">Logout </span></a>
             </div>
         </div>
     </nav>
 
     <!-- Content goes here -->
-    <div class="wrapper">
+    <div class="container px-5">
        <!-- Tenant Account Overview -->
        <div class="tenant-acc-overview">
             <h2>My Account</h2>

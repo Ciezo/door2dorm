@@ -21,20 +21,20 @@ session_start();
     <link href="../../css/globals.css" rel="stylesheet">
 
     <style>
-        .wrapper {
+        .container {
             padding-top: 50px;
-            margin: 0 auto;
-            width: 500px;
-            height: auto;
         }
-        .wrapper .admin-login-form label {
+        .container .admin-login-form  {
+            width: 50%;
+        }
+        .container .admin-login-form label {
             font-size: 20px;
             padding-bottom: 15px;
         }
-        .wrapper .admin-login-form input:focus {
+        .container .admin-login-form input:focus {
             box-shadow: 0px 0px 10px 0px #333;
         }
-        .wrapper .admin-login-form .btn.btn-primary {
+        .container .admin-login-form .btn.btn-primary {
             margin-top: 50px;
             width: 100%;
         }
@@ -45,7 +45,7 @@ session_start();
 </head>
 <body>
     <!-- Bootstrap navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
         <a class="navbar-brand" href="#">      
             <i class="fa-solid fa-building-user"></i>
                 Door2Dorm 
@@ -55,15 +55,15 @@ session_start();
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="../landing_page.php">Home <span class="sr-only"></span></a>
-                <a class="nav-item nav-link" href="../tenant/tenant-login.php">Tenant</a>
-                <a class="nav-item nav-link active" href="#">Admin</a>
+                <a class="nav-item nav-link px-2" href="../landing_page.php">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link px-2" href="../tenant/tenant-login.php">Tenant</a>
+                <a class="nav-item nav-link active px-2" href="#">Admin</a>
             </div>
         </div>
     </nav>
 
     <!-- Content goes here -->
-    <div class="wrapper">
+    <div class="container px-5">
         <center>
             <img src="../../assets/images/admin-vector.png" alt="Friendly Admin Image Icon" width="250" height="250">
             <form action="admin-login.php" class="admin-login-form" method="POST">

@@ -21,20 +21,20 @@ session_start();
     <link href="../../css/globals.css" rel="stylesheet">
 
     <style>
-        .wrapper {
+        .container {
             padding-top: 50px;
-            margin: 0 auto;
-            width: 500px;
-            height: auto;
         }
-        .wrapper .tenant-login label {
+        .container .tenant-login label {
             font-size: 20px;
             padding-bottom: 15px;
         }
-        .wrapper .tenant-login input:focus {
+        .container .tenant-login {
+            width: 50%;
+        }
+        .container .tenant-login input:focus {
             box-shadow: 0px 0px 10px 0px #333;
         }
-        .wrapper .tenant-login .btn.btn-primary {
+        .container .tenant-login .btn.btn-primary {
             margin-top: 50px;
             width: 100%;
         }
@@ -63,19 +63,19 @@ session_start();
     </nav>
 
     <!-- Content goes here -->
-    <div class="wrapper">
+    <div class="container px-5">
         <center>
             <img src="../../assets/images/resident-vector.png" alt="Friendly Admin Image Icon" width="250" height="250">
-            <form action="tenant-login.php" class="tenant-login" method="POST">
-                <h1>Welcome, Tenant</h1>
-                <label>Username</label>
-                <input type="text" class="form-control" name="tenant-username" placeholder="" required="">
-                <br>
-                <label>Password</label>
-                <input type="password" class="form-control" name="tenant-password" placeholder="" required="">
-                <a href="tenant-forgot-pw.php" class="btn btn-outline-danger mt-2">Forgot password?</a>
-                <input class="btn btn-primary" name="tenant-login" type="submit" value="LOGIN"><br>
-            </form>
+                <form action="tenant-login.php" class="tenant-login" method="POST">
+                    <h1>Welcome, Tenant</h1>
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="tenant-username" placeholder="" required="">
+                    <br>
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="tenant-password" placeholder="" required="">
+                    <a href="tenant-forgot-pw.php" class="btn btn-outline-danger mt-2">Forgot password?</a>
+                    <input class="btn btn-primary" name="tenant-login" type="submit" value="LOGIN"><br>
+                </form>
         </center>
     </div>
 </body>

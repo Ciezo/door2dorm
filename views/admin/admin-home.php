@@ -30,10 +30,8 @@ if (!isset($_SESSION["admin-username"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
-        .wrapper {
+        .container {
             padding-top: 50px;
-            margin: 0 auto;
-            width: 1050px;
         }
         .navbar .navbar-brand {
             padding-left: 35px;
@@ -46,9 +44,7 @@ if (!isset($_SESSION["admin-username"])) {
         .admin-avail-rooms-list table {
             margin-top: 22px;
         }
-        table tr td {
-            width: auto;
-        }
+
         .navbar .collapse .navbar-nav .logout:hover {
             background-color: red;
             color: white; 
@@ -58,7 +54,7 @@ if (!isset($_SESSION["admin-username"])) {
 </head>
 <body>
     <!-- Bootstrap navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
         <a class="navbar-brand" href="#">      
             <i class="fa-solid fa-building-user"></i>
                 Welcome, Admin! 
@@ -68,19 +64,19 @@ if (!isset($_SESSION["admin-username"])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Home <span class="sr-only"></span></a>
-                <a class="nav-item nav-link" href="admin-payment.php">Payment</a>
-                <a class="nav-item nav-link" href="admin-tenants.php">Tenants</a>
-                <a class="nav-item nav-link" href="admin-securityLogs.php">Security Logs</a>
-                <a class="nav-item nav-link" href="admin-facenet.php">FaceNet</a>
-                <a class="nav-item nav-link" href="admin-messages.php">Messages</a>
-                <a class="nav-item nav-link logout" href="../../components/custom/logout.php">Logout</a>
+                <a class="nav-item nav-link active px-2" href="#">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link px-2" href="admin-payment.php">Payment</a>
+                <a class="nav-item nav-link px-2" href="admin-tenants.php">Tenants</a>
+                <a class="nav-item nav-link px-2" href="admin-securityLogs.php">Security Logs</a>
+                <a class="nav-item nav-link px-2" href="admin-facenet.php">FaceNet</a>
+                <a class="nav-item nav-link px-2" href="admin-messages.php">Messages</a>
+                <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>
     </nav>
 
     <!-- Content goes here -->
-    <div class="wrapper">
+    <div class="container px-5">
         <!-- Admin creates list of available rooms -->
         <div class="admin-avail-rooms-list">
             <h2>Available Rooms/Units</h2>
@@ -88,7 +84,7 @@ if (!isset($_SESSION["admin-username"])) {
             <a class="btn btn-outline-primary" href="../../api/rooms/create.php">Set an available room</a>
             
             <!-- Get a local list of rooms/units in a table -->
-            <table class="table table-striped">
+            <table class="container-fluid px-auto table table-striped">
                 <!-- Table headers -->
                 <!-- Table body in a loop. Data is fetched from the database -->
                 <?php
@@ -134,7 +130,7 @@ if (!isset($_SESSION["admin-username"])) {
                     }
 
                     echo '</tbody>';
-                    echo '</table>';
+                    // echo '</table>';
                 }
 
                 else {
@@ -143,6 +139,7 @@ if (!isset($_SESSION["admin-username"])) {
                     echo '<div class="alert alert-danger"><em>There are no records found for available rooms!</em></div>';
                 }
                 ?>
+            </table>
         </div>
         <br>
         <!-- Overview of Tenants Listing and Balances -->

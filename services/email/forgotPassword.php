@@ -109,10 +109,8 @@ catch (Exception $e) {
     <script src="https://maxcdn.bootstrapcdn.com/b
     ootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
-        .wrapper {
+        .container {
             padding-top: 50px;
-            margin: 0 auto;
-            width: 500px;
         }
         .navbar .navbar-brand {
             padding-left: 35px;
@@ -139,7 +137,7 @@ catch (Exception $e) {
     </nav>
 
     <!-- Content goes here -->
-    <div class="wrapper">
+    <div class="container px-5">
         <center>
             <img src="../../assets/images/checkmark_email_notif.png" alt="" width="auto" height="50%">
         </center>
