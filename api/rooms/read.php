@@ -117,15 +117,15 @@ else {
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active px-2" href="../../views/landing_page.php">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link px-2" href="../../tenant/tenant-login.php">Tenant</a>
-                <a class="nav-item nav-link px-2" href="../../admin/admin-login.php">Admin</a>
+                <a class="nav-item nav-link px-2" href="../../views/tenant/tenant-login.php">Tenant</a>
+                <a class="nav-item nav-link px-2" href="../../views/admin/admin-login.php">Admin</a>
             </div>
         </div>
     </nav>
 
     <!-- Content Wrapper -->
     <div class="container px-5">
-        <div class="card" style="width: 70rem;">
+        <div class="card">
             <div class="card-body">
                 <!-- Room Image -->
                 <?php 
