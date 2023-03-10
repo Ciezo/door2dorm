@@ -61,10 +61,8 @@ else {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
-        .wrapper {
+        .container {
             padding-top: 50px;
-            margin: 0 auto;
-            width: 1050px;
         }
         .navbar .navbar-brand {
             padding-left: 35px;
@@ -78,7 +76,7 @@ else {
 </head>
 <body>
     <!-- Bootstrap navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
         <a class="navbar-brand" href="#">      
             <i class="fa-solid fa-building-user"></i>
                 Welcome, Admin! 
@@ -88,19 +86,19 @@ else {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="../../views/admin/admin-home.php">Home <span class="sr-only"></span></a>
-                <a class="nav-item nav-link" href="../../views/admin/admin-payment.php">Payment</a>
-                <a class="nav-item nav-link active" href="#">Tenants</a>
-                <a class="nav-item nav-link" href="../../views/admin/admin-securityLogs.php">Security Logs</a>
-                <a class="nav-item nav-link" href="../../views/admin/admin-facenet.php">FaceNet</a>
-                <a class="nav-item nav-link" href="../../views/admin/admin-messages.php">Messages</a>
-                <a class="nav-item nav-link logout" href="../../components/custom/logout.php">Logut</a>
+                <a class="nav-item nav-link px-2" href="../../views/admin/admin-home.php">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link px-2" href="../../views/admin/admin-payment.php">Payment</a>
+                <a class="nav-item nav-link active px-2" href="#">Tenants</a>
+                <a class="nav-item nav-link px-2" href="../../views/admin/admin-securityLogs.php">Security Logs</a>
+                <a class="nav-item nav-link px-2" href="../../views/admin/admin-facenet.php">FaceNet</a>
+                <a class="nav-item nav-link px-2" href="../../views/admin/admin-messages.php">Messages</a>
+                <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logut</a>
             </div>
         </div>
     </nav>
 
     <!-- Content goes here -->
-    <div class="wrapper">
+    <div class="container px-5">
         <h2>Delete this tenant account?</h2>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="alert alert-danger">

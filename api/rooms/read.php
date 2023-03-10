@@ -90,10 +90,8 @@ else {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
-        .wrapper {
+        .container {
             padding-top: 50px;
-            margin: 0 auto;
-            width: 1050px;
         }
         .navbar .navbar-brand {
             padding-left: 35px;
@@ -108,7 +106,7 @@ else {
 <body>
 
     <!-- Bootstrap navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
         <a class="navbar-brand" href="#">      
             <i class="fa-solid fa-building-user"></i>
                 Door2Dorm 
@@ -118,15 +116,15 @@ else {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="../../views/landing_page.php">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="../../tenant/tenant-login.php">Tenant</a>
-                <a class="nav-item nav-link" href="../../admin/admin-login.php">Admin</a>
+                <a class="nav-item nav-link active px-2" href="../../views/landing_page.php">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link px-2" href="../../tenant/tenant-login.php">Tenant</a>
+                <a class="nav-item nav-link px-2" href="../../admin/admin-login.php">Admin</a>
             </div>
         </div>
     </nav>
 
     <!-- Content Wrapper -->
-    <div class="wrapper">
+    <div class="container px-5">
         <div class="card" style="width: 70rem;">
             <div class="card-body">
                 <!-- Room Image -->
