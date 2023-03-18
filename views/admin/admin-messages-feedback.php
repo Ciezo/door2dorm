@@ -80,13 +80,13 @@ if (!isset($_SESSION["admin-username"])) {
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">General</a>
+                            <a class="nav-link" href="admin-messages.php">General</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="admin-messages-repairs.php">Repairs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin-messages-feedback.php">Feedback</a>
+                            <a class="nav-link active" href="admin-messages-feedback.php">Feedback</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="admin-messages-report.php">Report</a>
@@ -112,5 +112,6 @@ if (!isset($_SESSION["admin-username"])) {
             </div>
         </div>
     </div>
+
 </body>
 </html>

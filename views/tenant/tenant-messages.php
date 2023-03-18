@@ -68,7 +68,31 @@ if (!isset($_SESSION["tenant-username"])) {
 
     <!-- Content goes here -->
     <div class="container px-5">
-       hello
+        <div class="tenant-send-msg">
+            <h2>Create your message: Send feedback, file complaints or reports, or request for repairs</h2>
+            <p>Issue your inquiries to the admin!</p>
+            <div class="card px-5 w-100">
+                <form action="tenant-messages.php" method="POST">
+                    <div class="form-group">
+                        <label for="Subject of message">Select a message subject</label>
+                        <select name="room-category" class="form-control">
+                            <option value="General">General</option>
+                            <option value="Repairs">Repairs</option>
+                            <option value="Feedback">Feedback</option>
+                            <option value="Report">Report</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="Message body">My Message</label>
+                        <textarea name="msg-body" placeholder="Write your message here" class="form-control" rows="10" required></textarea>
+                    </div>
+                    <br>
+                    <!-- Send message to database -->
+                    <input type="submit" name="send-msg" class="btn btn-outline-primary" value="Send">
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>

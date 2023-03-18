@@ -93,3 +93,14 @@ CREATE TABLE IF NOT EXISTS AVAILABLE_ROOMS(
 -- - Male
 -- - Female 
 -- CREATE TABLE IF NOT EXISTS ROOM_CATEG(); 
+
+CREATE TABLE IF NOT EXISTS MESSAGES (
+    msg_id      INT             NOT NULL auto_increment, 
+    msg_type    VARCHAR(100)    NOT NULL,
+    msg_body    LONGTEXT        NOT NULL, 
+    sent_by     VARCHAR(100)    NOT NULL, 
+    tenant_id   INT             NOT NULL,
+
+    PRIMARY KEY (msg_id),
+    FOREIGN KEY (tenant_id) REFERENCES TENANT(tenant_id)
+);
