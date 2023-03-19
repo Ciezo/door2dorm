@@ -72,10 +72,10 @@ if (!isset($_SESSION["tenant-username"])) {
             <h2>Create your message: Send feedback, file complaints or reports, or request for repairs</h2>
             <p>Issue your inquiries to the admin!</p>
             <div class="card px-5 w-100">
-                <form action="tenant-messages.php" method="POST">
+                <form action="../../api/messages/send.php" method="POST">
                     <div class="form-group">
                         <label for="Subject of message">Select a message subject</label>
-                        <select name="room-category" class="form-control">
+                        <select name="msg-subj" class="form-control">
                             <option value="General">General</option>
                             <option value="Repairs">Repairs</option>
                             <option value="Feedback">Feedback</option>

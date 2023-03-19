@@ -25,6 +25,15 @@ if($results->num_rows > 0) {
         $tenant_email = $rows["email"];
         $tenant_room_assign = $rows["room_assign"];
         $tenant_photo = $rows["tenant_photo"];
+
+        // Load up Tenant session variables
+        require("../sessions/tenant_session_vars.php");
+        set_TenantSessionVars("tenant-id", $tenant_id); 
+        set_TenantSessionVars("tenant-Fname", $tenant_full_name); 
+        set_TenantSessionVars("tenant-number", $tenant_number); 
+        set_TenantSessionVars("tenant-emergencyNum", $tenant_emergNum); 
+        set_TenantSessionVars("tenant-email", $tenant_email); 
+        set_TenantSessionVars("tenant-room", $tenant_room_assign); 
     }
 }
 
