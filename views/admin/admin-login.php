@@ -1,6 +1,30 @@
 <?php
 require("../../config.php");
 session_start(); 
+
+error_reporting(0);
+if(isset($_POST['admin-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {    
+    $username = ($_POST["admin-username"]);
+    $password = ($_POST["admin-password"]);
+
+    // Create a query to select a single entry from the USERS table
+    $query = "SELECT * FROM ADMIN WHERE username='$username' AND password='$password'"; 
+    $results = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($results);
+
+    // If all input credentials are matched from the database then
+    if ($username == $row["username"] && $password == $row["password"]) {
+        // Set up SESSION VARIABLES
+        $_SESSION["admin-username"] = $username; 
+        $_SESSION["admin-password"] = $password; 
+        /** Redirect to admin session checking */
+        header("location: ../sessions/admin_session_check.php");
+    }
+
+    else {
+        Print '<script>alert("Incorrect Username or Password!");</script>';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +44,10 @@ session_start();
     <!-- CSS Global theming and styles -->
     <link href="../../css/globals.css" rel="stylesheet">
 
+     <!-- jQuery-->
+     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
         .container {
             padding-top: 50px;
@@ -54,7 +82,7 @@ session_start();
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav px-2">
                 <a class="nav-item nav-link px-2" href="../landing_page.php">Home <span class="sr-only"></span></a>
                 <a class="nav-item nav-link px-2" href="../tenant/tenant-login.php">Tenant</a>
                 <a class="nav-item nav-link active px-2" href="#">Admin</a>
@@ -79,29 +107,3 @@ session_start();
     </div>
     </body>
 </html>
-
-<?php
-error_reporting(0);
-if(isset($_POST['admin-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {    
-    $username = ($_POST["admin-username"]);
-    $password = ($_POST["admin-password"]);
-
-    // Create a query to select a single entry from the USERS table
-    $query = "SELECT * FROM ADMIN WHERE username='$username' AND password='$password'"; 
-    $results = mysqli_query($conn, $query);
-    $row = mysqli_fetch_array($results);
-
-    // If all input credentials are matched from the database then
-    if ($username == $row["username"] && $password == $row["password"]) {
-        // Set up SESSION VARIABLES
-        $_SESSION["admin-username"] = $username; 
-        $_SESSION["admin-password"] = $password; 
-        /** Redirect to admin session checking */
-        header("location: ../sessions/admin_session_check.php");
-    }
-
-    else {
-        Print '<script>alert("Incorrect Username or Password!");</script>';
-    }
-}
-?>

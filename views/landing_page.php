@@ -211,7 +211,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav px-2">
                 <a class="nav-item nav-link active px-2" href="#">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link px-2" href="tenant/tenant-login.php">Tenant</a>
                 <a class="nav-item nav-link px-2" href="admin/admin-login.php">Admin</a>

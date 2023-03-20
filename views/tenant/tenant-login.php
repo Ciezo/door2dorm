@@ -1,6 +1,30 @@
 <?php
 require("../../config.php");
 session_start(); 
+
+error_reporting(0);
+if(isset($_POST['tenant-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {    
+    $username = ($_POST["tenant-username"]);
+    $password = ($_POST["tenant-password"]);
+
+    // Create a query to select a single entry from the USERS table
+    $query = "SELECT * FROM TENANT WHERE username='$username' AND password='$password'"; 
+    $results = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($results);
+
+    // If all input credentials are matched from the database then
+    if ($username == $row["username"] && $password == $row["password"]) {
+        // Set up SESSION VARIABLES
+        $_SESSION["tenant-username"] = $username; 
+        $_SESSION["tenant-password"] = $password; 
+        /** Redirect to admin session checking */
+        header("location: ../sessions/tenant_session_check.php");
+    }
+
+    else {
+        Print '<script>alert("Incorrect Username or Password!");</script>';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +43,12 @@ session_start();
 
     <!-- CSS Global theming and styles -->
     <link href="../../css/globals.css" rel="stylesheet">
-
+     
+    <!-- jQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    
     <style>
         .container {
             padding-top: 50px;
@@ -45,7 +74,7 @@ session_start();
 </head>
 <body>
     <!-- Bootstrap navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
         <a class="navbar-brand" href="#">      
             <i class="fa-solid fa-building-user"></i>
                 Door2Dorm 
@@ -54,7 +83,7 @@ session_start();
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav px-2">
                 <a class="nav-item nav-link" href="../landing_page.php">Home <span class="sr-only"></span></a>
                 <a class="nav-item nav-link active" href="#">Tenant</a>
                 <a class="nav-item nav-link" href="../admin/admin-login.php">Admin</a>
@@ -73,36 +102,10 @@ session_start();
                     <br>
                     <label>Password</label>
                     <input type="password" class="form-control" name="tenant-password" placeholder="" required="">
-                    <a href="tenant-forgot-pw.php" class="btn btn-outline-danger mt-2">Forgot password?</a>
                     <input class="btn btn-primary" name="tenant-login" type="submit" value="LOGIN"><br>
+                    <a href="tenant-forgot-pw.php" class="btn btn-outline-danger mt-2">Forgot password?</a>
                 </form>
         </center>
     </div>
 </body>
 </html>
-
-<?php
-error_reporting(0);
-if(isset($_POST['tenant-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {    
-    $username = ($_POST["tenant-username"]);
-    $password = ($_POST["tenant-password"]);
-
-    // Create a query to select a single entry from the USERS table
-    $query = "SELECT * FROM TENANT WHERE username='$username' AND password='$password'"; 
-    $results = mysqli_query($conn, $query);
-    $row = mysqli_fetch_array($results);
-
-    // If all input credentials are matched from the database then
-    if ($username == $row["username"] && $password == $row["password"]) {
-        // Set up SESSION VARIABLES
-        $_SESSION["tenant-username"] = $username; 
-        $_SESSION["tenant-password"] = $password; 
-        /** Redirect to admin session checking */
-        header("location: ../sessions/tenant_session_check.php");
-    }
-
-    else {
-        Print '<script>alert("Incorrect Username or Password!");</script>';
-    }
-}
-?>
