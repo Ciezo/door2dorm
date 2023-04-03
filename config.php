@@ -9,12 +9,21 @@ require 'vendor/autoload.php';
 try {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
+    echo '<script>';
+    echo    'console.log("ENVIRONMENT VARIABLES LOADED!")';
+    echo '</script>';
 } catch (Dotenv\Exception\InvalidPathException $e) {
     // handle exception if the .env file is not found or readable
-    echo 'Could not find or read the .env file: ' . $e->getMessage();
+    // echo 'Could not find or read the .env file: ' . $e->getMessage();
+    echo '<script>';
+    echo    'console.log("Could not find or read the .env file: ")'.$e->getMessage();
+    echo '</script>';
 } catch (Dotenv\Exception\ValidationException $e) {
     // handle exception if validation fails for any of the environment variables
-    echo 'Validation failed for one or more environment variables: ' . $e->getMessage();
+    // echo 'Validation failed for one or more environment variables: ' . $e->getMessage();
+    echo '<script>';
+    echo    'console.log("Validation failed for one or more environment variables: ")'.$e->getMessage();
+    echo '</script>';
 }
 
 $host = $_ENV["DB_HOST"];
