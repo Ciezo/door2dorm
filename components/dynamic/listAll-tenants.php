@@ -33,6 +33,8 @@
                         else {
                             echo '<div class="alert alert-danger"><em>There are records found for all tenants</em></div>';
                         }
-
+echo '<script>';
+echo    'console.log("Fetched dynamic content: Listing all tenants")';
+echo '</script>';
     ?>
 </div>

@@ -33,5 +33,7 @@ require("../../config.php");
                 else {
                     echo '<div class="alert alert-danger"><em>There are no records found for available rooms!</em></div>';
                 }
-
+echo '<script>';
+echo    'console.log("Fetched dynamic content: Listing all available rooms")';
+echo '</script>';
             ?>

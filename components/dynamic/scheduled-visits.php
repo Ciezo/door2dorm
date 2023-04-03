@@ -32,5 +32,8 @@
                         else {
                             echo '<div class="alert alert-danger"><em>There are no bookings</em></div>';
                         }
+echo '<script>';
+echo    'console.log("Fetched dynamic content: Scheduled Visits)';
+echo '</script>';
                     ?>
                 </table>
