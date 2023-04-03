@@ -37,7 +37,7 @@ if (isset($_POST["send_sms"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Test SMS Service</title>
 </head>
 <body>
-    <form action="sms.php" method="POST">
+    <form action="testSMS.php" method="POST">
         <!-- Receiver of SMS -->
         <label for="To Number">Number</label>
         <input type="number" name="toNumber" placeholder="+639000000000">
