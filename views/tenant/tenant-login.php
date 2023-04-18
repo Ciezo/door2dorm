@@ -70,6 +70,33 @@ if(isset($_POST['tenant-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
         .navbar .navbar-brand {
             padding-left: 35px;
         }
+        .card {
+            box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.1);
+        }
+        .left-side {
+            background-image: url("../../assets/images/landing_photo.jpg");
+            background-size: cover;
+            overflow: hidden;
+            border-radius: 5px;
+            transition: transform 0.3s
+        } 
+        .left-side:hover {
+            transform: scale(1.01);
+            transition: transform 0.3s
+        }
+        .left-side #header_welcome {
+            font-weight: 700;
+            color: white;
+            text-shadow: black;
+        } 
+        @media screen and (max-width: 1080px) {
+            #header_welcome {
+                display: none;
+            }
+        }
+        .right-side {
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
@@ -93,19 +120,36 @@ if(isset($_POST['tenant-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Content goes here -->
     <div class="container px-5">
-        <center>
-            <img src="../../assets/images/resident-vector.png" alt="Friendly Admin Image Icon" width="250" height="250">
-                <form action="tenant-login.php" class="tenant-login" method="POST">
-                    <h1>Welcome, Tenant</h1>
-                    <label>Username</label>
-                    <input type="text" class="form-control" name="tenant-username" placeholder="" required="">
-                    <br>
-                    <label>Password</label>
-                    <input type="password" class="form-control" name="tenant-password" placeholder="" required="">
-                    <input class="btn btn-primary" name="tenant-login" type="submit" value="LOGIN"><br>
-                    <a href="tenant-forgot-pw.php" class="btn btn-outline-danger mt-2">Forgot password?</a>
-                </form>
-        </center>
+        <div class="card px-2 mx-2 mt-3 mb-5">
+            <div class="table mb-1">
+                <div class="row">
+                    <!-- Left-side -->
+                    <div class="col-4 left-side mx-2 mt-1" style="overflow: hidden;">
+                        <h2 id="header_welcome">Sign in now as a dedicated tenant!</h2>
+                    </div>
+                    <!-- right-side -->
+                    <div class="col right-side">
+                        <center>
+                            <img src="../../assets/images/resident-vector.png" alt="Friendly Admin Image Icon" width="250" height="250">
+                                <form action="tenant-login.php" class="tenant-login" method="POST">
+                                    <h1>Hello! 👋<br>Welcome Back, Tenant!</h1>
+                                    <small class="px-2 mb-3 text-secondary">Enter the account credentials given to you by the dormitory admin</small>
+                                    <br><br>
+                                    <div class="form-group">
+                                        <label><i class="fa-solid fa-users-rectangle"></i> Username</label>
+                                        <input type="text" class="form-control" name="tenant-username" placeholder="my_username" required="">
+                                        <br>
+                                        <label><i class="fa-solid fa-lock-open"></i> Password</label>
+                                        <input type="password" class="form-control" name="tenant-password" placeholder="*********" required="">
+                                        <input class="btn btn-primary" name="tenant-login" type="submit" value="LOGIN"><br>
+                                        <a href="tenant-forgot-pw.php" class="btn btn-outline-danger mt-2"><i class="fa-solid fa-circle-xmark" style="color: #e85b45;"></i> Forgot password?</a>
+                                    </div>
+                                </form>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

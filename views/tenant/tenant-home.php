@@ -55,6 +55,22 @@ if($results->num_rows > 0) {
         $room_no_of_occupants = $rows["num_of_occupants"];
     }
 }
+
+// Retrieve payments and billings 
+$_sql_rental_payments = "SELECT * FROM PAYMENTS_RENTAL WHERE payment_by='$tenant_full_name'";
+$_sql_electricity_payments = "SELECT * FROM PAYMENTS_ELECTRICITY WHERE payment_by='$tenant_full_name'";
+$_sql_water_payments = "SELECT * FROM PAYMENTS_WATER WHERE payment_by='$tenant_full_name'";
+
+// Results 
+$results_rental_payments = mysqli_query($conn, $_sql_rental_payments);
+$results_electricity_payments = mysqli_query($conn, $_sql_electricity_payments);
+$results_water_payments = mysqli_query($conn, $_sql_water_payments);
+
+// Assign as iterable 
+$results_rental_payments = mysqli_fetch_assoc($results_rental_payments);
+$results_electricity_payments = mysqli_fetch_assoc($results_electricity_payments);
+$results_water_payments = mysqli_fetch_assoc($results_water_payments);
+
 $conn->close();
 
 ?>
@@ -105,15 +121,14 @@ $conn->close();
     <!-- Bootstrap navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
         <a class="navbar-brand" href="#">      
-            <i class="fa-solid fa-house-user"></i>
-                Welcome, <?php echo $_SESSION["tenant-username"]?>! 
+                Hi <i class="fa-regular fa-hand fa-shake"></i> Welcome, <?php echo $_SESSION["tenant-username"]?>! 
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active px-2" href="#">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-house-lock"></i> Home <span class="sr-only"></span></a>
                 <a class="nav-item nav-link px-2" href="tenant-account.php">My Account </span></a>
                 <a class="nav-item nav-link px-2" href="tenant-payment.php">Payment </span></a>
                 <a class="nav-item nav-link px-2" href="tenant-securityLogs.php">Security Logs </span></a>
@@ -154,7 +169,7 @@ $conn->close();
             <table class="table">
                 <thead class="thead-dark">
                     <tr class="table-dark">
-                        <th scope="col">Type</th>
+                        <th scope="col">Bill Type</th>
                         <th scope="col">Charges</th>
                         <th scope="col">Due Date</th>
                         <th scope="col">Payment Status</th>
@@ -164,27 +179,98 @@ $conn->close();
                     <!-- Rental billings -->
                     <tr>
                         <td>Rental</td>
-                        <td>Php 99.999</td>
-                        <td>MM-DD-YY</td>
-                        <td>Paid or Unpaid</td>
+                        <td> 
+                            <?php
+                                if (!(empty($results_rental_payments["charges"]))) {
+                                    echo "Php ".$results_rental_payments["charges"]; 
+                                } else {
+                                    echo "<b style='color:red'>Waiting for updates...<b>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                if (!(empty($results_rental_payments["due_date"]))) {
+                                    echo $results_rental_payments["due_date"]; 
+                                } else {
+                                    echo "<b style='color:red'>Waiting for updates...<b>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                if (!(empty($results_rental_payments["payment_status"]))) {
+                                    echo $results_rental_payments["payment_status"]; 
+                                } else {
+                                    echo "<b style='color:red'>Waiting for updates...<b>";
+                                }
+                            ?>
+                        </td>
                     </tr>
 
                     <!-- Electricity Billings -->
                     <tr>
                         <td>Electricity</td>
-                        <td>Php 99.999</td>
-                        <td>MM-DD-YY</td>
-                        <td>Paid or Unpaid</td>
+                        <td> 
+                            <?php 
+                                if (!(empty($results_electricity_payments["charges"]))) {
+                                    echo "Php ".$results_electricity_payments["charges"]; 
+                                } else {
+                                    echo "<b style='color:red'>Waiting for updates...<b>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                if (!(empty($results_electricity_payments["due_date"]))) {
+                                    echo $results_electricity_payments["due_date"];
+                                } else {
+                                    echo "<b style='color:red'>Waiting for updates...<b>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                if (!(empty($results_electricity_payments["payment_status"]))) {
+                                    echo $results_electricity_payments["payment_status"]; 
+                                } else {
+                                    echo "<b style='color:red'>Waiting for updates...<b>";
+                                }
+                            ?>
+                        </td>
                     </tr>
 
                     <!-- Water Billings -->
                     <tr>
                         <td>Water</td>
-                        <td>Php 99.999</td>
-                        <td>MM-DD-YY</td>
-                        <td>Paid or Unpaid</td>
+                        <td> 
+                            <?php
+                                if (!(empty($results_water_payments["charges"]))) {
+                                    echo "Php ".$results_water_payments["charges"]; 
+                                } else {
+                                    echo "<b style='color:red'>Waiting for updates...<b>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                                if (!(empty($results_water_payments["due_date"]))) {
+                                    echo $results_water_payments["due_date"]; 
+                                } else {
+                                    echo "<b style='color:red'>Waiting for updates...<b>";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                if (!(empty($results_water_payments["payment_status"]))) {
+                                    echo $results_water_payments["payment_status"]; 
+                                } else {
+                                    echo "<b style='color:red'>Waiting for updates...<b>";
+                                }
+                            ?>
+                        </td>
                     </tr>
-
                 </tbody>
             </table>
        </div>

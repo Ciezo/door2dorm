@@ -260,7 +260,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>Update Tenant Account</h2>
         <p><i>Modify and update tenant account information using this page</i></p>
         <hr>
-        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="POST">
+        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="POST" enctype="multipart/form-data">
             <!-- Tenant Full Name -->
             <div class="form-group">
                     <label for="Tenant's full name">Full name</label>
@@ -333,7 +333,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <!-- Tenant facial photo -->
                 <div class="form-group">
                     <label for="Tenant's photo">Upload a tenant's face photo</label>
-                    <input type="file" class="form-control" name="face_photo_upload">
+                    <input type="file" class="form-control" name="face_photo_upload" required>
                 </div>
                 <br>
 

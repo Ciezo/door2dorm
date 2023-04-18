@@ -48,8 +48,7 @@ if (!isset($_SESSION["tenant-username"])) {
     <!-- Bootstrap navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
         <a class="navbar-brand" href="#">      
-            <i class="fa-solid fa-house-user"></i>
-                Welcome, <?php echo $_SESSION["tenant-username"]?>! 
+                Hi <i class="fa-regular fa-hand fa-shake"></i> Welcome, <?php echo $_SESSION["tenant-username"]?>! 
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -59,7 +58,7 @@ if (!isset($_SESSION["tenant-username"])) {
                 <a class="nav-item nav-link px-2" href="tenant-home.php">Home <span class="sr-only"></span></a>
                 <a class="nav-item nav-link px-2" href="tenant-account.php">My Account </span></a>
                 <a class="nav-item nav-link px-2" href="tenant-payment.php">Payment </span></a>
-                <a class="nav-item nav-link active px-2" href="#">Security Logs </span></a>
+                <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-fingerprint"></i> Security Logs </span></a>
                 <a class="nav-item nav-link px-2" href="tenant-messages.php">Message </span></a>
                 <a class="nav-item nav-link px-2" href="../../components/custom/logout.php">Logout </span></a>
             </div>

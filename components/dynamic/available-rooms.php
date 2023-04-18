@@ -1,4 +1,3 @@
-<h1>List Of Available Rooms</h1>
 <?php
 require("../../config.php");
                 //  Select statement to fetch all available rooms

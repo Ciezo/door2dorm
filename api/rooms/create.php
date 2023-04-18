@@ -317,7 +317,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Room Photo -->
             <div class="form-group">
                 <label for="Upload a photo">Upload a photo of the unit</label>
-                <input type="file" class="form-control" name="file_photo_upload">
+                <input type="file" class="form-control" name="file_photo_upload" required>
                 <span class="invalid-feedback"><?php echo $_err_file_size ;?></span>
             </div>
             <br><br>

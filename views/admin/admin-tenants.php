@@ -10,6 +10,12 @@ if (!isset($_SESSION["admin-username"])) {
 // Values to retrieve
 $tenant_fullName = $tenant_num = $tenant_emergencyNum = $tenant_email = $tenant_username = $tenant_pass = $tenant_room = "";
 $_err_tenant_fullName = $_err_tenant_num = $_err_tenant_emergencyNum = $_err_tenant_email = $_err_tenant_username = $_err_tenant_pass = $_err_tenant_room = $_err_tenant_photo = "";
+
+// Flags 
+$isTaken_contactNum = false;
+$isTaken_email = false;
+$isTaken_username = false;
+
 /**
  * Fetch all values from the Create Tenant Account form
  * name="tenant-full-name" 
@@ -47,16 +53,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_err_tenant_num = "Please, enter a mobile number";
     }
     
-    else if (!ctype_digit($input_tenant_num)) {
-        $_err_tenant_num = "Please, enter a valid number";
-    }
-
-    else if (!filter_var($input_tenant_num, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_tenant_num)) {
+    else if (!filter_var($input_tenant_num, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s+]+$/"))) || preg_match("/[-!$%^&*()_|~=`{}\[\]:\";'<>?,.\/]/", $input_tenant_num)) {
         $_err_tenant_num = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
     }
 
     else {
-        $tenant_num = $input_tenant_num; 
+        // Check phone number availability 
+        if (isset($input_tenant_num)) {
+            // Create a query to check if the contact number is taken!
+            $query = "SELECT * FROM TENANT"; 
+            $results = mysqli_query($conn, $query); 
+            
+            // Fetch the results as rows
+            while ($rows = mysqli_fetch_array($results)) {
+                // A cursor points to each row 
+                $cursor = $rows;         
+                // fetch all existing contact_num
+                $temp_contactNo = $cursor['mobile_num'];   
+                if (strcmp($temp_contactNo, $input_tenant_num) == 0) {
+                    $_err_tenant_num = "This contact number is already taken!";
+                    $isTaken_contactNum = true;
+                }
+
+                else {
+                    $isTaken_contactNum = false;
+                }
+            }
+
+            if ($isTaken_contactNum == false) {
+                $tenant_num = $input_tenant_num; 
+            }
+        }
     }
 
 
@@ -67,11 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_err_tenant_emergencyNum = "Please, enter a mobile number";
     }
     
-    else if (!ctype_digit($input_tenant_emergencyNum)) {
-        $_err_tenant_emergencyNum = "Please, enter a valid number";
-    }
-
-    else if (!filter_var($input_tenant_emergencyNum, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_tenant_emergencyNum)) {
+    else if ((!filter_var($input_tenant_emergencyNum, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s+]+$/"))) || preg_match("/[-!$%^&*()_|~=`{}\[\]:\";'<>?,.\/]/", $input_tenant_emergencyNum))) {
         $_err_tenant_emergencyNum = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
     }
 
@@ -92,7 +115,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     else {
-        $tenant_email = $input_tenant_email;
+        // Check to see if email is already taken and assigned
+        if (isset($input_tenant_email)) {
+            // Create a query to check if the contact number is taken!
+            $query = "SELECT * FROM TENANT"; 
+            $results = mysqli_query($conn, $query); 
+            
+            // Fetch the results as rows
+            while ($rows = mysqli_fetch_array($results)) {
+                // A cursor points to each row 
+                $cursor = $rows;         
+                // fetch all existing contact_num
+                $temp_email = $cursor['email'];   
+                if (strcmp($temp_email, $input_tenant_email) == 0) {
+                    $_err_tenant_email = "This email is already taken!";
+                    $isTaken_email = true;
+                }
+
+                else {
+                    $isTaken_email = false;
+                }
+            }
+
+            if ($isTaken_email == false) {
+                $tenant_email = $input_tenant_email;
+            }
+        }
     }
     
 
@@ -112,7 +160,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     else {
-        $tenant_username =  $input_tenant_username;
+        // Check to see if username is already taken
+        if (isset($input_tenant_email)) {
+            // Create a query to check if the contact number is taken!
+            $query = "SELECT * FROM TENANT"; 
+            $results = mysqli_query($conn, $query); 
+            
+            // Fetch the results as rows
+            while ($rows = mysqli_fetch_array($results)) {
+                // A cursor points to each row 
+                $cursor = $rows;         
+                // fetch all existing contact_num
+                $temp_username = $cursor['username'];   
+                if (strcmp($temp_username, $input_tenant_username) == 0) {
+                    $_err_tenant_email = "This username is already taken!";
+                    $isTaken_username = true;
+                }
+
+                else {
+                    $isTaken_username = false;
+                }
+            }
+
+            if ($isTaken_username == false) {
+                $tenant_username =  $input_tenant_username;
+            }
+        }
     }
 
 
@@ -147,10 +220,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate photo
     if (isset($_FILES["face_photo_upload"])) {
-        if ($_FILES["face_photo_upload"]["size"] > 500000) {
+        if ($_FILES["face_photo_upload"]["size"] > 5242880) {
             $_err_tenant_photo = "Less than 5 MB only!";
         }
-        $tenant_image_to_upload = file_get_contents($_FILES["face_photo_upload"]["tmp_name"]);
+        $tenant_image_to_upload = addslashes(file_get_contents($_FILES["face_photo_upload"]["tmp_name"]));
     }
 
 
@@ -190,6 +263,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("location: ../../api/tenant/create.php");
     }
 }
+
+// Create a query to fetch all payment types 
+$_sql_rental_payments = "SELECT * FROM PAYMENTS_RENTAL WHERE payment_status='Unpaid'";
+$_sql_electricity_payments = "SELECT * FROM PAYMENTS_ELECTRICITY WHERE payment_status='Unpaid'";
+$_sql_water_payments = "SELECT * FROM PAYMENTS_WATER WHERE payment_status='Unpaid'";
+
+// Results 
+$results_rental_payments = mysqli_query($conn, $_sql_rental_payments);
+$results_electricity_payments = mysqli_query($conn, $_sql_electricity_payments);
+$results_water_payments = mysqli_query($conn, $_sql_water_payments);
+
 ?>
 
 <!DOCTYPE html>
@@ -242,6 +326,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .create-tenant-profile {
             margin-bottom: 50px;
         }
+        table tr td {
+            margin: 0px;
+            width: 100px;
+        }
         
     </style>
 </head>
@@ -259,7 +347,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="navbar-nav">
                 <a class="nav-item nav-link px-2" href="admin-home.php">Home <span class="sr-only"></span></a>
                 <a class="nav-item nav-link px-2" href="admin-payment.php">Payment</a>
-                <a class="nav-item nav-link active px-2" href="#">Tenants</a>
+                <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-person-shelter"></i> Tenants</a>
                 <a class="nav-item nav-link px-2" href="admin-securityLogs.php">Security Logs</a>
                 <a class="nav-item nav-link px-2" href="admin-facenet.php">FaceNet</a>
                 <a class="nav-item nav-link px-2" href="admin-messages.php">Messages</a>
@@ -271,226 +359,302 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Content goes here -->
     <div class="container px-5">
         <!-- List of tenants balances -->
-        <div id="periodic-refresh10secs-all-TenantsBalances" class="all-tenants-balances">
-            <h2>Tenants Balances</h2>
-            <p>This section presents all the unpaid balances from all tenants</p>
-
-            <!-- Dynamic table with 10 seconds periodic refresh -->
-            <!-- To retrieve all tenants' unpaid balances of all bill types -->
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                    <tr class="table-dark">
-                        <th scope="col">Name</th>
-                        <th scope="col">Room No.</th>
-                        <th scope="col">Rental Bills</th>
-                        <th scope="col">Electricity Bills</th>
-                        <th scope="col">Water Bills</th>
-                        <th scope="col">Payment status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Per row is for each tenant balance -->
-                    <tr>
-                        <td>Tenant 1</td>
-                        <td>Room No.</td>
-                        <td>Php 999.99</td>
-                        <td>Php 999.99</td>
-                        <td>Php 999.99</td>
-                        <td>Unpaid</td>
-                    </tr>
-                    <tr>
-                        <td>Tenant 2</td>
-                        <td>Room No.</td>
-                        <td>Php 999.99</td>
-                        <td>Php 999.99</td>
-                        <td>Php 999.99</td>
-                        <td>Unpaid</td>
-                    </tr>
-                    <tr>
-                        <td>Tenant 3</td>
-                        <td>Room No.</td>
-                        <td>Php 999.99</td>
-                        <td>Php 999.99</td>
-                        <td>Php 999.99</td>
-                        <td>Unpaid</td>
-                    </tr>
-                    <tr>
-                        <td>Tenant N..++</td>
-                        <td>Room No.</td>
-                        <td>Php 999.99</td>
-                        <td>Php 999.99</td>
-                        <td>Php 999.99</td>
-                        <td>Unpaid</td>
-                    </tr>
-                </tbody>
-            </table>
-
+        <div class="card px-5 mx-2 mt-2">
+            <div class="all-tenants-balances">
+                <h2 class="mt-2">Tenants Balances</h2>
+                <p>This section presents all the unpaid balances from all tenants</p>
+                <!-- Unpaid rentals -->
+                <table class="table table-striped">
+                    <h5>Unpaid Rental Bills</h5>
+                    <thead class="thead-dark">
+                        <tr class="table-dark">
+                            <th scope="col">Name</th>
+                            <th scope="col">Rental Bills</th>
+                            <th scope="col">Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Per row is for each tenant balance -->
+                        <?php 
+                            // Rentals
+                            if ($results_rental_payments->num_rows > 0) {
+                                while ($rentals_billings = mysqli_fetch_array($results_rental_payments)) {
+                                    echo "<tr>";
+                                    echo    "<td>".$rentals_billings["to_be_paid_by"]."</td>";
+                                    echo    "<td>Php ".$rentals_billings["charges"]."</td>";
+                                    echo    "<td>".$rentals_billings["due_date"]."</td>";
+                                    echo "</tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
+                <br><br>
+                <!-- Unpaid electricity -->
+                <table class="table table-striped">
+                    <h5>Unpaid Electricity Bills</h5>
+                    <thead class="thead-dark">
+                        <tr class="table-dark">
+                            <th scope="col">Name</th>
+                            <th scope="col">Electricity Bills</th>
+                            <th scope="col">Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Per row is for each tenant balance -->
+                        <?php 
+                            // Electricity
+                            if ($results_electricity_payments->num_rows > 0) {
+                                while ($electricity_billings = mysqli_fetch_array($results_electricity_payments)) {
+                                    echo "<tr>";
+                                    echo    "<td>".$electricity_billings["to_be_paid_by"]."</td>";
+                                    echo    "<td>Php ".$electricity_billings["charges"]."</td>";
+                                    echo    "<td>".$electricity_billings["due_date"]."</td>";
+                                    echo "</tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
+                <br><br>
+                <!-- Unpaid water -->
+                <table class="table table-striped">
+                    <h5>Unpaid Water Bills</h5>
+                    <thead class="thead-dark">
+                        <tr class="table-dark">
+                            <th scope="col">Name</th>
+                            <th scope="col">Water Bills</th>
+                            <th scope="col">Due Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Per row is for each tenant balance -->
+                        <?php 
+                            // Electricity
+                            if ($results_water_payments->num_rows > 0) {
+                                while ($water_billings = mysqli_fetch_array($results_water_payments)) {
+                                    echo "<tr>";
+                                    echo    "<td>".$water_billings["to_be_paid_by"]."</td>";
+                                    echo    "<td>Php ".$water_billings["charges"]."</td>";
+                                    echo    "<td>".$water_billings["due_date"]."</td>";
+                                    echo "</tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
+                
+                <!-- To retrieve all tenants' unpaid balances of all bill types -->
+                <div class="card px-5 mx-2 mt-2">
+                </div>
+            </div>
         </div>
 
         <!-- List of all tenants -->
-        <div id="periodic-refresh10secs-ListAll-Tenants" class="list-of-all-registered-tenants">
-            <!-- Dynamic content loads every 10 seconds -->
-            <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
+        <div class="card px-5 mx-2 mt-2">
+            <h2 class="mt-2">List of All Tenants</h2>
+            <p>This section displays all registered tenants and their personal information</p>
+            <div id="periodic-refresh10secs-ListAll-Tenants" class="list-of-all-registered-tenants">
+                <!-- Dynamic content loads every 10 seconds -->
+                <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
+            </div>
         </div>
         
         <br><br>
 
         <!-- Creating Tenant Profile -->
-        <div id= "tenant-acc-form" class="create-tenant-profile">
-            <h2>Create Tenant Profile</h2>
-            <p>This section is where an admin can create an account for an inquiring tenant</p>
-            <!-- Fill up form for a tenant account -->
-            <form action="admin-tenants.php" method="POST">
-                <!-- Tenant Full Name -->
-                <div class="form-group">
-                    <label for="Tenant's full name">Full name</label>
-                    <input required type="text" id="fetchFullName" name="tenant-full-name" placeholder="Tenant Full Name" class="form-control <?php echo (!empty($_err_tenant_fullName)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_fullName ; ?>">
-                    <span class="invalid-feedback"><?php echo $_err_tenant_fullName ;?></span>
-                </div>
-                <br>
-                <!-- Tenant Mobile Number -->
-                <div class="form-group">
-                    <label for="Tenant's mobile number">Mobile Number</label>
-                    <input type="text" id="fetchNumber" name="tenant-num" placeholder="09XXXXXXXXX" class="form-control <?php echo (!empty($_err_tenant_num)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_num ; ?>">
-                    <span class="invalid-feedback"><?php echo $_err_tenant_num ;?></span>
-                </div>
-                <br>
-                <!-- Tenant Emergency Contact No. -->
-                <div class="form-group">
-                    <label for="Tenant's emergency contact number">Emergency Contact Number.</label>
-                    <input type="text" id="fetchEmergencyNum" name="tenant-emergency-num" placeholder="09XXXXXXXXX" class="form-control <?php echo (!empty($_err_tenant_emergencyNum)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_emergencyNum ; ?>">
-                    <span class="invalid-feedback"><?php echo $_err_tenant_emergencyNum ;?></span>
-                </div>
-                <br>
-                <!-- Tenant Email -->
-                <div class="form-group">
-                    <label for="Tenant's email">Email</label>
-                    <input required type="email" id="fetchEmail" name="tenant-email" placeholder="username@domain.com" class="form-control <?php echo (!empty($_err_tenant_email)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_email ; ?>">
-                    <span class="invalid-feedback"><?php echo $_err_tenant_email ;?></span>
-                </div>
-                <br>
-                <!-- Tenant Username -->
-                <div class="form-group">
-                    <label for="Tenant's username">Username</label>
-                    <p><i style="color: blue;">This will be used by the tenant as their login credentials</i></p>
-                    <input required type="text" id="fetchUserName" name="tenant-username" placeholder="tenant_username" class="form-control <?php echo (!empty($_err_tenant_username)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_username ; ?>">
-                    <span class="invalid-feedback"><?php echo $_err_tenant_username ;?></span>
-                </div>
-                <br>
-                <!-- Tenant Password -->
-                <div class="form-group">
-                    <label for="Tenant's password">Password</label>
-                    <p><i style="color: blue;">This will be used by the tenant as their login credentials</i></p>
-                    <input required type="password" id="fetchPassword" name="tenant-password" placeholder="********" class="form-control <?php echo (!empty($_err_tenant_pass)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_pass ; ?>">
-                    <span class="invalid-feedback"><?php echo $_err_tenant_pass ;?></span>
-                </div>
-                <br>
-                <!-- Tenant assigned room -->
-                <div class="form-group">
-                    <label for="Tenant's room">Assign a room</label>
-                    <!-- <input required type="password" id="fetchRoom" name="tenant-assigned-room" placeholder="000" class="form-control <?php echo (!empty($_err_tenant_room)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_room ; ?>"> -->
-                    <span class="invalid-feedback"><?php echo $_err_tenant_room ;?></span>
-                    <!-- Create a query to retrieve all options from the AVAILABLE_ROOMS where occupancy_status is "Available" -->
-                    <select required id="fetchRoom" name="tenant-assigned-room" id="dyanmic-select-ListAll-availableRooms-asOptions" class="form-control">
-                        <?php
-                            //  Select statement to fetch all available rooms
-                            $sql = "SELECT * FROM AVAILABLE_ROOMS where occupancy_status = 'Available'";
-                            $results = mysqli_query($conn, $sql);
-
-                            // Check if any results are returned
-                            if ($results->num_rows > 0) {
-                                // Now, loop through, and list as options inside the <select>
-                                while($rows = mysqli_fetch_array($results)) {
-                                    // <option value="$rows["room_number"]">$rows["room_number"]</option>
-                                    // echo    '<option value=">'.$rows["room_number"].'"'.$rows["room_number"].'</option>';
-                                    echo    '<option value="'.$rows["room_number"].'">'.$rows["room_number"].'</option>';
+        <div class="card px-5 mx-2 mt-2">
+            <div id= "tenant-acc-form" class="create-tenant-profile">
+                <h2 class="mt-2">Create Tenant Profile</h2>
+                <p>This section is where an admin can create an account for an inquiring tenant</p>
+                <!-- Fill up form for a tenant account -->
+                <form action="admin-tenants.php" method="POST" enctype="multipart/form-data">
+                    <!-- Tenant Full Name -->
+                    <div class="form-group">
+                        <label for="Tenant's full name"><i class="fa-solid fa-id-card-clip"></i> Full name</label>
+                        <input required type="text" id="fetchFullName" name="tenant-full-name" placeholder="Tenant Full Name" class="form-control <?php echo (!empty($_err_tenant_fullName)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_fullName ; ?>">
+                        <span class="invalid-feedback"><?php echo $_err_tenant_fullName ;?></span>
+                    </div>
+                    <br>
+                    <!-- Tenant Mobile Number -->
+                    <div class="form-group">
+                        <label for="Tenant's mobile number"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Number</label>
+                        <input type="text" id="fetchNumber" name="tenant-num" placeholder="+639000000000" class="form-control <?php echo (!empty($_err_tenant_num)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_num ; ?>">
+                        <span class="invalid-feedback"><?php echo $_err_tenant_num ;?></span>
+                    </div>
+                    <br>
+                    <!-- Tenant Emergency Contact No. -->
+                    <div class="form-group">
+                        <label for="Tenant's emergency contact number"><i class="fa-solid fa-phone-volume"></i> Emergency Contact Number</label>
+                        <input type="text" id="fetchEmergencyNum" name="tenant-emergency-num" placeholder="+639000000000" class="form-control <?php echo (!empty($_err_tenant_emergencyNum)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_emergencyNum ; ?>">
+                        <span class="invalid-feedback"><?php echo $_err_tenant_emergencyNum ;?></span>
+                    </div>
+                    <br>
+                    <!-- Tenant Email -->
+                    <div class="form-group">
+                        <label for="Tenant's email"><i class="fa-solid fa-envelope-open-text"></i> Email</label>
+                        <input required type="email" id="fetchEmail" name="tenant-email" placeholder="username@domain.com" class="form-control <?php echo (!empty($_err_tenant_email)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_email ; ?>">
+                        <span class="invalid-feedback"><?php echo $_err_tenant_email ;?></span>
+                    </div>
+                    <br>
+                    <!-- Tenant Username -->
+                    <div class="form-group">
+                        <label for="Tenant's username"><i class="fa-solid fa-users-rectangle"></i>  Username</label>
+                        <p><i style="color: blue;">This will be used by the tenant as their login credentials</i></p>
+                        <input required type="text" id="fetchUserName" name="tenant-username" placeholder="tenant_username" class="form-control <?php echo (!empty($_err_tenant_username)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_username ; ?>">
+                        <span class="invalid-feedback"><?php echo $_err_tenant_username ;?></span>
+                    </div>
+                    <br>
+                    <!-- Tenant Password -->
+                    <div class="form-group">
+                        <label for="Tenant's password"><i class="fa-solid fa-lock"></i> Password</label>
+                        <p><i style="color: blue;">This will be used by the tenant as their login credentials</i></p>
+                        <input required type="password" id="fetchPassword" name="tenant-password" placeholder="********" class="form-control <?php echo (!empty($_err_tenant_pass)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_pass ; ?>">
+                        <span class="invalid-feedback"><?php echo $_err_tenant_pass ;?></span>
+                    </div>
+                    <br>
+                    <!-- Tenant assigned room -->
+                    <div class="form-group">
+                        <label for="Tenant's room"><i class="fa-solid fa-people-roof"></i>  Assign a room</label>
+                        <!-- <input required type="password" id="fetchRoom" name="tenant-assigned-room" placeholder="000" class="form-control <?php echo (!empty($_err_tenant_room)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_room ; ?>"> -->
+                        <span class="invalid-feedback"><?php echo $_err_tenant_room ;?></span>
+                        <!-- Create a query to retrieve all options from the AVAILABLE_ROOMS where occupancy_status is "Available" -->
+                        <select required id="fetchRoom" name="tenant-assigned-room" id="dyanmic-select-ListAll-availableRooms-asOptions" class="form-control">
+                            <?php
+                                //  Select statement to fetch all available rooms
+                                $sql = "SELECT * FROM AVAILABLE_ROOMS where occupancy_status = 'Available'";
+                                $results = mysqli_query($conn, $sql);
+    
+                                // Check if any results are returned
+                                if ($results->num_rows > 0) {
+                                    // Now, loop through, and list as options inside the <select>
+                                    while($rows = mysqli_fetch_array($results)) {
+                                        // <option value="$rows["room_number"]">$rows["room_number"]</option>
+                                        // echo    '<option value=">'.$rows["room_number"].'"'.$rows["room_number"].'</option>';
+                                        echo    '<option value="'.$rows["room_number"].'">'.$rows["room_number"].'</option>';
+                                    }
                                 }
-                            }
-                        ?>
-                    </select>
-                </div>
-                <br>
-                <!-- Tenant facial photo -->
-                <div class="form-group">
-                    <label for="Tenant's photo">Upload a tenant's face photo</label>
-                    <input type="file" class="form-control" name="face_photo_upload">
-                </div>
-                <br>
-                <!-- Submit form, and preview the tenant details in a modal -->
-                <div class="form-group">
-                    <input type="button" onclick="fetchData()" class="btn btn-primary form-control" name="" value="Finish Creating Tenant Profile" data-toggle="modal" data-target="#previewRegisteredTenant">
-                </div>
-
-                
-                <!-- Preview registered tenant in the modal -->
-                <!-- @note Try to retrieve the POST values if invoked method is POST -->
-                <!-- Modal --> 
-
-                <div class="modal fade" id="previewRegisteredTenant" tabindex="-1" role="dialog" aria-labelledby="previewRegisteredTenant" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Review Tenant Details</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            ?>
+                        </select>
+                    </div>
+                    <br>
+                    <!-- Tenant facial photo -->
+                    <div class="form-group">
+                        <label for="Tenant's photo"><i class="fa-solid fa-image-portrait"></i> Upload a tenant's face photo</label>
+                        <input type="file" id="tenantPhotoPreview" name="face_photo_upload" class="form-control <?php echo (!empty($_err_tenant_photo)) ? 'is-invalid' : ''; ?>" value="<?php echo "" ; ?>" required>
+                        <div class="card px-5 mt-2 mb-2">
+                            <h5>Preview</h5>
+                                <img id="previewImage" class="card-img-top mb-2" width="600" height="auto">
+                            <script>
+                                const fileInput = document.getElementById("tenantPhotoPreview");
+                                const previewImage = document.getElementById("previewImage");  
+                                fileInput.addEventListener("change", function() {
+                                    const file = fileInput.files[0];
+                                    const reader = new FileReader();
+                                    reader.addEventListener("load", function() {
+                                        previewImage.src = reader.result;
+                                    });
+    
+                                    if (file) {
+                                        reader.readAsDataURL(file);
+                                    }
+                                });
+                            </script>
                         </div>
-                        <div class="modal-body">
-                            <div class="card">
-                                <img class="card-img-top" src="" alt="Tenant facial capture" align="center" id="" width="50%" height="50%">
+                        <span class="invalid-feedback"></span>
+                    </div>
+                    <br>
+                    <!-- Submit form, and preview the tenant details in a modal -->
+                    <div class="form-group">
+                        <input type="button" onclick="fetchData()" class="btn btn-primary form-control" name="" value="Finish Creating Tenant Profile" data-toggle="modal" data-target="#previewRegisteredTenant">
+                    </div>
+    
+                    
+                    <!-- Preview registered tenant in the modal -->
+                    <!-- @note Try to retrieve the POST values if invoked method is POST -->
+                    <!-- Modal --> 
+    
+                    <div class="modal fade" id="previewRegisteredTenant" tabindex="-1" role="dialog" aria-labelledby="previewRegisteredTenant" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Review Tenant Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <h3 id="modalPreview_tenant-fullname" style="padding-top: 10px;"></h3>
-                            <h6><b id="modalPreview_tenant-room" ></b></h6>
-                            <!-- Tenant POST details -->
-                            <ul class="list-group list-group-flush">
-                                <li id="modalPreview_tenant-contactNum" class="list-group-item"></li>
-                                <li id="modalPreview_tenant-emergencyNum" class="list-group-item"></li>
-                                <li id="modalPreview_tenant-email" class="list-group-item"></li>
-                            </ul>
-                            <div class="card-body">
-                                <div class="modal-body">
-                                    <h5>Login Credentials</h5>
-                                    <ul class="list-group list-group-flush">
-                                        <li id="modalPreview_tenant-username" class="list-group-item"></li>
-                                        <li id="modalPreview_tenant-password" class="list-group-item"></li>
-                                    </ul>
+                            <div class="modal-body">
+                                <div class="card">
+                                    <img class="card-img-top" alt="" align="center" id="previewImgTenantModal" width="50%" height="50%">
+                                    <script>
+                                        const fetchFileInput = document.getElementById("tenantPhotoPreview");
+                                        const renderModalImg = document.getElementById("previewImgTenantModal");  
+                                        fetchFileInput.addEventListener("change", function() {
+                                            const file = fetchFileInput.files[0];
+                                            const reader = new FileReader();
+                                            reader.addEventListener("load", function() {
+                                                renderModalImg.src = reader.result;
+                                            });
+    
+                                            if (file) {
+                                                reader.readAsDataURL(file);
+                                            }
+                                        });
+                                    </script>
+                                </div>
+                                <h3 id="modalPreview_tenant-fullname" style="padding-top: 10px;"></h3>
+                                <h6><b id="modalPreview_tenant-room" ></b></h6>
+                                <!-- Tenant POST details -->
+                                <ul class="list-group list-group-flush">
+                                    <li id="modalPreview_tenant-contactNum" class="list-group-item"></li>
+                                    <li id="modalPreview_tenant-emergencyNum" class="list-group-item"></li>
+                                    <li id="modalPreview_tenant-email" class="list-group-item"></li>
+                                </ul>
+                                <div class="card-body">
+                                    <div class="modal-body">
+                                        <h5>Login Credentials</h5>
+                                        <ul class="list-group list-group-flush">
+                                            <li id="modalPreview_tenant-username" class="list-group-item"></li>
+                                            <li id="modalPreview_tenant-password" class="list-group-item"></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <input type="submit" name="submit-tenant" class="btn btn-outline-success form-control" value="Register Tenant">
+                            </div>
+                            </div>
+    
+                            <script>
+                                var tenant_fullname, tenant_room, tenant_contactNum, tenant_emergencyNum, tenant_email, tenant_username, tenant_password;
+    
+                                function fetchData() {
+                                    tenant_fullname = document.getElementById("fetchFullName").value; 
+                                    tenant_room = document.getElementById("fetchRoom").value; 
+                                    tenant_contactNum = document.getElementById("fetchNumber").value; 
+                                    tenant_emergencyNum = document.getElementById("fetchEmergencyNum").value; 
+                                    tenant_email = document.getElementById("fetchEmail").value; 
+                                    tenant_username = document.getElementById("fetchUserName").value; 
+                                    tenant_password = document.getElementById("fetchPassword").value; 
+    
+                                    // Render the fetched values for modal preview
+                                    renderFetchedData_toModalPreview();
+                                }
+    
+                                function renderFetchedData_toModalPreview() {
+                                    document.getElementById("modalPreview_tenant-fullname").innerHTML = tenant_fullname;
+                                    document.getElementById("modalPreview_tenant-room").innerHTML = "@Room: " + tenant_room;
+                                    document.getElementById("modalPreview_tenant-contactNum").innerHTML = "Contact No.: <b>" + tenant_contactNum + "</b>";
+                                    document.getElementById("modalPreview_tenant-emergencyNum").innerHTML = "Emergency Contact No.: <b>" + tenant_emergencyNum + "</b>";
+                                    document.getElementById("modalPreview_tenant-email").innerHTML = "Email: <b>" + tenant_email + "</b>";
+                                    document.getElementById("modalPreview_tenant-username").innerHTML = "Username: " + tenant_username;
+                                    document.getElementById("modalPreview_tenant-password").innerHTML = "Password: " + tenant_password;
+                                }
+                            </script>
                         </div>
-                        <div class="modal-footer">
-                            <input type="submit" name="submit-tenant" class="btn btn-outline-success form-control" value="Register Tenant">
-                        </div>
-                        </div>
-
-                        <script>
-                            var tenant_fullname, tenant_room, tenant_contactNum, tenant_emergencyNum, tenant_email, tenant_username, tenant_password;
-
-                            function fetchData() {
-                                tenant_fullname = document.getElementById("fetchFullName").value; 
-                                tenant_room = document.getElementById("fetchRoom").value; 
-                                tenant_contactNum = document.getElementById("fetchNumber").value; 
-                                tenant_emergencyNum = document.getElementById("fetchEmergencyNum").value; 
-                                tenant_email = document.getElementById("fetchEmail").value; 
-                                tenant_username = document.getElementById("fetchUserName").value; 
-                                tenant_password = document.getElementById("fetchPassword").value; 
-
-                                // Render the fetched values for modal preview
-                                renderFetchedData_toModalPreview();
-                            }
-
-                            function renderFetchedData_toModalPreview() {
-                                document.getElementById("modalPreview_tenant-fullname").innerHTML = tenant_fullname;
-                                document.getElementById("modalPreview_tenant-room").innerHTML = "@Room: " + tenant_room;
-                                document.getElementById("modalPreview_tenant-contactNum").innerHTML = "Contact No.: <b>" + tenant_contactNum + "</b>";
-                                document.getElementById("modalPreview_tenant-emergencyNum").innerHTML = "Emergency Contact No.: <b>" + tenant_emergencyNum + "</b>";
-                                document.getElementById("modalPreview_tenant-email").innerHTML = "Email: <b>" + tenant_email + "</b>";
-                                document.getElementById("modalPreview_tenant-username").innerHTML = "Username: " + tenant_username;
-                                document.getElementById("modalPreview_tenant-password").innerHTML = "Password: " + tenant_password;
-                            }
-                        </script>
-                    </div>
-                </div>  
-            </form>       
+                    </div>  
+                </form>       
+            </div>
         </div>
     </div>
     <!-- Script src to dynamically load list of tenants -->

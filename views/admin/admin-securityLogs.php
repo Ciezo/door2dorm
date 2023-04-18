@@ -46,6 +46,9 @@ if (!isset($_SESSION["admin-username"])) {
             color: white; 
             border-radius: 5px;
         }
+        .security-logs {
+            padding-bottom: 50px;
+        }
     </style>
 </head>
 <body>
@@ -63,7 +66,7 @@ if (!isset($_SESSION["admin-username"])) {
                 <a class="nav-item nav-link px-2" href="admin-home.php">Home <span class="sr-only"></span></a>
                 <a class="nav-item nav-link px-2" href="admin-payment.php">Payment</a>
                 <a class="nav-item nav-link" href="admin-tenants.php">Tenants</a>
-                <a class="nav-item nav-link active px-2" href="#">Security Logs</a>
+                <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-shield-halved"></i> Security Logs</a>
                 <a class="nav-item nav-link px-2" href="admin-facenet.php">FaceNet</a>
                 <a class="nav-item nav-link px-2" href="admin-messages.php">Messages</a>
                 <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
@@ -73,7 +76,53 @@ if (!isset($_SESSION["admin-username"])) {
 
     <!-- Content goes here -->
     <div class="container px-5">
-
+        <div class="security-logs">
+            <h2>Security Logs</h2>
+            <p>Here is the section where security loggins are present using biometric security measures</p>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr class="table-dark">
+                        <th scope="col">Log ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Room</th>
+                        <th scope="col">Time-in</th>
+                        <th scope="col">Time-out</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Face Capture</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Record entries -->
+                    <tr>
+                        <td>Log ID</td>
+                        <td>Name</td>
+                        <td>000</td>
+                        <td>00:00:00</td>
+                        <td>00:00:00</td>
+                        <td>Authorized or Unauthorized</td>
+                        <td><i class="fa-regular fa-image"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Log ID</td>
+                        <td>Name</td>
+                        <td>000</td>
+                        <td>00:00:00</td>
+                        <td>00:00:00</td>
+                        <td>Authorized or Unauthorized</td>
+                        <td><i class="fa-regular fa-image"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Log ID</td>
+                        <td>Name</td>
+                        <td>000</td>
+                        <td>00:00:00</td>
+                        <td>00:00:00</td>
+                        <td>Authorized or Unauthorized</td>
+                        <td><i class="fa-regular fa-image"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </body>

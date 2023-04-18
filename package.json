@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "jquery": "^3.6.3"
+  },
+  "scripts": {
+    "setup_db":"sh ./sql/setup.sh"
   }
 }

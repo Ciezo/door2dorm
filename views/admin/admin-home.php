@@ -64,7 +64,7 @@ if (!isset($_SESSION["admin-username"])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active px-2" href="#">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-house-user"></i> Home <span class="sr-only"></span></a>
                 <a class="nav-item nav-link px-2" href="admin-payment.php">Payment</a>
                 <a class="nav-item nav-link px-2" href="admin-tenants.php">Tenants</a>
                 <a class="nav-item nav-link px-2" href="admin-securityLogs.php">Security Logs</a>
@@ -143,40 +143,11 @@ if (!isset($_SESSION["admin-username"])) {
         </div>
         <br>
         <!-- Overview of Tenants Listing and Balances -->
-        <div class="admin-listAll-tenants-balances">
-            <h2>Overview of Tenants' Balances</h2>
-            <p>This is where you can see all your tenants' balances both paid and unpaid</p>
-
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                    <tr class="table-dark">
-                        <th scope="col">Name</th>
-                        <th scope="col">Room No.</th>
-                        <th scope="col">Details</th>
-                        <th scope="col">Payment Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Sample Name 1</td>
-                        <td>Sample Room 1</td>
-                        <td>Room Details 1</td>
-                        <td>Payment Status</td>
-                    </tr>
-                    <tr>
-                        <td>Sample Name 2</td>
-                        <td>Sample Room 2</td>
-                        <td>Room Details 2</td>
-                        <td>Payment Status</td>
-                    </tr>
-                    <tr>
-                        <td>Sample Name 3</td>
-                        <td>Sample Room 3</td>
-                        <td>Room Details 3</td>
-                        <td>Payment Status</td>
-                    </tr>
-                </tbody>
-            </table>
+        <h2>Overview of Tenants' Balances</h2>
+        <p>This is where you can see all your tenants' balances both paid and unpaid</p>
+        <div id="periodic-refresh5secs-overviewBalances" class="admin-listAll-tenants-balances">
+            <!-- Dynamic Content, loads every 5 secs -->
+            <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
         </div>
         <br>
         <!-- Security logs -->
@@ -213,32 +184,11 @@ if (!isset($_SESSION["admin-username"])) {
         </div>
         <br>
         <!-- Messages overview -->
-        <div class="admin-viewAll-messages">
-            <h2>Messages</h2>
-            <p>Overview of all messages from tenants</p>
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Tenants</th>
-                        <th>Messages</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><button class="btn btn-outline-primary w-100">Tenant Name</button></td>
-                        <td><textarea readonly class="form-control" name="" id="" cols="auto" rows="1"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td><button class="btn btn-outline-primary w-100">Tenant Name</button></td>
-                        <td><textarea readonly class="form-control" name="" id="" cols="auto" rows="1"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td><button class="btn btn-outline-primary w-100">Tenant Name</button></td>
-                        <td><textarea readonly class="form-control" name="" id="" cols="auto" rows="1"></textarea></td>
-                    </tr>
-                </tbody>
-            </table>
+        <h2>Messages</h2>
+        <p>Overview of all messages from tenants</p>
+        <div id="periodic-refresh5secs-overviewMessages" class="admin-viewAll-messages">
+            <!-- Dynamic content, load every 5 secs -->
+            <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
         </div>
         <br>
         <!-- Scheduled Visits -->
@@ -250,5 +200,9 @@ if (!isset($_SESSION["admin-username"])) {
     </div>
     <!-- Script src to dynamically refresh and load bookings -->
     <script type="text/javascript" src="../../js/dynamic-load-Bookings.js"></script>
+    <!-- Script src to dynamically load billings overview -->
+    <script type="text/javascript" src="../../js/dynamic-load-adminBillingsOverview.js"></script>
+    <!-- Script src to dynamically laod messages -->
+    <script type="text/javascript" src="../../js/dynamic-load-adminAllMsgOverview.js"></script>
 </body>
 </html>

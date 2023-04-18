@@ -137,7 +137,7 @@ else {
     <div class="container px-5">
         <div class="card" style="width: 100%;">
             <div class="card">
-                <?php '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($tenant_photo).'" alt="Tenant Photo">'; ?>
+                <?php echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($tenant_photo).'" alt="Tenant Photo">'; ?>
             </div>
             <div class="card-header" id=""><?php echo $tenant_full_name; ?></div>
             <div class="card-body">
@@ -160,5 +160,6 @@ else {
         <?php echo '<a class="btn btn-outline-success" href="update.php?id='.$id.'">Update Account</a>';  ?>
         <?php echo '<a class="btn btn-outline-danger" href="delete.php?id='.$id.'">Remove Account</a>';  ?>
     </div>
+    <br><br>
 </body>
 </html>

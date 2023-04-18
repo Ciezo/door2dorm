@@ -82,18 +82,6 @@ CREATE TABLE IF NOT EXISTS AVAILABLE_ROOMS(
     -- reference the category id  
 );
 
--- Category of Rooms facts
--- Ac rooms
--- - All gender
--- - Male
--- - Female
-
--- Fan rooms
--- - All gender
--- - Male
--- - Female 
--- CREATE TABLE IF NOT EXISTS ROOM_CATEG(); 
-
 CREATE TABLE IF NOT EXISTS MESSAGES (
     msg_id      INT             NOT NULL auto_increment, 
     msg_type    VARCHAR(100)    NOT NULL,
@@ -102,5 +90,79 @@ CREATE TABLE IF NOT EXISTS MESSAGES (
     tenant_id   INT             NOT NULL,
 
     PRIMARY KEY (msg_id),
+    FOREIGN KEY (tenant_id) REFERENCES TENANT(tenant_id)
+);
+
+-- Payments Entity which holds all payment types
+-- Payment types: 
+--      (1) Rental 
+--      (2) Electricity 
+--      (3) Water
+-- 
+--  tenant_posted  this attribute is used to identify which tenant owns this payment
+--  tenant_id   this attribute is used to associate an existing tenant using their ID    
+CREATE TABLE IF NOT EXISTS PAYMENTS_RENTAL (
+    payment_id      INT             NOT NULL auto_increment, 
+    tenant_id       INT             NOT NULL,
+    charges         DOUBLE          NOT NULL,
+    payment_by      VARCHAR(255)    NOT NULL, 
+    due_date        VARCHAR(255)    NOT NULL, 
+    to_be_paid_by   VARCHAR(255)    NOT NULL,
+    date_paid       VARCHAR(255)    NOT NULL,
+    payment_status  VARCHAR(255)    NOT NULL,
+
+    PRIMARY KEY (payment_id),
+    FOREIGN KEY (tenant_id) REFERENCES TENANT(tenant_id)
+);
+
+CREATE TABLE IF NOT EXISTS PAYMENTS_ELECTRICITY (
+    payment_id      INT             NOT NULL auto_increment, 
+    tenant_id       INT             NOT NULL,
+    charges         DOUBLE          NOT NULL,
+    payment_by      VARCHAR(255)    NOT NULL, 
+    due_date        VARCHAR(255)    NOT NULL, 
+    to_be_paid_by   VARCHAR(255)    NOT NULL,
+    date_paid       VARCHAR(255)    NOT NULL,
+    payment_status  VARCHAR(255)    NOT NULL,
+
+    PRIMARY KEY (payment_id),
+    FOREIGN KEY (tenant_id) REFERENCES TENANT(tenant_id)
+);
+
+CREATE TABLE IF NOT EXISTS PAYMENTS_WATER (
+    payment_id      INT             NOT NULL auto_increment, 
+    tenant_id       INT             NOT NULL,
+    charges         DOUBLE          NOT NULL,
+    payment_by      VARCHAR(255)    NOT NULL, 
+    due_date        VARCHAR(255)    NOT NULL, 
+    to_be_paid_by   VARCHAR(255)    NOT NULL,
+    date_paid       VARCHAR(255)    NOT NULL,
+    payment_status  VARCHAR(255)    NOT NULL,
+
+    PRIMARY KEY (payment_id),
+    FOREIGN KEY (tenant_id) REFERENCES TENANT(tenant_id)
+);
+
+-- This Entity shall be used to represent proof of payments facts
+CREATE TABLE IF NOT EXISTS PROOF_OF_PAYMENT (
+    proof_id        INT             NOT NULL auto_increment, 
+    bill_type       VARCHAR(255)    NOT NULL,
+    paid_ref_code   VARCHAR(255)    NOT NULL, 
+    proof_by        VARCHAR(255)    NOT NULL,
+    date_uploaded   VARCHAR(255)    NOT NULL, 
+    img_proof       LONGBLOB        NOT NULL,
+
+    PRIMARY KEY (proof_id)
+);
+
+-- This Entity shall be used by the FaceNet to pull images from our remote database
+CREATE TABLE IF NOT EXISTS FACE_IMG (
+    face_id         INT            NOT NULL auto_increment,
+    tenant_id       INT            NOT NULL, 
+    tenant_name     VARCHAR(255)   NOT NULL, 
+    face_status     VARCHAR(255)   NOT NULL, 
+    face_capture    LONGBLOB       NOT NULL,
+
+    PRIMARY KEY (face_id),
     FOREIGN KEY (tenant_id) REFERENCES TENANT(tenant_id)
 );

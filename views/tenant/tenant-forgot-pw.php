@@ -108,7 +108,7 @@ if (isset($_POST["recover-account"])) {
     </nav>
 
     <!-- Content goes here -->
-    <div class="wrapper">
+    <div class="wrapper px-5">
        <div class="card px-5">
             <h2>Recover my account</h2>
             <form action="tenant-forgot-pw.php" method="POST">

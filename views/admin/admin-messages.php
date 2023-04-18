@@ -65,7 +65,7 @@ if (!isset($_SESSION["admin-username"])) {
                 <a class="nav-item nav-link px-2" href="admin-tenants.php">Tenants</a>
                 <a class="nav-item nav-link px-2" href="admin-securityLogs.php">Security Logs</a>
                 <a class="nav-item nav-link px-2" href="admin-facenet.php">FaceNet</a>
-                <a class="nav-item nav-link active px-2" href="#">Messages</a>
+                <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-envelope"></i> Messages</a>
                 <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>
@@ -93,40 +93,13 @@ if (!isset($_SESSION["admin-username"])) {
                         </li>
                     </ul>
                 </div>
+                <!-- Dynamically load messages  -->
                 <div id="periodic-refresh8secs-messagesByGeneral" class="card-body overflow-auto">
-                    <table class="table overflow-auto">
-                            <thead>
-                                <tr>
-                                    <th>Tenants</th>
-                                    <th>Messages</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                    require("../../api/messages/receive.php");
-                                    $results = getMessages_byGeneral(); 
-
-                                    if ($results->num_rows > 0) {
-                                        // Fetch as rows 
-                                        while($rows = mysqli_fetch_assoc($results)) {
-                                            echo '<tr>';
-                                            echo    '<td><button class="btn btn-outline-primary w-100">'.$rows["sent_by"].'</button></td>';
-                                            echo    '<td><textarea readonly class="form-control" name="" id="" cols="auto" rows="1">'.$rows["msg_body"].'</textarea></td>';
-                                            echo '</tr>';
-                                        }
-                                    }
-
-                                    else {
-                                        echo '<td><div class="alert alert-danger"><em>No messages found!</em></div></td>';
-                                        echo '<td></td>';
-                                        // echo '<div class="alert alert-danger"><em>No messages found!</em></div>';
-                                    }
-                                ?>
-                            </tbody>
-                    </table>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Script src to dynamically load general messages -->
+    <script type="text/javascript" src="../../js/dynamic-load-adminMsgGeneral.js"></script>
 </body>
 </html>

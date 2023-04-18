@@ -77,11 +77,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
         $_err_visitor_contact = "Please, provide your mobile number!";
     }
 
-    else if (!ctype_digit($input_contact_num)) {
-        $_err_visitor_contact = "Please, provide your mobile number!";
-    }
-
-    else if (!filter_var($input_contact_num, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_contact_num)) {
+    else if (!filter_var($input_contact_num, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s+]+$/"))) || preg_match("/[-!$%^&*()_|~=`{}\[\]:\";'<>?,.\/]/", $input_contact_num)) {
         $_err_visitor_contact = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
     }
     
@@ -114,21 +110,14 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Validate uploaded ID photo
-    $input_id_photo = trim($_POST["visitor-ID"]);
-    if (empty($input_id_photo)) {
-        $_err_visitor_ID = "Please, upload a copy of your valid ID";
-    } 
-
-    else {
-        // If there is an uploaded file, check if it exceeds 5 MB
-        if (isset($_FILES["visitor-ID"])) {
-            if ($_FILES["visitor-ID"]["size"] > 500000) {
-                $_err_visitor_ID = "Less than 5 MB only!";
-            }
-            $temp_path = $_FILES["visitor-ID"]["tmp_name"];
-            // Now, assign the temporary path to the expected variable
-            $visitor_ID = $temp_path; 
+    // If there is an uploaded file, check if it exceeds 5 MB
+    if (isset($_FILES["visitor-ID"])) {
+        if ($_FILES["visitor-ID"]["size"] > 5242880) {
+            $_err_visitor_ID = "Less than 5 MB only!";
         }
+        // Now, assign the temporary path to the expected variable
+        $temp_path = addslashes(file_get_contents($_FILES["visitor-ID"]["tmp_name"]));
+        $visitor_ID = $temp_path; 
     }
 
     // If all values are correct. And error variables are empty 
@@ -215,6 +204,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 <a class="nav-item nav-link active px-2" href="#">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link px-2" href="tenant/tenant-login.php">Tenant</a>
                 <a class="nav-item nav-link px-2" href="admin/admin-login.php">Admin</a>
+                <b><a class="nav-item nav-link fa-solid fa-book-bookmark fa-bounce btn btn-warning px-2" href="#sched-book-visit" style="color:black">  Book Now!</a></b>
             </div>
         </div>
     </nav>
@@ -222,15 +212,18 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Content Wrapper -->
     <div class="container px-5">
         <div id="loadingDiv"><img src="../assets/images/Rolling-1s-200px.gif" alt="Loading screen"></div>
-        <div id="periodic-refresh-5secs" class="rooms-avail-table">
-            <!-- Dynamic Table: Listing of Available rooms -->
-            <!-- Create a query to select all available rooms -->
+        <div class="card px-5 mx-2">
+            <h1>List Of Available Rooms</h1>
+            <div id="periodic-refresh-5secs" class="rooms-avail-table">
+                <!-- Dynamic Table: Listing of Available rooms -->
+                <!-- Create a query to select all available rooms -->
+            </div>
         </div>
 
         <div id="sched-book-visit" class="request-visit">
             <h1>Schedule Visits</h1>
             <!-- Fill up form for a visitor -->
-            <form action="landing_page.php" method="POST">
+            <form action="landing_page.php" method="POST" enctype="multipart/form-data">
                 <!-- Visitor full name -->
                 <div class="form-group">
                     <label for="Full name of visitor">Full Name</label>
@@ -248,7 +241,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 <!-- Visitor contact number -->
                 <div class="form-group">
                     <label for="Contact Number of Visitor">Contact Number</label>
-                    <input type="text" name="visitor-contact" id="fetch_visitContact" placeholder="09XXXXXXXXX" class="form-control <?php echo (!empty($_err_visitor_contact)) ? 'is-invalid' : ''; ?>" value="<?php echo $visitor_contact ; ?>">
+                    <input type="text" name="visitor-contact" id="fetch_visitContact" placeholder="+639000000000" class="form-control <?php echo (!empty($_err_visitor_contact)) ? 'is-invalid' : ''; ?>" value="<?php echo $visitor_contact ; ?>">
                     <span class="invalid-feedback"><?php echo $_err_visitor_contact ;?></span>
                 </div>
                 <br>
@@ -269,7 +262,27 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 <!-- Visitor ID upload -->
                 <div class="form-group">
                     <label for="Upload a photo">Upload a photo of your valid ID</label>
-                    <input type="file" class="form-control" name="visitor-ID" id="fetch_photo">
+                    <input type="file" id="fetch_photo" name="visitor-ID" class="form-control" required>
+                    <div class="card px-5 mt-2 mb-2">
+                        <h5>Preview</h5>
+                        <img id="previewImage" class="card-img-top mb-2" width="600" height="auto">
+                        <script>
+                            const fetchFileInput = document.getElementById("fetch_photo");
+                            const renderImgModal = document.getElementById("previewImage");
+                                fetchFileInput.addEventListener("change", function() {
+                                    const file = fetchFileInput.files[0];
+                                    const reader = new FileReader();
+                                    reader.addEventListener("load", function() {
+                                        renderImgModal.src = reader.result;
+                                        });
+
+                                        if (file) {
+                                            reader.readAsDataURL(file);
+                                        }
+                                });
+                        </script>   
+                    </div>
+
                     <span class="invalid-feedback"></span>
                     <span class="invalid-feedback"><?php echo $_err_visitor_ID ;?></span>
                 </div>
@@ -291,7 +304,22 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <div class="modal-body">
                             <div class="card" style="width: 100%;">
-                                <img class="card-img-top" src="" alt="Visitor valid ID" align="center" id="modal_preview_VisitorID">
+                                <img class="card-img-top" alt="" align="center" id="modal_preview_VisitorID" width="50%" height="50%">
+                                <script>
+                                    const fileFetchInput = document.getElementById("fetch_photo");
+                                    const renderPreviewImgOnSubmit = document.getElementById("modal_preview_VisitorID");
+                                    fileFetchInput.addEventListener("change", function() {
+                                        const file = fileFetchInput.files[0];
+                                        const reader = new FileReader();
+                                        reader.addEventListener("load", function() {
+                                            renderPreviewImgOnSubmit.src = reader.result;
+                                        });
+
+                                        if (file) {
+                                            reader.readAsDataURL(file);
+                                        }
+                                    });
+                                </script>
                                 <div class="card-header" id="modal_preview_VisitorFullName"></div>
                                 <div class="card-body">
                                     <p id="modal_preview_visitPurpose"></p>
@@ -318,14 +346,12 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                                 */
 
                                 function submitForm() {
-                                    var photo = document.getElementById("fetch_photo").value;
                                     var full_name = document.getElementById("fetch_fullName").value;
                                     var visit_purpose = document.getElementById("fetch_visitPurpose").value;
                                     var visit_contact = document.getElementById("fetch_visitContact").value;
                                     var visit_time = document.getElementById("fetch_visitTime").value;
                                     var visit_date = document.getElementById("fetch_visitDate").value;
                                     
-                                    document.getElementById("modal_preview_VisitorID").src=photo;
                                     document.getElementById("modal_preview_VisitorFullName").innerHTML = full_name;
                                     document.getElementById("modal_preview_visitPurpose").innerHTML = "<b>My Visiting Purpose:</b><br>" + visit_purpose;
                                     document.getElementById("modal_preview_VisitDate").innerHTML = "<b>Scheduled at: </b>" + visit_date;

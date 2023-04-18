@@ -14,7 +14,7 @@ if (!isset($_SESSION["admin-username"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messages</title>
+    <title>Viewing all tenant captures</title>
 
     <!-- Bootstrap from https://getbootstrap.com/ -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -46,6 +46,19 @@ if (!isset($_SESSION["admin-username"])) {
             color: white; 
             border-radius: 5px;
         }
+        .row {
+            padding-top: 50px;
+        }
+        #tenantFacePhoto:hover {
+            width: 110%;
+            height: auto;
+            transition: width 0.5s;
+        }
+        #tenantFacePhoto {
+            width: 100%;
+            height: auto;
+            transition: width 0.5s;
+        }
     </style>
 </head>
 <body>
@@ -64,8 +77,8 @@ if (!isset($_SESSION["admin-username"])) {
                 <a class="nav-item nav-link px-2" href="admin-payment.php">Payment</a>
                 <a class="nav-item nav-link px-2" href="admin-tenants.php">Tenants</a>
                 <a class="nav-item nav-link px-2" href="admin-securityLogs.php">Security Logs</a>
-                <a class="nav-item nav-link px-2" href="admin-facenet.php">FaceNet</a>
-                <a class="nav-item nav-link active px-2" href="#">Messages</a>
+                <a class="nav-item nav-link active px-2" href="admin-facenet.php"><i class="fa-regular fa-id-badge"></i> FaceNet</a>
+                <a class="nav-item nav-link px-2" href="admin-messages.php">Messages</a>
                 <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>
@@ -73,34 +86,43 @@ if (!isset($_SESSION["admin-username"])) {
 
     <!-- Content goes here -->
     <div class="container px-5">
-        <div class="messages-listAll">
-            <h2>Messages</h2>
-            <p>This page displays all the submitted queries from tenants</p>
-            <div class="card text-center">
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-messages.php">General</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="admin-messages-repairs.php">Repairs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-messages-feedback.php">Feedback</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-messages-report.php">Report</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Dynamically load messages -->
-                <div id="periodic-refresh8secs-messagesByRepairs" class="card-body overflow-auto">
-                </div>
-            </div>
+        <div class="table">
+            <?php 
+                // Fetch all tenant face captures from the database
+                $sql = "SELECT * FROM FACE_IMG"; 
+                $results = mysqli_query($conn, $sql);
+                if ($results->num_rows > 0) {
+                    $i = 0;
+                    while ($rows = mysqli_fetch_assoc($results)) {
+                        if ($i % 4 == 0 ) {     // Start a new row every fourth column
+                            echo '<div class="row">';
+                        }
+                        echo    '<div class="col-3">';
+                        echo        '<div class="card" style="width: 100%;">';
+                        echo            '<div class="card-header">';
+                        echo                '<h6 style="text-align: center;"><b>'.$rows["tenant_name"].'</b></h6>';
+                        echo            '</div>';
+                                        /** Hide the overlapping images inside the fixed height of the card-body */
+                        echo            '<div class="card-body" style="height: 250px; overflow: hidden;">';
+                        echo                '<img id="tenantFacePhoto" class="card-img-top" src="data:image/png;base64,'.base64_encode($rows["face_capture"]).'"'; echo 'alt="Tenant face photo" style="object-fit: cover;">'; // set object-fit to cover
+                        echo            '</div>';
+                        echo            '<div class="card-footer"></div>';
+                        echo        '</div>';
+                        echo    '</div>';
+                        if ($i % 4 == 3 || $i == $results->num_rows - 1) {
+                            // Close the row after fourth column
+                            echo '</div>';
+                        }
+                        $i++;
+                    }
+                } else {
+                    // Load up unique error results
+                    include ("../error/emptyFaceDatabase.php");
+                }
+            ?>
         </div>
+        <br><br>
+        <a href="admin-facenet.php" class="btn btn-outline-primary mb-5">Back</a>
     </div>
-
-    <!-- Script src to dyanmically load messsages -->
-    <script type="text/javascript" src="../../js/dynamic-load-adminMsgRepairs.js"></script>
 </body>
 </html>

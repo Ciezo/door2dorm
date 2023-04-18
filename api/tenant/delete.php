@@ -16,12 +16,59 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Create an sQL Delete statement
     $sql = "DELETE FROM TENANT WHERE tenant_id = $id";
 
-    // Begin executing the query 
+    // Delete the associated img 
+    $sql_delete_assoc_img = "DELETE FROM IMG_TENANT_ASSOC WHERE img_id = $id";
+
+    // Delete the facenet img 
+    $sql_delete_registered_face = "DELETE FROM FACE_IMG WHERE tenant_id = $id";
+
+    // Delete all messages from tenant
+    $sql_delete_msgs = "DELETE FROM MESSAGES WHERE tenant_id = $id";
+
+    /** Deleting all billings from tenant */
+    $sql_delete_rentals = "DELETE FROM PAYMENTS_RENTAL WHERE tenant_id = $id";
+    $sql_delete_electricity = "DELETE FROM PAYMENTS_ELECTRICITY WHERE tenant_id = $id";
+    $sql_delete_water = "DELETE FROM PAYMENTS_WATER WHERE tenant_id = $id";
+
+    /**
+     * Tenant is to IMG_TENANT_ASSOC, but not FK
+     * Tenant is to FACE_IMG, where tenant_id is FK
+     * Order of deletion: 
+     *      1. IMG_TENANT_ASSOC 
+     *      2. FACE_IMG     (FK)
+     *      3. MESSAGES      (FK)
+     *      4. PAYMENTS_RENTAL (FK)
+     *      5. PAYMENTS_ELECTRICITY (FK)
+     *      6. PAYMENTS_WATER (FK)
+     *      4. TENANT       (PARENT)
+     */
+    // First delete the related Entitities to Tenant
+    if (mysqli_query($conn, $sql_delete_assoc_img)) {
+        // Once this executes, now, delete the FaceNet image
+        if (mysqli_query($conn, $sql_delete_registered_face)) {
+            // Once this executes delete all messages from Tenant
+            if (mysqli_query($conn, $sql_delete_msgs)) {
+                // Once this executes, delete payments and billings records
+                if (mysqli_query($conn, $sql_delete_rentals)) {
+                    mysqli_query($conn, $sql_delete_electricity);
+                    mysqli_query($conn, $sql_delete_water);
+                }
+                // Once successful, delete the main Tenant record.
+                if (mysqli_query($conn, $sql)) {
+                    header("location: ../../views/admin/admin-tenants.php");
+                    exit();
+                } else { header("location: ../../views/error/error2.php"); }
+            } else { header("location: ../../views/error/error2.php"); }
+        } else { header("location: ../../views/error/error2.php"); }
+    } else { header("location: ../../views/error/error2.php"); }
+
+
+    // Begin executing the query to delete the main tenant record
     if (mysqli_query($conn, $sql)) {
         // Once, the record is deleted redirect to news feed
         header("location: ../../views/admin/admin-tenants.php");
         exit();
-    }
+    } else { header("location: ../../views/error/error2.php"); }
 
     // Close connection
     $conn->close();

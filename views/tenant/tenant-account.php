@@ -101,8 +101,7 @@ $conn->close();
     <!-- Bootstrap navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
         <a class="navbar-brand" href="#">      
-            <i class="fa-solid fa-house-user"></i>
-                Welcome, <?php echo $_SESSION["tenant-username"]?>! 
+                Hi <i class="fa-regular fa-hand fa-shake"></i> Welcome, <?php echo $_SESSION["tenant-username"]?>! 
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -110,7 +109,7 @@ $conn->close();
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link px-2" href="tenant-home.php">Home <span class="sr-only"></span></a>
-                <a class="nav-item nav-link active px-2" href="#">My Account </span></a>
+                <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-circle-user"></i> My Account </span></a>
                 <a class="nav-item nav-link px-2" href="tenant-payment.php">Payment </span></a>
                 <a class="nav-item nav-link px-2" href="tenant-securityLogs.php">Security Logs </span></a>
                 <a class="nav-item nav-link px-2" href="tenant-messages.php">Message </span></a>
@@ -122,60 +121,90 @@ $conn->close();
     <!-- Content goes here -->
     <div class="container px-5">
        <!-- Tenant Account Information  -->
-       <div id="periodic-refresh10secs-tenant-acc-info" class="tenant-account-information">
-            <h2>Tenant Account Information</h2>
-            <p>This is your profile where your personal information resides</p>
-            <div class="card" style="width: 50%">
-                <div class="card-header"><?php echo $tenant_full_name; ?></div>
-                <!-- Tenant Photo -->
-                <div class="card">
-                    <?php '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($tenant_photo).'" alt="Tenant Photo">'; ?>
+       <div class="card px-5 mx-2 mt-2 mb-5">
+           <div id="periodic-refresh10secs-tenant-acc-info" class="tenant-account-information">
+                <h2 class="mt-2">Tenant Account Information</h2>
+                <p>This is your profile where your personal information resides</p>
+                <div class="card" style="width: 95%">
+                    <div class="card-header"><h2><b><?php echo $tenant_full_name; ?></b></h2></div>
+                    <!-- Tenant Info -->
+                    <div class="card-body">
+                        <div class="table">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card px-2 mx-2 mt-2 mb-2">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><i class="fa-regular fa-address-card"></i> Tenant ID: <?php echo $tenant_id; ?></li>
+                                            <li class="list-group-item"><i class="fa-solid fa-square-envelope"></i> Email: <?php echo $tenant_email; ?></li>
+                                            <li class="list-group-item"><i class="fa-solid fa-comment-sms"></i> Mobile No.: <?php echo $tenant_number; ?></li>
+                                            <li class="list-group-item"><i class="fa-solid fa-truck-medical"></i> Emergency Contact No.: +<?php echo $tenant_emergNum; ?></li>
+                                        </ul>
+                                    </div>
+                                    <div class="card px-2 mx-2" style="height: 280px">
+                                        <h6><i class="fa-solid fa-cloud"></i> Write your status here</h6>
+                                        <textarea id="tenant-write-status" class="form-control" name="tenant-self-status" cols="30" rows="5" placeholder="Today I am feeling..."></textarea>
+                                        <button class="btn btn-outline-primary mt-2" id="post_status" onclick="set_tenant_status()">Post</button>
+                                        <div class="card px-2 mt-2 overflow-auto" style="height: 150px">
+                                            <p id="status-response"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <!-- Tenant Photo -->
+                                    <div class="card">
+                                        <?php echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($tenant_photo).'" alt="Tenant Photo">'; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Tenant Info -->
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Tenant ID: <?php echo $tenant_id; ?></li>
-                        <li class="list-group-item">Email: <?php echo $tenant_email; ?></li>
-                        <li class="list-group-item">Mobile No.: <?php echo $tenant_number; ?></li>
-                        <li class="list-group-item">Emergency Contact No.: <?php echo $tenant_emergNum; ?></li>
-                    </ul>
-                </div>
-            </div>
+           </div>
        </div>
 
        <!-- Tenant Assigned Rooms -->
-       <div id="periodic-refresh10secs-tenant-room" class="tenant-assigned-room">
-            <h2>My Room</h2>
-            <p>This is your current occupying room</p>
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr class="table-dark">
-                        <th>Room No.</th>
-                        <th>Type</th>
-                        <th>Category</th>
-                        <th>Details</th>
-                        <th>Monthly Pricing</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?php echo $room_number ?></td>
-                        <td><?php echo $room_type ?></td>
-                        <td><?php echo $room_category ?></td>
-                        <td><?php echo $room_details ?></td>
-                        <td><?php echo $room_pricing ?></td>
-                    </tr>
-                </tbody>
-            </table>
+       <div class="card px-5 mx-2 mt-2 mb-5">
+           <div id="periodic-refresh10secs-tenant-room" class="tenant-assigned-room">
+                <h2 class="mt-2">My Room</h2>
+                <p>This is your current occupying room</p>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr class="table-dark">
+                            <th>Room No.</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th>Details</th>
+                            <th>Monthly Pricing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><?php echo $room_number ?></td>
+                            <td><?php echo $room_type ?></td>
+                            <td><?php echo $room_category ?></td>
+                            <td><?php echo $room_details ?></td>
+                            <td><?php echo $room_pricing ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+           </div>
        </div>
 
        <!-- Tenant E-contract -->
-       <div class="tenant-eContract">
-            <h2>Review your contact</h2>
-            <p>You can review your signed contract here</p>
-            <button class="btn btn-outline-primary">Download Copy</button>
-            <button class="btn btn-outline-primary">View E-contract</button>
+       <div class="card px-5 mx-2 mt-2 mb-5">
+           <div class="tenant-eContract">
+                <h2 class="mt-2">Review your contact</h2>
+                <p>You can review your signed contract here</p>
+                <button class="btn btn-outline-primary">Download Copy</button>
+                <button class="btn btn-outline-primary">View E-contract</button>
+           </div>
        </div>
     </div>
+    <script>
+        function set_tenant_status() {
+            var tenant_status_res = document.getElementById("tenant-write-status").value;
+            document.getElementById("status-response").innerHTML = tenant_status_res;
+        }
+    </script>
 </body>
 </html>
