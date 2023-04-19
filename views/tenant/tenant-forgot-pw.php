@@ -88,7 +88,7 @@ if (isset($_POST["recover-account"])) {
 </head>
 <body>
     <!-- Bootstrap navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
         <a class="navbar-brand" href="#">      
             <i class="fa-solid fa-building-user"></i>
                 Door2Dorm 
@@ -98,9 +98,9 @@ if (isset($_POST["recover-account"])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" href="../landing_page.php">Home <span class="sr-only"></span></a>
-                <a class="nav-item nav-link active" href="tenant-login.php">Tenant</a>
-                <a class="nav-item nav-link" href="../admin/admin-login.php">Admin</a>
+                <a class="nav-item nav-link px-2" href="../landing_page.php">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link active px-2" href="tenant-login.php">Tenant</a>
+                <a class="nav-item nav-link px-2" href="../admin/admin-login.php">Admin</a>
             </div>
         </div>
     </nav>
@@ -130,7 +130,9 @@ if (isset($_POST["recover-account"])) {
                 </div>
                 <br>
             </form>
-       </div>
+        </div>
+        <br>
+        <a href="tenant-login.php" class="btn btn-primary">Back</a>
     </div>
 </body>
 </html>
