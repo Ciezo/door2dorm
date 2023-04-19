@@ -124,7 +124,7 @@ else {
     </nav>
 
     <!-- Content Wrapper -->
-    <div class="container px-5">
+    <div class="container">
         <div class="card">
             <div class="card-body">
                 <!-- Room Image -->

@@ -239,7 +239,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <h2>Setup an available unit or room</h2>
         <p><i>Using this page you can list available units or rooms for visitors and tenants to see</i></p>
         <hr><br>

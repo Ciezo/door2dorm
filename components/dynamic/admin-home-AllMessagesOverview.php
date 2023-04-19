@@ -3,7 +3,7 @@
     require("../../api/messages/receive.php");
 ?>
 <!-- General messages -->
-<div class="card px-5 mx-2 mb-2">
+<div class="card px-2 mx-2 mb-2">
     <h5 class="mt-2">General</h5>
     <p>These are general messages submitted by tenants</p>
     <table class="table px-5 mx-2">

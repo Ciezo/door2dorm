@@ -139,7 +139,7 @@ $conn->close();
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
        <!-- Tenant Account Overview -->
        <div class="tenant-acc-overview">
             <h2>My Account</h2>

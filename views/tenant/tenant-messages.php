@@ -66,7 +66,7 @@ if (!isset($_SESSION["tenant-username"])) {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <div class="tenant-send-msg">
             <h2>Create your message: Send feedback, file complaints or reports, or request for repairs</h2>
             <p>Issue your inquiries to the admin!</p>

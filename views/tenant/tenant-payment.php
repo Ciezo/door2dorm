@@ -195,7 +195,7 @@ if (isset($_POST["upload-proof-payment"]) && $_SERVER["REQUEST_METHOD"] == "POST
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <!-- Tenant Billing Information -->
         <div class="tenant-billing-information">
             <h2>Tenant Billing Information</h2>

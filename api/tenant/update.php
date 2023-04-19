@@ -256,7 +256,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <h2>Update Tenant Account</h2>
         <p><i>Modify and update tenant account information using this page</i></p>
         <hr>

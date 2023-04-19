@@ -119,9 +119,9 @@ $conn->close();
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
        <!-- Tenant Account Information  -->
-       <div class="card px-5 mx-2 mt-2 mb-5">
+       <div class="card px-3 mx-2 mt-2 mb-5">
            <div id="periodic-refresh10secs-tenant-acc-info" class="tenant-account-information">
                 <h2 class="mt-2">Tenant Account Information</h2>
                 <p>This is your profile where your personal information resides</p>
@@ -140,7 +140,7 @@ $conn->close();
                                             <li class="list-group-item"><i class="fa-solid fa-truck-medical"></i> Emergency Contact No.: +<?php echo $tenant_emergNum; ?></li>
                                         </ul>
                                     </div>
-                                    <div class="card px-2 mx-2" style="height: 280px">
+                                    <div class="card px-2 mx-2">
                                         <h6><i class="fa-solid fa-cloud"></i> Write your status here</h6>
                                         <textarea id="tenant-write-status" class="form-control" name="tenant-self-status" cols="30" rows="5" placeholder="Today I am feeling..."></textarea>
                                         <button class="btn btn-outline-primary mt-2" id="post_status" onclick="set_tenant_status()">Post</button>
@@ -163,7 +163,7 @@ $conn->close();
        </div>
 
        <!-- Tenant Assigned Rooms -->
-       <div class="card px-5 mx-2 mt-2 mb-5">
+       <div class="card px-3 mx-2 mt-2 mb-5">
            <div id="periodic-refresh10secs-tenant-room" class="tenant-assigned-room">
                 <h2 class="mt-2">My Room</h2>
                 <p>This is your current occupying room</p>
@@ -191,7 +191,7 @@ $conn->close();
        </div>
 
        <!-- Tenant E-contract -->
-       <div class="card px-5 mx-2 mt-2 mb-5">
+       <div class="card px-3 mx-2 mt-2 mb-5">
            <div class="tenant-eContract">
                 <h2 class="mt-2">Review your contact</h2>
                 <p>You can review your signed contract here</p>

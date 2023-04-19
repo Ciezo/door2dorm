@@ -66,7 +66,7 @@ if (!isset($_SESSION["tenant-username"])) {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
        hello
     </div>
 </body>

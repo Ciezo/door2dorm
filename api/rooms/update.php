@@ -242,7 +242,7 @@ else {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <h2>Update Contents</h2>
         <p><i>Modify and udpate room or unit information using this page</i></p>
         <hr>

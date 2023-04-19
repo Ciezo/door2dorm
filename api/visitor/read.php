@@ -123,7 +123,7 @@ else {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <div class="card" style="width: 50%;">
             <?php echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($visitor_ID).'"'; 
                   echo 'alt="Visitor ID">'; ?>
