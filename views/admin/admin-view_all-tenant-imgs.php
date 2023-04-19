@@ -85,7 +85,7 @@ if (!isset($_SESSION["admin-username"])) {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <div class="table">
             <?php 
                 // Fetch all tenant face captures from the database

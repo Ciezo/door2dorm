@@ -119,18 +119,18 @@ if(isset($_POST['tenant-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
-        <div class="card px-2 mx-2 mt-3 mb-5">
+    <div class="container">
+        <div class="card mx-2 mt-3 mb-5">
             <div class="table mb-1">
                 <div class="row">
                     <!-- Left-side -->
-                    <div class="col-4 left-side mx-2 mt-1" style="overflow: hidden;">
+                    <div class="col-4 left-side mx-3 mt-1" style="overflow: hidden;">
                         <h2 id="header_welcome">Sign in now as a dedicated tenant!</h2>
                     </div>
                     <!-- right-side -->
                     <div class="col right-side">
                         <center>
-                            <img src="../../assets/images/resident-vector.png" alt="Friendly Admin Image Icon" width="250" height="250">
+                            <img src="../../assets/images/resident-vector.png" alt="Friendly Admin Image Icon" width="200" height="200" style="overflow: hidden;">
                                 <form action="tenant-login.php" class="tenant-login" method="POST">
                                     <h1>Hello! 👋<br>Welcome Back, Tenant!</h1>
                                     <small class="px-2 mb-3 text-secondary">Enter the account credentials given to you by the dormitory admin</small>

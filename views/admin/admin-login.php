@@ -116,17 +116,17 @@ if(isset($_POST['admin-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
-        <div class="card px-2 mx-2 mt-3 mb-5">
+    <div class="container">
+        <div class="card mx-2 mt-3 mb-5">
             <div class="table mb-1">
                 <div class="row">
                     <!-- Left-side -->
-                    <div class="col-4 left-side mx-2 mt-1" style="overflow: hidden;">
+                    <div class="col-4 left-side mx-3 mt-1" style="overflow: hidden;">
                         <h2 id="welcome_header">Continue as an administrator</h2>
                     </div>
                     <div class="col right-side">
                         <center>
-                            <img src="../../assets/images/admin-vector.png" alt="Friendly Admin Image Icon" width="250" height="250">
+                            <img src="../../assets/images/admin-vector.png" alt="Friendly Admin Image Icon" width="200" height="200">
                             <form action="admin-login.php" class="admin-login-form" method="POST">
                                 <h1>Welcome, Admin</h1>
                                 <label><i class="fa-solid fa-user-secret"></i> Username</label>

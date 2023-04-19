@@ -72,7 +72,7 @@ if (!isset($_SESSION["admin-username"])) {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <div class="messages-listAll">
             <h2>Messages</h2>
             <p>This page displays all the submitted queries from tenants</p>

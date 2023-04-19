@@ -78,10 +78,8 @@ if (isset($_POST["recover-account"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
-        .wrapper {
+        .container {
             padding-top: 50px;
-            margin: 0 auto;
-            width: 500px;
         }
         .navbar .navbar-brand {
             padding-left: 35px;
@@ -108,8 +106,8 @@ if (isset($_POST["recover-account"])) {
     </nav>
 
     <!-- Content goes here -->
-    <div class="wrapper px-5">
-       <div class="card px-5">
+    <div class="container">
+       <div class="card px-5 mx-2">
             <h2>Recover my account</h2>
             <form action="tenant-forgot-pw.php" method="POST">
                 <!-- Email -->

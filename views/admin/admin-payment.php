@@ -125,7 +125,7 @@ if (isset($_POST["select-tenant"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <!-- Current outstanding each tenant payments table -->
         <div id="periodic-refresh5secs-tenants-payments" class="current-tenants-payments">
             <h2>Payments</h2>

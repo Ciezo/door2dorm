@@ -155,7 +155,7 @@ if (isset($_POST["register_face"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <!-- FaceNet -->
         <div class="face-net">
             <h2>Register face capture of a tenant</h2>

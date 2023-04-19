@@ -210,9 +210,9 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 
     <!-- Content Wrapper -->
-    <div class="container px-5">
+    <div class="container">
         <div id="loadingDiv"><img src="../assets/images/Rolling-1s-200px.gif" alt="Loading screen"></div>
-        <div class="card px-5 mx-2">
+        <div class="card px-2 mx-2">
             <h1>List Of Available Rooms</h1>
             <div id="periodic-refresh-5secs" class="rooms-avail-table">
                 <!-- Dynamic Table: Listing of Available rooms -->

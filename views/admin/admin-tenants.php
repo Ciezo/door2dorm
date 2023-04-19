@@ -357,7 +357,7 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <!-- List of tenants balances -->
         <div class="card px-5 mx-2 mt-2">
             <div class="all-tenants-balances">

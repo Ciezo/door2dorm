@@ -76,7 +76,7 @@ if (!isset($_SESSION["admin-username"])) {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <!-- Admin creates list of available rooms -->
         <div class="admin-avail-rooms-list">
             <h2>Available Rooms/Units</h2>

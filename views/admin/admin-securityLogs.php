@@ -75,7 +75,7 @@ if (!isset($_SESSION["admin-username"])) {
     </nav>
 
     <!-- Content goes here -->
-    <div class="container px-5">
+    <div class="container">
         <div class="security-logs">
             <h2>Security Logs</h2>
             <p>Here is the section where security loggins are present using biometric security measures</p>
