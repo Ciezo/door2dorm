@@ -146,13 +146,15 @@ CREATE TABLE IF NOT EXISTS PAYMENTS_WATER (
 -- This Entity shall be used to represent proof of payments facts
 CREATE TABLE IF NOT EXISTS PROOF_OF_PAYMENT (
     proof_id        INT             NOT NULL auto_increment, 
+    tenant_id       INT             NOT NULL, 
     bill_type       VARCHAR(255)    NOT NULL,
     paid_ref_code   VARCHAR(255)    NOT NULL, 
     proof_by        VARCHAR(255)    NOT NULL,
     date_uploaded   VARCHAR(255)    NOT NULL, 
     img_proof       LONGBLOB        NOT NULL,
 
-    PRIMARY KEY (proof_id)
+    PRIMARY KEY (proof_id),
+    FOREIGN KEY (tenant_id) REFERENCES TENANT(tenant_id)
 );
 
 -- This Entity shall be used by the FaceNet to pull images from our remote database

@@ -106,9 +106,10 @@ if (isset($_POST["upload-proof-payment"]) && $_SERVER["REQUEST_METHOD"] == "POST
     if (empty($_err_proof_bill_type) && empty($_err_payment_ref_code) && empty($_err_img_proof) && 
         empty($_err_date_uploaded) && empty($_err_proof_by)) {
             // Create a query to insert proof of payment into the database
-            $sql = "INSERT INTO PROOF_OF_PAYMENT (bill_type, paid_ref_code, proof_by, date_uploaded, img_proof) 
+            $sql = "INSERT INTO PROOF_OF_PAYMENT (tenant_id, bill_type, paid_ref_code, proof_by, date_uploaded, img_proof) 
                     VALUES
                         (
+                            '$tenant_id',
                             '$proof_bill_type', 
                             '$payment_ref_code',
                             '$proof_by',

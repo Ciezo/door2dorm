@@ -30,6 +30,9 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     $sql_delete_electricity = "DELETE FROM PAYMENTS_ELECTRICITY WHERE tenant_id = $id";
     $sql_delete_water = "DELETE FROM PAYMENTS_WATER WHERE tenant_id = $id";
 
+    // Delete all records of submitted proof of payments
+    $sql_delete_proof_of_payments = "DELETE FROM PROOF_OF_PAYMENT WHERE tenant_id = $id";
+
     /**
      * Tenant is to IMG_TENANT_ASSOC, but not FK
      * Tenant is to FACE_IMG, where tenant_id is FK
@@ -40,6 +43,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
      *      4. PAYMENTS_RENTAL (FK)
      *      5. PAYMENTS_ELECTRICITY (FK)
      *      6. PAYMENTS_WATER (FK)
+     *      7. PROOF_OF_PAYMENT (FK)
      *      4. TENANT       (PARENT)
      */
     // First delete the related Entitities to Tenant
@@ -52,6 +56,8 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                 if (mysqli_query($conn, $sql_delete_rentals)) {
                     mysqli_query($conn, $sql_delete_electricity);
                     mysqli_query($conn, $sql_delete_water);
+                    // Once payments and billings are deleted, remove all proof of payments 
+                    mysqli_query($conn, $sql_delete_proof_of_payments);
                 }
                 // Once successful, delete the main Tenant record.
                 if (mysqli_query($conn, $sql)) {
