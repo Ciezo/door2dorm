@@ -1,6 +1,6 @@
 <?php
 require("../config.php");
-session_start(); 
+session_start();
 
 /**
  * @note Create a token based interaction to send a request to the local PHP api
@@ -9,7 +9,7 @@ session_start();
 $_SESSION["user-request-token"] = "";
 date_default_timezone_set('Asia/Manila');
 $request_date_taken = date("d/m/Y");
-$request_token = "req-user-".rand(10,100).$request_date_taken;
+$request_token = "req-user-" . rand(10, 100) . $request_date_taken;
 // Assign the request token to the specified declared SESSION variable
 $_SESSION["user-request-token"] = $request_token;
 
@@ -35,18 +35,12 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     $input_full_name = trim($_POST["visitor-full-name"]);
     if (empty($input_full_name)) {
         $_err_visitor_fullName = "Please, enter your full name!";
-    }
-
-    else if (!filter_var($input_full_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_full_name)) {
+    } else if (!filter_var($input_full_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_full_name)) {
         $_err_visitor_fullName = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
-    }
-
-    else if (!filter_var($input_full_name, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z\s]+$/")))) {
+    } else if (!filter_var($input_full_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
         $_err_visitor_fullName = "Please, enter a valid name full name!";
-    }
-
-    else {
-        $visitor_fullName = $input_full_name; 
+    } else {
+        $visitor_fullName = $input_full_name;
     }
 
 
@@ -55,18 +49,12 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     $input_visit_purpose = trim($_POST["visitor-purpose"]);
     if (empty($input_visit_purpose)) {
         $_err_visit_purpose = "Please, write your visiting purpose";
-    }
-
-    else if (!filter_var($input_visit_purpose, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_visit_purpose)) {
+    } else if (!filter_var($input_visit_purpose, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_visit_purpose)) {
         $_err_visit_purpose = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
-    }
-
-    else if (!filter_var($input_visit_purpose, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s]+$/")))) {
+    } else if (!filter_var($input_visit_purpose, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9\s]+$/")))) {
         $_err_visit_purpose = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
-    }
-
-    else {
-        $visit_purpose = $input_visit_purpose; 
+    } else {
+        $visit_purpose = $input_visit_purpose;
     }
 
 
@@ -75,36 +63,29 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     $input_contact_num = trim($_POST["visitor-contact"]);
     if (empty($input_contact_num)) {
         $_err_visitor_contact = "Please, provide your mobile number!";
-    }
-
-    else if (!filter_var($input_contact_num, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s+]+$/"))) || preg_match("/[-!$%^&*()_|~=`{}\[\]:\";'<>?,.\/]/", $input_contact_num)) {
+    } else if (!filter_var($input_contact_num, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9\s+]+$/"))) || preg_match("/[-!$%^&*()_|~=`{}\[\]:\";'<>?,.\/]/", $input_contact_num)) {
         $_err_visitor_contact = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
-    }
-    
-    else {
-        $visitor_contact = $input_contact_num; 
+    } else {
+        $visitor_contact = $input_contact_num;
     }
 
 
     // Validate date
-    $input_visit_date = trim($_POST["visitor-date"]); 
+    $input_visit_date = trim($_POST["visitor-date"]);
     if (empty($input_visit_date)) {
         $_err_visit_date = "Please, pick a scheduled date!";
-    } 
-
-    else {
-        $visit_date = $input_visit_date; 
+    } else {
+        $visit_date = $input_visit_date;
     }
 
 
 
     // Validate time
-    $input_visit_time = trim($_POST["visitor-time"]); 
+    $input_visit_time = trim($_POST["visitor-time"]);
     if (empty($input_visit_time)) {
         $_err_visit_time = "Please, pick a scheduled time!";
-    } 
-    else {
-        $visit_time = $input_visit_time; 
+    } else {
+        $visit_time = $input_visit_time;
     }
 
 
@@ -117,25 +98,27 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
         }
         // Now, assign the temporary path to the expected variable
         $temp_path = addslashes(file_get_contents($_FILES["visitor-ID"]["tmp_name"]));
-        $visitor_ID = $temp_path; 
+        $visitor_ID = $temp_path;
     }
 
     // If all values are correct. And error variables are empty 
     // @todo set SESSION variables and request to API/visitor/create 
-    if (empty($_err_visitor_fullName) && empty($_err_visit_purpose) && (empty($_err_visitor_contact)) &&
-            empty($_err_visit_date) && empty($_err_visit_time) && empty($_err_visitor_ID)) {
-                
-                // Set SESSION VARIABLES
-                $_SESSION["public-request"] = "SET_VISITOR_ENTITY";
-                $_SESSION["visitor-FullName"] = $visitor_fullName; 
-                $_SESSION["visitor-purpose"] = $visit_purpose; 
-                $_SESSION["visitor-contact"] = $visitor_contact;
-                $_SESSION["visitor-picked-date"] = $visit_date; 
-                $_SESSION["visitor-picked-time"] = $visit_time; 
-                $_SESSION["visitor-uploaded-ID"] = $temp_path; 
+    if (
+        empty($_err_visitor_fullName) && empty($_err_visit_purpose) && (empty($_err_visitor_contact)) &&
+        empty($_err_visit_date) && empty($_err_visit_time) && empty($_err_visitor_ID)
+    ) {
 
-                // Send form data to request the local API
-                header("location: ../api/visitor/create.php");
+        // Set SESSION VARIABLES
+        $_SESSION["public-request"] = "SET_VISITOR_ENTITY";
+        $_SESSION["visitor-FullName"] = $visitor_fullName;
+        $_SESSION["visitor-purpose"] = $visit_purpose;
+        $_SESSION["visitor-contact"] = $visitor_contact;
+        $_SESSION["visitor-picked-date"] = $visit_date;
+        $_SESSION["visitor-picked-time"] = $visit_time;
+        $_SESSION["visitor-uploaded-ID"] = $temp_path;
+
+        // Send form data to request the local API
+        header("location: ../api/visitor/create.php");
     }
 }
 
@@ -143,7 +126,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html data-theme="light" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -161,6 +144,9 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Loading screen animation -->
     <link href="../css/loading.css" rel="stylesheet">   
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
 
     <!-- jQuery-->
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
@@ -208,64 +194,65 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </nav>
-
     <!-- Content Wrapper -->
     <div class="container">
         <div id="loadingDiv"><img src="../assets/images/Rolling-1s-200px.gif" alt="Loading screen"></div>
+        <!-- <h1>List Of Available Rooms</h1> -->
+        <header class="bg-gray-800 text-white pb-4 mb-2 rounded-lg">
+        <div class="container mx-auto px-4 flex justify-center">
+        <h1 class="text-3xl font-bold">List of available rooms:</h1>
+       </div>
+       </header>
         <div class="card px-2 mx-2">
-            <h1>List Of Available Rooms</h1>
             <div id="periodic-refresh-5secs" class="rooms-avail-table">
                 <!-- Dynamic Table: Listing of Available rooms -->
                 <!-- Create a query to select all available rooms -->
             </div>
         </div>
 
-        <div id="sched-book-visit" class="request-visit">
-            <h1>Schedule Visits</h1>
+
+        <div id="sched-book-visit" class="request-visit max-w-lg mx-auto p-6 bg-white rounded shadow-md mb-4">
+            
+        <h2 class="text-2xl font-bold mb-6">Schedule Visits</h2>
             <!-- Fill up form for a visitor -->
-            <form action="landing_page.php" method="POST" enctype="multipart/form-data">
-                <!-- Visitor full name -->
-                <div class="form-group">
-                    <label for="Full name of visitor">Full Name</label>
-                    <input type="text" name="visitor-full-name" id="fetch_fullName" placeholder="My full name" class="form-control <?php echo (!empty($_err_visitor_fullName)) ? 'is-invalid' : ''; ?>" value="<?php echo $visitor_fullName ; ?>">
-                    <span class="invalid-feedback"><?php echo $_err_visitor_fullName ;?></span>
-                </div>
-                <br>
-                <!-- Visitor purpose -->
-                <div class="form-group">
-                    <label for="Full name of visitor">Purpose of visit</label>
-                    <input type="text" name="visitor-purpose" id="fetch_visitPurpose" placeholder="Write here your visiting reasons" class="form-control <?php echo (!empty($_err_visit_purpose)) ? 'is-invalid' : ''; ?>" value="<?php echo $visit_purpose ; ?>">
-                    <span class="invalid-feedback"><?php echo $_err_visit_purpose ;?></span>
-                </div>
-                <br>
-                <!-- Visitor contact number -->
-                <div class="form-group">
-                    <label for="Contact Number of Visitor">Contact Number</label>
-                    <input type="text" name="visitor-contact" id="fetch_visitContact" placeholder="+639000000000" class="form-control <?php echo (!empty($_err_visitor_contact)) ? 'is-invalid' : ''; ?>" value="<?php echo $visitor_contact ; ?>">
-                    <span class="invalid-feedback"><?php echo $_err_visitor_contact ;?></span>
-                </div>
-                <br>
-                <!-- Visitor pick date -->
-                <div class="form-group">
-                    <label for="Full name of visitor">Pick a date</label>
-                    <input type="date" name="visitor-date" id="fetch_visitDate" placeholder="" class="form-control">
-                    <span class="invalid-feedback"><?php echo $_err_visit_date ;?></span>
-                </div>
-                <br>
-                <!-- Visitor pick time -->
-                <div class="form-group">
-                    <label for="Full name of visitor">Pick a time</label>
-                    <input type="time" name="visitor-time" id="fetch_visitTime" placeholder="" class="form-control">
-                    <span class="invalid-feedback"><?php echo $_err_visit_time ;?></span>
-                </div>
-                <br>
-                <!-- Visitor ID upload -->
-                <div class="form-group">
-                    <label for="Upload a photo">Upload a photo of your valid ID</label>
-                    <input type="file" id="fetch_photo" name="visitor-ID" class="form-control" required>
-                    <div class="card px-5 mt-2 mb-2">
-                        <h5>Preview</h5>
-                        <img id="previewImage" class="card-img-top mb-2" width="600" height="auto">
+            <form action="landing_page.php" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 gap-4">
+        <!-- Visitor full name -->
+        <div class="form-group">
+            <label for="Full name of visitor">Full Name</label>
+            <input type="text" name="visitor-full-name" id="fetch_fullName" placeholder="My full name" class="form-control <?php echo (!empty($_err_visitor_fullName)) ? 'is-invalid' : ''; ?>" value="<?php echo $visitor_fullName; ?>">
+             <span class="invalid-feedback"><?php echo $_err_visitor_fullName; ?></span>
+        </div>
+        <!-- Visitor purpose -->
+        <div class="form-group">
+             <label for="Full name of visitor">Purpose of visit</label>
+             <input type="text" name="visitor-purpose" id="fetch_visitPurpose" placeholder="Write here your visiting reasons" class="form-control <?php echo (!empty($_err_visit_purpose)) ? 'is-invalid' : ''; ?>" value="<?php echo $visit_purpose; ?>">
+            <span class="invalid-feedback"><?php echo $_err_visit_purpose; ?></span>
+        </div>
+         <!-- Visitor contact number -->
+         <div class="form-group">
+             <label for="Contact Number of Visitor">Contact Number</label>
+             <input type="text" name="visitor-contact" id="fetch_visitContact" placeholder="+639000000000" class="form-control <?php echo (!empty($_err_visitor_contact)) ? 'is-invalid' : ''; ?>" value="<?php echo $visitor_contact; ?>">
+         <span class="invalid-feedback"><?php echo $_err_visitor_contact; ?></span>
+        </div>
+         <!-- Visitor pick date -->
+        <div class="form-group">
+            <label for="Full name of visitor">Pick a date</label>
+            <input type="date" name="visitor-date" id="fetch_visitDate" placeholder="mm/dd/yyyy" class="input input-bordered w-full">
+            <span class="invalid-feedback"><?php echo $_err_visit_date; ?></span>
+        </div>
+         <!-- Visitor pick time -->
+        <div class="form-group">
+            <label for="Full name of visitor">Pick a time</label>
+            <input type="time" name="visitor-time" id="fetch_visitTime" placeholder="" class="input input-bordered w-full">
+            <span class="invalid-feedback"><?php echo $_err_visit_time; ?></span>
+        </div>
+         <!-- Visitor ID upload -->
+         <div class="form-group">
+            <label for="Upload a photo">Upload a photo of your valid ID</label>
+            <input type="file" id="fetch_photo" name="visitor-ID" class="form-control" required>
+            <div class="card px-5 mt-2 mb-2">
+                <h5>Preview</h5>
+                    <img id="previewImage" class="card-img-top mb-2" width="600" height="auto">
                         <script>
                             const fetchFileInput = document.getElementById("fetch_photo");
                             const renderImgModal = document.getElementById("previewImage");
@@ -281,25 +268,25 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                                         }
                                 });
                         </script>   
-                    </div>
+            </div>
 
-                    <span class="invalid-feedback"></span>
-                    <span class="invalid-feedback"><?php echo $_err_visitor_ID ;?></span>
-                </div>
-                <br>
+                <span class="invalid-feedback"></span>
+                <span class="invalid-feedback"><?php echo $_err_visitor_ID; ?></span>
+         </div>
                 <!-- Submit form, and trigger modal -->
-                <div class="form-group">
-                    <input type="button" name="schedule-visit-submit-form" data-toggle="modal" data-target="#previewBookingDetails" onclick="submitForm()" class="btn btn-primary" value="Book now!">
-                </div>
-                
-                <!-- Modal -->
-                <div class="modal fade" id="previewBookingDetails" tabindex="-1" role="dialog" aria-labelledby="previewBookingDetails" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
+            <div class="form-group">
+                    <input type="button" name="schedule-visit-submit-form" data-toggle="modal" data-target="#previewBookingDetails" onclick="submitForm()" class="btn btn-warning w-full" value="Book now!">
+            </div>
+            
+            
+            <!-- Modal -->
+            <div class="modal fade" id="previewBookingDetails" tabindex="-1" role="dialog" aria-labelledby="previewBookingDetails" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalCenterTitle">Review booking details</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
@@ -314,12 +301,12 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                                         reader.addEventListener("load", function() {
                                             renderPreviewImgOnSubmit.src = reader.result;
                                         });
-
+                                        
                                         if (file) {
                                             reader.readAsDataURL(file);
                                         }
                                     });
-                                </script>
+                                    </script>
                                 <div class="card-header" id="modal_preview_VisitorFullName"></div>
                                 <div class="card-body">
                                     <p id="modal_preview_visitPurpose"></p>
@@ -330,21 +317,21 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                                     </ul>
                                 </div>
                             </div>
-
+                            
                             <div class="modal-footer">
                                 <input type="submit" name="confirm-booking" class="btn btn-primary">
                             </div>
-
+                            
                             <script>
                                 // Get the input values
                                 /**
                                  * id="fetch_visitTime" 
-                                    id="fetch_visitDate" 
-                                    id="fetch_visitPurpose" 
-                                    id="fetch_visitContact"
-                                    id="fetch_fullName"
-                                */
-
+                                 id="fetch_visitDate" 
+                                 id="fetch_visitPurpose" 
+                                 id="fetch_visitContact"
+                                 id="fetch_fullName"
+                                 */
+                                
                                 function submitForm() {
                                     var full_name = document.getElementById("fetch_fullName").value;
                                     var visit_purpose = document.getElementById("fetch_visitPurpose").value;
@@ -358,15 +345,15 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                                     document.getElementById("modal_preview_VisitTime").innerHTML = "<b>On: </b>" + visit_time;
                                     document.getElementById("modal_preview_VisitContact").innerHTML = "<b>Contact No.: </b>" + visit_contact;
                                 }
-                            </script>
+                                </script>
 
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        
-    </div>
+</div>
+</div>
+</div>
+</form>
+</div>
+
+</div>
     <!-- Script file to dynamic load and refresh list of available rooms -->
     <script type="text/javascript" src="../js/dynamic-load-AvailableRooms.js"></script>
 </body>
