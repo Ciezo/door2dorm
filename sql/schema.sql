@@ -156,3 +156,27 @@ CREATE TABLE IF NOT EXISTS FACE_IMG (
     PRIMARY KEY (face_id),
     FOREIGN KEY (tenant_id) REFERENCES TENANT(tenant_id)
 );
+
+-- This table is responsible for capturing all time-ins of authorized tenants
+CREATE TABLE SECURITY_LOGS_TIME_IN (
+    log_id          INT             NOT NULL auto_increment,
+    tenant_name     VARCHAR(255)    NOT NULL, 
+    tenant_room     VARCHAR(255)    NOT NULL, 
+    time_in         VARCHAR(100)    NOT NULL, 
+    status          VARCHAR(255)    NOT NULL, 
+    capture         LONGBLOB,        
+
+    PRIMARY KEY(log_id)
+);
+
+-- This table is for time-outs of authorized tenants
+CREATE TABLE SECURITY_LOGS_TIME_OUT (
+    log_id          INT             NOT NULL auto_increment,
+    tenant_name     VARCHAR(255)    NOT NULL, 
+    tenant_room     VARCHAR(255)    NOT NULL, 
+    time_out         VARCHAR(100)   NOT NULL, 
+    status          VARCHAR(255)    NOT NULL, 
+    capture         LONGBLOB, 
+
+    PRIMARY KEY(log_id)
+);
