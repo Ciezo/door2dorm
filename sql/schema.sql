@@ -29,18 +29,6 @@ CREATE TABLE IF NOT EXISTS TENANT (
     PRIMARY KEY(tenant_id)
 ); 
 
--- IMG TABLE to store tenant photo
--- This is an associative table which is used to directly store images of 
--- registered tenants.
--- This Entity shall be used to directly query images and render on an element
-CREATE TABLE IF NOT EXISTS IMG_TENANT_ASSOC(
-    img_id          INT             NOT NULL auto_increment, 
-    tenant_name     VARCHAR(255)    NOT NULL,
-    img_ref         INT             NOT NULL,
-    tenant_img      LONGBLOB        NOT NULL,
-
-    PRIMARY KEY(img_id)
-);
 
 -- Scheduling Visits entity facts:
 --    @note This is an option for a user to schedule a visit to the site

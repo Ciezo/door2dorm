@@ -246,19 +246,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["tenant-ref-img"] = $img_tenant_ref;
             $_SESSION["tenant-photo"] = $tenant_image_to_upload;
             
-
-            // Begin inserting the tenant image to the
-            $sql = "INSERT INTO IMG_TENANT_ASSOC(tenant_name, img_ref, tenant_img)
-                                VALUES
-                                (
-                                    '$tenant_fullName',
-                                    '$img_tenant_ref',
-                                    '$tenant_image_to_upload'
-                                )";  
-            mysqli_query($conn, $sql);
-            $conn->close();
-            
-            sleep(2);
             // Send the form data to the local API
             header("location: ../../api/tenant/create.php");
     }
