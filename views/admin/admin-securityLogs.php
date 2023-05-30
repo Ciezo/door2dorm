@@ -83,62 +83,23 @@ if (!isset($_SESSION["admin-username"])) {
             <h2>Security Logs</h2>
             <p>Here is the section where security loggins are present using biometric security measures</p>
             
+            <h4>Time-ins</h4>
+            <p>These are entries for authorized tenants who checked-in within the premises</p>
             <!-- Time-in log tables -->
-            <div class="log-table time-ins">
-                <h4>Time-ins</h4>
-                <p>These are entries for authorized tenants who checked-in within the premises</p>
-                <table class="table table-striped">
-                    <thead class="thead-dark">
-                        <tr class="table-dark">
-                            <th scope="col">Log ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Room</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Face Capture</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Record entries -->
-                        <tr>
-                            <td>Log ID</td>
-                            <td>Name</td>
-                            <td>000</td>
-                            <td>Authorized or Unauthorized</td>
-                            <td><i class="fa-regular fa-image"></i></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="log-table time-ins" id="time-in-securityLog">
             </div>
 
-            <!-- Time-out log tables -->
-            <div class="log-table time-ins">
-                <h4>Time-outs</h4>
-                <p>These are entries for authorized tenants who checked out from the premises</p>
-                <table class="table table-striped">
-                    <thead class="thead-dark">
-                        <tr class="table-dark">
-                            <th scope="col">Log ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Room</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Face Capture</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Record entries -->
-                        <tr>
-                            <td>Log ID</td>
-                            <td>Name</td>
-                            <td>000</td>
-                            <td>Authorized or Unauthorized</td>
-                            <td><i class="fa-regular fa-image"></i></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <h4>Time-outs</h4>
+            <p>These are entries for authorized tenants who checked out from the premises</p>
+            <div class="log-table time-outs" id="time-out-securityLog">
+                <!-- Time-out log tables -->
             </div>
 
         </div>
     </div>
-
+    <!-- Script to load time-ins -->
+    <script type="text/javascript" src="../../js/dynamic-load-TimeIns.js"></script>
+    <!-- Script to load time-outs -->
+    <script type="text/javascript" src="../../js/dynamic-load-TimeOuts.js"></script>
 </body>
 </html>
