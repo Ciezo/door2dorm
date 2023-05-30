@@ -67,7 +67,69 @@ if (!isset($_SESSION["tenant-username"])) {
 
     <!-- Content goes here -->
     <div class="container">
-       hello
+        <div id="tenant-security-logs" class="tenant-security-logs">
+            <h2>Security Logs</h2>
+            <p>Here are your security logging check-ins and check-outs based on facial recognition</p>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr class="table-dark">
+                        <th scope="col">Name</th>
+                        <th scope="col">Room No.</th>
+                        <th scope="col">Time-in</th>
+                        <th scope="col">Time-out</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    <tbody>
+                        <?php
+                            // Select only the tables based on who is logged-in.
+                            // We want to get all security loggings based on who is logged-in
+                            $current_tenant = $_SESSION["tenant-Fname"];
+
+                            // Create queries to select all time-in and time-out tables from the current_tenant
+                            $get_time_ins = "SELECT * FROM SECURITY_LOGS_TIME_IN WHERE tenant_name = '$current_tenant'";
+                            $get_time_outs = "SELECT * FROM SECURITY_LOGS_TIME_OUT WHERE tenant_name = '$current_tenant'";
+                            $results_time_ins = mysqli_query($conn, $get_time_ins);
+                            $results_time_outs = mysqli_query($conn, $get_time_outs);
+                            
+                            // Check if there are data 
+                            /** Time-ins */
+                            if ($results_time_ins->num_rows > 0) {
+                                while($rows = mysqli_fetch_assoc($results_time_ins)) {
+                                    echo "<tr>";
+                                    echo    "<td>".$rows["tenant_name"]."</td>";
+                                    echo    "<td>".$rows["tenant_room"]."</td>";
+                                    echo    "<td>".$rows["time_in"]."</td>";
+                                    echo    "<td>"."</td>";
+                                    echo    "<td>".$rows["status"]."</td>";
+                                    echo "</tr>";
+                                }   
+                            }
+
+                            else {
+                                echo "<small><i>No data on check-ins found...</i></small>";
+                            }
+
+                            /** Time-outs */
+                            if ($results_time_outs->num_rows > 0) {
+                                while($rows = mysqli_fetch_assoc($results_time_ins)) {
+                                    echo "<tr>";
+                                    echo    "<td>".$rows["tenant_name"]."</td>";
+                                    echo    "<td>".$rows["tenant_room"]."</td>";
+                                    echo    "<td>"."</td>";
+                                    echo    "<td>".$rows["time_out"]."</td>";
+                                    echo    "<td>".$rows["status"]."</td>";
+                                    echo "</tr>";
+                                }   
+                            }
+
+                            else {
+                                echo "<br><small><i>No data on check-outs found...</i></small>";
+                            }
+                        ?>
+                    </tbody>
+                </thead>
+            </table>
+        </div>
     </div>
 </body>
 </html>
