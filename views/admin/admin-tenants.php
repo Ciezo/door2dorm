@@ -466,6 +466,7 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
                     <!-- Tenant Mobile Number -->
                     <div class="form-group">
                         <label for="Tenant's mobile number"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Number</label>
+                        <small><b>Ensure to include the Philippine country code '+639'</b></small>
                         <input type="text" id="fetchNumber" name="tenant-num" placeholder="+639000000000" class="form-control <?php echo (!empty($_err_tenant_num)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_num ; ?>">
                         <span class="invalid-feedback"><?php echo $_err_tenant_num ;?></span>
                     </div>
@@ -473,6 +474,7 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
                     <!-- Tenant Emergency Contact No. -->
                     <div class="form-group">
                         <label for="Tenant's emergency contact number"><i class="fa-solid fa-phone-volume"></i> Emergency Contact Number</label>
+                        <small><b>Ensure to include the Philippine country code '+639'</b></small>
                         <input type="text" id="fetchEmergencyNum" name="tenant-emergency-num" placeholder="+639000000000" class="form-control <?php echo (!empty($_err_tenant_emergencyNum)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_emergencyNum ; ?>">
                         <span class="invalid-feedback"><?php echo $_err_tenant_emergencyNum ;?></span>
                     </div>

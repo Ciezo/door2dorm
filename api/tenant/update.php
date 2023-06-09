@@ -63,11 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_err_tenant_num = "Please, enter a mobile number";
     }
     
-    else if (!ctype_digit($input_tenant_num)) {
-        $_err_tenant_num = "Please, enter a valid number";
-    }
-
-    else if (!filter_var($input_tenant_num, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_tenant_num)) {
+    else if (!filter_var($input_tenant_num, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s+]+$/"))) || preg_match("/[-!$%^&*()_|~=`{}\[\]:\";'<>?,.\/]/", $input_tenant_num)) {
         $_err_tenant_num = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
     }
 
@@ -83,11 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_err_tenant_emergencyNum = "Please, enter a mobile number";
     }
     
-    else if (!ctype_digit($input_tenant_emergencyNum)) {
-        $_err_tenant_emergencyNum = "Please, enter a valid number";
-    }
-
-    else if (!filter_var($input_tenant_emergencyNum, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s]+$/"))) || preg_match("/[-!$%^&*()_+|~=`{}\[\]:\";'<>?,.\/]/", $input_tenant_emergencyNum)) {
+    else if ((!filter_var($input_tenant_emergencyNum, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9\s+]+$/"))) || preg_match("/[-!$%^&*()_|~=`{}\[\]:\";'<>?,.\/]/", $input_tenant_emergencyNum))) {
         $_err_tenant_emergencyNum = "Special characters such as periods, commas, hyphens are not allowed. Examples: [-!$%^&*()_+|~=`{}\[\]:";
     }
 
@@ -271,14 +263,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <!-- Tenant Mobile Number -->
                 <div class="form-group">
                     <label for="Tenant's mobile number">Mobile Number</label>
-                    <input type="text" id="fetchNumber" name="tenant-num" placeholder="09XXXXXXXXX" class="form-control <?php echo (!empty($_err_tenant_num)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_num ; ?>">
+                    <small><b>Ensure to include the Philippine country code '+639'</b></small>
+                    <input type="text" id="fetchNumber" name="tenant-num" placeholder="639XXXXXXXXX" class="form-control <?php echo (!empty($_err_tenant_num)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_num ; ?>">
                     <span class="invalid-feedback"><?php echo $_err_tenant_num ;?></span>
                 </div>
                 <br>
                 <!-- Tenant Emergency Contact No. -->
                 <div class="form-group">
                     <label for="Tenant's emergency contact number">Emergency Contact Number.</label>
-                    <input type="text" id="fetchEmergencyNum" name="tenant-emergency-num" placeholder="09XXXXXXXXX" class="form-control <?php echo (!empty($_err_tenant_emergencyNum)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_emergencyNum ; ?>">
+                    <small><b>Ensure to include the Philippine country code '+639'</b></small>
+                    <input type="text" id="fetchEmergencyNum" name="tenant-emergency-num" placeholder="+639XXXXXXXXX" class="form-control <?php echo (!empty($_err_tenant_emergencyNum)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_emergencyNum ; ?>">
                     <span class="invalid-feedback"><?php echo $_err_tenant_emergencyNum ;?></span>
                 </div>
                 <br>
