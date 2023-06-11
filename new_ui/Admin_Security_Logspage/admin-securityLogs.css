@@ -1,0 +1,58 @@
+/* global.css */
+* {
+    /* Overalls customizations */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    scroll-behavior: smooth;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+
+.container {
+    padding-top: 50px;
+}
+.navbar .navbar-brand {
+    padding-left: 35px;
+}
+.navbar .collapse .navbar-nav .active {
+    background-color: white;
+    border-radius: 5px;
+    color:black;
+}
+.navbar .collapse .navbar-nav .logout:hover {
+    background-color: red;
+    color: white; 
+    border-radius: 5px;
+}
+.security-logs {
+    padding-bottom: 50px;
+}
+.log-table {
+    padding-bottom: 50px;
+}
+
+
+.custom-container {
+    max-width: 1500px; 
+    position: relative;
+}
+.table thead th {
+    font-weight: 700;
+    text-transform: uppercase;
+    
+}
+.small-image {
+    width: 125px; 
+    height: 125px; 
+}
+.custom-select {
+    width: 120px;
+  }
+.shadow-border {
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}

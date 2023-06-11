@@ -1,0 +1,688 @@
+<!-- 
+    Filename: config.php
+    Description: The remote database configuration at ClearDB MySQL Heroku. 
+ -->
+
+<script>
+  console.log("Could not find or read the .env file: ")Unable to read any of the environment file(s) at [/app/.env].
+</script>
+<script>
+  console.log("Connection SUCCESSFUL!");
+</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tenants</title>
+
+    <!-- Bootstrap from https://getbootstrap.com/ -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/c36559a51c.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS Global theming and styles -->
+    <!-- <link href="../../css/globals.css" rel="stylesheet"> -->
+    <link href="admin-tenants.css" rel="stylesheet" />
+
+    <!-- jQuery-->
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.js"
+      integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+      integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+      integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+      crossorigin="anonymous"
+    ></script>
+    <style></style>
+
+  </head>
+  <body>
+    <!-- Bootstrap navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+      <a class="navbar-brand" href="#">
+        <i class="fa-solid fa-building-user"></i>
+        Welcome, Admin!
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="true"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link px-2" href="admin-home.php"
+            >Home <span class="sr-only"></span
+          ></a>
+          <a class="nav-item nav-link px-2" href="admin-payment.php">Payment</a>
+          <a class="nav-item nav-link active px-2" href="#"
+            ><i class="fa-solid fa-person-shelter"></i> Tenants</a
+          >
+          <a class="nav-item nav-link px-2" href="admin-securityLogs.php"
+            >Security Logs</a
+          >
+          <a class="nav-item nav-link px-2" href="admin-facenet.php">FaceNet</a>
+          <a class="nav-item nav-link px-2" href="admin-messages.php"
+            >Messages</a
+          >
+          <a
+            class="nav-item nav-link logout px-2"
+            href="../../components/custom/logout.php"
+            >Logout</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content goes here -->
+    <div class="container">
+
+        <!-- List of all tenants -->
+        <div class="card px-5 mx-2 mt-2 shadow-border">
+        <br>
+        <h2 class="mt-2">List of All Tenants</h2>
+        <p> This section displays all registered tenants and their personal information</p>
+
+
+        <!-- Search Bar -->
+        <div class="search-bar mb-2">
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <input type="text" id="searchInput" placeholder="Search tenant..." class="form-control">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#previewRegisteredTenant">Add Tenant</button>
+            </div>
+            <div class="text-center mt-5">
+
+            </div>
+        </div>
+        
+
+        <div id="periodic-refresh10secs-ListAll-Tenants" class="list-of-all-registered-tenants">
+
+            <!-- Dynamic content loads every 10 seconds -->
+            <!-- <div id="loadingDiv">
+            <img src="img src="../../assets/images/Ellipsis-1s-200px.gif"" alt="" width="50" height="50" />
+            </div> -->
+
+            <!-- Cards Tenants -->
+            <div id="tenantCardsContainer" class="d-flex flex-row flex-nowrap overflow-auto">
+            <div class="d-flex flex-row flex-nowrap overflow-auto">
+                <!-- 
+                Filename: config.php
+                Description: The remote database configuration at ClearDB MySQL Heroku. 
+                -->
+
+                <script>
+                console.log("Could not find or read the .env file: ")Unable to read any of the environment file(s) at [/app/.env].
+                </script>
+                <script>
+                console.log("Connection SUCCESSFUL!");
+                </script>
+
+
+                <div class="card card-block mx-2" style="min-width: 300px">
+                <div class="card-header" id="" align="center">
+                    <b>Chariz Valerie Secuya</b>
+                </div>
+                <img
+                    class="card-img-top"
+                    src= "image/sample.jpg"
+                    alt="Tenant Photo"
+                    width="250"
+                    height="300"
+                />
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                    <ul class="list-group text-left">
+                        <li class="list-group-item" id="">
+                            <b><i class="fas fa-building"></i> Room: 100</b>
+                        </li>
+                        <li class="list-group-item" id="">
+                            <b><i class="fas fa-phone"></i> +639588147889</b>
+                        </li>
+                    </ul>                    
+                </div>
+                <div class="card-footer">
+                    <center>
+                    <a
+                        class="btn btn-outline-dark"
+                        name="tenant-modal-selector"
+                        href="../../api/tenant/read.php?id=14"
+                        >More Info</a
+                    >
+                    </center>
+                </div>
+                </div>
+
+
+                <div class="card card-block mx-2" style="min-width: 300px">
+                <div class="card-header" id="" align="center">
+                    <b>Raul Duran</b>
+                </div>
+                <img
+                    class="card-img-top"
+                    src="image/sample.jpg"
+                    alt="Tenant Photo"
+                    width="250"
+                    height="300"
+                />
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                    <ul class="list-group text-left">
+                        <li class="list-group-item" id="">
+                            <b><i class="fas fa-building"></i> Room: 401</b>
+                        </li>
+                        <li class="list-group-item" id="">
+                            <b><i class="fas fa-phone"></i> +639285552629</b>
+                        </li>
+                    </ul>                    
+                </div>
+
+
+
+
+                <div class="card-footer">
+                    <center>
+                    <a
+                        class="btn btn-outline-dark"
+                        name="tenant-modal-selector"
+                        href="../../api/tenant/read.php?id=34"
+                        >More Info</a
+                    >
+                    </center>
+                </div>
+                </div>
+
+                <div class="card card-block mx-2" style="min-width: 300px">
+                <div class="card-header" id="" align="center">
+                    <b>Jorge Mora</b>
+                </div>
+                <img
+                    class="card-img-top"
+                    src="image/sample.jpg"
+                    alt="Tenant Photo"
+                    width="250"
+                    height="300"
+                />
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                    <ul class="list-group text-left">
+                        <li class="list-group-item" id="">
+                            <b><i class="fas fa-building"></i> Room: 501</b>
+                        </li>
+                        <li class="list-group-item" id="">
+                            <b><i class="fas fa-phone"></i> +632835552870</b>
+                        </li>
+                    </ul>                    
+                </div>
+
+
+                <div class="card-footer">
+                    <center>
+                    <a
+                        class="btn btn-outline-dark"
+                        name="tenant-modal-selector"
+                        href="../../api/tenant/read.php?id=44"
+                        >More Info</a
+                    >
+                    </center>
+                </div>
+                </div>
+
+                <div class="card card-block mx-2" style="min-width: 300px">
+                <div class="card-header" id="" align="center">
+                    <b>Vladimir Beduya</b>
+                </div>
+                <img
+                    class="card-img-top"
+                    src="image/sample.jpg"
+                    alt="Tenant Photo"
+                    width="250"
+                    height="300"
+                />
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                    <ul class="list-group text-left">
+                        <li class="list-group-item" id="">
+                            <b><i class="fas fa-building"></i> Room: 610</b>
+                        </li>
+                        <li class="list-group-item" id="">
+                            <b><i class="fas fa-phone"></i> +639204165091</b>
+                        </li>
+                    </ul>                    
+                </div>
+                
+                <div class="card-footer">
+                    <center>
+                    <a
+                        class="btn btn-outline-dark"
+                        name="tenant-modal-selector"
+                        href="../../api/tenant/read.php?id=164"
+                        >More Info</a
+                    >
+                    </center>
+                </div>
+                </div>
+
+
+                <div id="noTenantFoundMessage" class="text-center mt-3" style="display: none;">
+                    <p>Tenant not found...</p>
+                </div>
+
+                <script>
+                    console.log("Fetched dynamic content: Listing all tenants");
+
+                    const searchInput = document.getElementById("searchInput");
+                    const tenantCardsContainer = document.getElementById("tenantCardsContainer");
+                    const tenantCards = tenantCardsContainer.getElementsByClassName("card");
+                    const noTenantFoundMessage = document.getElementById("noTenantFoundMessage");
+
+                    searchInput.addEventListener("input", function() {
+                        const searchQuery = searchInput.value.toLowerCase();
+                        let foundTenants = 0;
+
+                        for (let i = 0; i < tenantCards.length; i++) {
+                            const tenantName = tenantCards[i].querySelector(".card-header b").innerText.toLowerCase();
+                            if (tenantName.includes(searchQuery)) {
+                                tenantCards[i].style.display = "block";
+                                foundTenants++;
+                            } else {
+                                tenantCards[i].style.display = "none";
+                            }
+                        }
+
+                        if (foundTenants === 0) {
+                            noTenantFoundMessage.style.display = "block";
+                        } else {
+                            noTenantFoundMessage.style.display = "none";
+                        }
+                    });
+                </script>
+
+
+
+
+
+            </div>
+            </div>
+
+
+
+            <script>
+                // Wait for the DOM to be fully loaded
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Get a reference to the add tenant button
+                    const addTenantButton = document.getElementById("addTenantButton");
+            
+                    // Add a click event listener to the button
+                    addTenantButton.addEventListener("click", function() {
+                        // When the button is clicked, show the modal
+                        const modal = document.getElementById("previewRegisteredTenant");
+                        modal.style.display = "block";
+                    });
+            
+                    // Get a reference to the close button of the modal
+                    const closeModalButton = document.querySelector("#previewRegisteredTenant .close");
+            
+                    // Add a click event listener to the close button
+                    closeModalButton.addEventListener("click", function() {
+                        // When the close button is clicked, hide the modal
+                        const modal = document.getElementById("previewRegisteredTenant");
+                        modal.style.display = "none";
+                    });
+                });
+            </script>
+
+        </div>
+        </div>
+
+
+        <!-- Creating Tenant Profile -->
+        <div class="modal fade" id="previewRegisteredTenant" tabindex="-1" role="dialog" aria-labelledby="previewRegisteredTenant" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <!-- Modal header -->
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 30px; font-weight: bold;">Create Tenant Profile</h5>
+                        
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="larger-icon">&times;</span>
+                        </button>
+                        
+                        
+                    </div>
+                    <div class="card px-5 mx-2 mt-2 card-no-border">
+                        <div id="tenant-acc-form" class="create-tenant-profile">
+ 
+                        <!-- Fill up form for a tenant account -->
+                        <form action="admin-tenants.php" method="POST" enctype="multipart/form-data">
+                            <br>
+                        <div class="row">
+
+                        <!-- Left side -->
+                        <div class="col-md-6">
+                        <!-- Tenant Full Name -->
+                        <div class="form-group">
+                            <label for="Tenant's full name"><i class="fa-solid fa-id-card-clip"></i> Fullname</label>
+                            <input required="" type="text" id="fetchFullName" name="tenant-full-name" placeholder="Firstname Surname" class="form-control " value="">
+                            <span class="invalid-feedback"></span>
+                        </div>
+
+                        <!-- Tenant Mobile Number -->
+                        <div class="form-group">
+                            <label for="Tenant's mobile number"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Number</label>
+                            <input type="text" id="fetchNumber" name="tenant-num" placeholder="+639000000000" class="form-control " value="">
+                            <span class="invalid-feedback"></span>
+                        </div>
+
+                        <!-- Tenant Emergency Contact No. -->
+                        <div class="form-group">
+                            <label for="Tenant's emergency contact number"><i class="fa-solid fa-phone-volume"></i> Emergency Contact Number</label>
+                            <input type="text" id="fetchEmergencyNum" name="tenant-emergency-num" placeholder="+639000000000" class="form-control " value="">
+                            <span class="invalid-feedback"></span>
+                        </div>
+
+                        <!-- Tenant Email -->
+                        <div class="form-group">
+                            <label for="Tenant's email"><i class="fa-solid fa-envelope-open-text"></i> Email</label>
+                            <input required="" type="email" id="fetchEmail" name="tenant-email" placeholder="username@domain.com" class="form-control " value="">
+                            <span class="invalid-feedback"></span>
+                        </div>
+                        </div>
+
+
+                        <!-- Right side -->
+                        <div class="col-md-6">
+                        <!-- Tenant Username -->
+                        <div class="form-group">
+                            <label for="Tenant's username"><i class="fa-solid fa-users-rectangle"></i>  Username</label>
+                            <p><i style="color: blue;">This will be used by the tenant as their login credentials</i></p>
+                            <input required="" type="text" id="fetchUserName" name="tenant-username" placeholder="tenant_username" class="form-control " value="">
+                            <span class="invalid-feedback"></span>
+                        </div>
+
+                        <!-- Tenant Password -->
+                        <div class="form-group">
+                            <label for="Tenant's password"><i class="fa-solid fa-lock"></i> Password</label>
+                            <p><i style="color: blue;">This will be used by the tenant as their login credentials</i></p>
+                            <input required="" type="password" id="fetchPassword" name="tenant-password" placeholder="********" class="form-control " value="">
+                            <span class="invalid-feedback"></span>
+                        </div>
+
+                        <!-- Tenant assigned room -->
+                        <div class="form-group">
+                            <label for="Tenant's room"><i class="fa-solid fa-people-roof"></i>  Assign a room</label>
+                            <!-- <input required type="password" id="fetchRoom" name="tenant-assigned-room" placeholder="000" class="form-control " value=""> -->
+                            <span class="invalid-feedback"></span>
+                            <!-- Create a query to retrieve all options from the AVAILABLE_ROOMS where occupancy_status is "Available" -->
+                            <select required="" id="fetchRoom" name="tenant-assigned-room" class="form-control">
+                                <option value="100">100</option>
+                                <option value="101">101</option>
+                                <option value="401">401</option>
+                                <option value="501">501</option>
+                                <option value="610">610</option>
+                            </select>
+                        </div>
+
+                        <!-- Tenant facial photo -->
+                        <div class="form-group">
+                            <label for="Tenant's photo"><i class="fa-solid fa-image-portrait"></i> Upload a tenant's face photo</label>
+                            <input type="file" id="tenantPhotoPreview" name="face_photo_upload" class="form-control " value="" required="">
+                            <div class="card px-5 mt-2 mb-2 card-no-border">
+                                <img id="previewImage" class="card-img-top mb-2" width="600" height="auto">
+                                <script>
+                                    const fileInput = document.getElementById("tenantPhotoPreview");
+                                    const previewImage = document.getElementById("previewImage");
+                                    fileInput.addEventListener("change", function() {
+                                        const file = fileInput.files[0];
+                                        const reader = new FileReader();
+                                        reader.addEventListener("load", function() {
+                                            previewImage.src = reader.result;
+                                        });
+
+                                        if (file) {
+                                            reader.readAsDataURL(file);
+                                        }
+                                    });
+                                </script>
+                            </div>
+                            <span class="invalid-feedback"></span>
+                        </div>
+                        </div>
+                        </div>
+
+                        <!-- Submit form, and preview the tenant details in a modal -->
+                        <div class="form-group">
+                        <input type="button" onclick="fetchData()" class="btn btn-primary form-control" name="" value="Register Tenant" data-toggle="modal" data-target="#previewRegisteredTenant">
+                        </div>
+
+                        <!-- Preview registered tenant in the modal -->
+                        <!-- @note Try to retrieve the POST values if invoked method is POST -->
+                        <!-- Modal -->
+
+                        <div class="modal fade" id="previewRegisteredTenant" tabindex="-1" role="dialog" aria-labelledby="previewRegisteredTenant" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Review Tenant Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card">
+                                <img class="card-img-top" alt="" align="center" id="previewImgTenantModal" width="50%" height="50%">
+                                <script>
+                                    const fetchFileInput = document.getElementById("tenantPhotoPreview");
+                                    const renderModalImg = document.getElementById("previewImgTenantModal");  
+                                    fetchFileInput.addEventListener("change", function() {
+                                        const file = fetchFileInput.files[0];
+                                        const reader = new FileReader();
+                                        reader.addEventListener("load", function() {
+                                            renderModalImg.src = reader.result;
+                                        });
+
+                                        if (file) {
+                                            reader.readAsDataURL(file);
+                                        }
+                                    });
+                                </script>
+                            </div>
+                            <h3 id="modalPreview_tenant-fullname" style="padding-top: 10px;"></h3>
+                            <h6><b id="modalPreview_tenant-room"></b></h6>
+                            <!-- Tenant POST details -->
+                            <ul class="list-group list-group-flush">
+                                <li id="modalPreview_tenant-contactNum" class="list-group-item"></li>
+                                <li id="modalPreview_tenant-emergencyNum" class="list-group-item"></li>
+                                <li id="modalPreview_tenant-email" class="list-group-item"></li>
+                            </ul>
+                            <div class="card-body">
+                                <div class="modal-body">
+                                    <h5>Login Credentials</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li id="modalPreview_tenant-username" class="list-group-item"></li>
+                                        <li id="modalPreview_tenant-password" class="list-group-item"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" name="submit-tenant" class="btn btn-outline-success form-control" value="Register Tenant">
+                        </div>
+                        </div>
+
+                        <script>
+                            var tenant_fullname, tenant_room, tenant_contactNum, tenant_emergencyNum, tenant_email, tenant_username, tenant_password;
+
+                            function fetchData() {
+                                tenant_fullname = document.getElementById("fetchFullName").value; 
+                                tenant_room = document.getElementById("fetchRoom").value; 
+                                tenant_contactNum = document.getElementById("fetchNumber").value; 
+                                tenant_emergencyNum = document.getElementById("fetchEmergencyNum").value; 
+                                tenant_email = document.getElementById("fetchEmail").value; 
+                                tenant_username = document.getElementById("fetchUserName").value; 
+                                tenant_password = document.getElementById("fetchPassword").value; 
+
+                                // Render the fetched values for modal preview
+                                renderFetchedData_toModalPreview();
+                            }
+
+                            function renderFetchedData_toModalPreview() {
+                                document.getElementById("modalPreview_tenant-fullname").innerHTML = tenant_fullname;
+                                document.getElementById("modalPreview_tenant-room").innerHTML = "@Room: " + tenant_room;
+                                document.getElementById("modalPreview_tenant-contactNum").innerHTML = "Contact No.: <b>" + tenant_contactNum + "</b>";
+                                document.getElementById("modalPreview_tenant-emergencyNum").innerHTML = "Emergency Contact No.: <b>" + tenant_emergencyNum + "</b>";
+                                document.getElementById("modalPreview_tenant-email").innerHTML = "Email: <b>" + tenant_email + "</b>";
+                                document.getElementById("modalPreview_tenant-username").innerHTML = "Username: " + tenant_username;
+                                document.getElementById("modalPreview_tenant-password").innerHTML = "Password: " + tenant_password;
+                            }
+                        </script>
+                        </div>
+                        </div>  
+                        </form>
+                                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+       <!-- List of tenants balances -->
+       <div class="card px-5 mx-2 mt-2 card-no-border">
+        <div class="all-tenants-balances">
+        <h2 class="mt-2">Tenants Balances</h2>
+        <p>This section presents all the unpaid balances from all tenants</p>
+        
+        <div class="row">
+
+        <div class="col-lg-6">  
+            <!-- Unpaid rentals -->
+            <table class="table table-striped">
+                <h5>Unpaid Rental Bills</h5>
+                <thead class="thead-dark">
+                <tr class="table-dark">
+                    <th scope="col" style="font-size: 14px;">Name</th>
+                    <th scope="col" style="font-size: 14px;">Rental Bills</th>
+                    <th scope="col" style="font-size: 14px;">Due Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Per row is for each tenant balance -->
+                <tr>
+                    <td>Vladimir Beduya</td>
+                    <td>Php 8500</td>
+                    <td>2023-06-03</td>
+                </tr>
+                <tr>
+                    <td>Cheska Navarro</td>
+                    <td>Php 12300</td>
+                    <td>2023-04-30</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-6">
+            <!-- Unpaid electricity -->
+            <table class="table table-striped">
+            <h5>Unpaid Electricity Bills</h5>
+            <thead class="thead-dark">
+                <tr class="table-dark">
+                <th scope="col" style="font-size: 14px;">Name</th>
+                <th scope="col" style="font-size: 14px;">Electricity Bills</th>
+                <th scope="col" style="font-size: 14px;">Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Per row is for each tenant balance -->
+                <tr>
+                    <td>Vladimir Beduya</td>
+                    <td>Php 8500</td>
+                    <td>2023-06-03</td>
+                </tr>
+            </tbody>
+            </table>
+
+            <!-- Unpaid water -->
+            <table class="table table-striped">
+            <h5>Unpaid Water Bills</h5>
+            <thead class="thead-dark">
+                <tr class="table-dark">
+                <th scope="col" style="font-size: 14px;">Name</th>
+                <th scope="col" style="font-size: 14px;">Water Bills</th>
+                <th scope="col" style="font-size: 14px;">Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cheska Navarro</td>
+                    <td>Php 12300</td>
+                    <td>2023-04-30</td>
+                </tr>
+            </tbody>
+            </table>
+
+            <!-- To retrieve all tenants' unpaid balances of all bill types -->
+        </div>
+
+        </div>
+        </div>
+    </div>
+
+
+
+    <!-- Add the Bootstrap JavaScript code at the end of your file -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
+    <!-- Script src to dynamically load list of tenants -->
+    <script
+      type="text/javascript"
+      src="../../js/dynamic-load-ListAllTenants.js"
+    ></script>
+  </body>
+</html>

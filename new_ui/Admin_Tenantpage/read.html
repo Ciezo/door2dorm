@@ -1,0 +1,371 @@
+
+<!-- 
+    Filename: config.php
+    Description: The remote database configuration at ClearDB MySQL Heroku. 
+ -->
+
+ <script>console.log("Could not find or read the .env file: ")Unable to read any of the environment file(s) at [/app/.env].</script>
+ <script>
+     console.log("Connection SUCCESSFUL!");
+ </script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>View Tenant Account</title>
+
+ <!-- Bootstrap from https://getbootstrap.com/ -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+ <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
+
+ <!-- CSS Global theming and styles -->
+ <!-- <link href="../../css/globals.css" rel="stylesheet"> -->
+ <link href="read.css" rel="stylesheet">
+
+
+
+
+
+ <!-- jQuery -->
+ <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+ <style>
+
+ </style>
+</head>
+<body>
+ <!-- Bootstrap navbar -->
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+     <a class="navbar-brand" href="#">      
+         <i class="fa-solid fa-building-user"></i>
+             Welcome, Admin! 
+     </a>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+         <div class="navbar-nav">
+             <a class="nav-item nav-link px-2" href="../../views/admin/admin-home.php">Home <span class="sr-only"></span></a>
+             <a class="nav-item nav-link px-2" href="../../views/admin/admin-payment.php">Payment</a>
+             <a class="nav-item nav-link active px-2" href="#">Tenants</a>
+             <a class="nav-item nav-link px-2" href="../../views/admin/admin-securityLogs.php">Security Logs</a>
+             <a class="nav-item nav-link px-2" href="../../views/admin/admin-facenet.php">FaceNet</a>
+             <a class="nav-item nav-link px-2" href="../../views/admin/admin-messages.php">Messages</a>
+             <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logut</a>
+         </div>
+     </div>
+ </nav>
+
+<!-- Content goes here -->
+
+
+
+
+<div class="container-fluid" style="background-image: url('image/bedroom_sample.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center;">
+    <div class="container">
+        <!-- Tenant Account Overview -->
+        <div class="tenant-acc-overview">
+            <div class="card-body">
+                <div class="list-group list-group-transparent">
+                    <div class="list-group-item list-group-item-action flex-column align-items-start border-0" style="background-color: rgba(37, 51, 67, 0.384); min-height: 330px;" style="background-color: rgba(37, 51, 67, 0.384);">
+                        <div class="d-flex flex-row bd-highlight custom-margin-left custom-margin-top">
+                            <img class="tenant-pic d-none d-sm-flex" src="image/sample.jpg" alt="Avatar" style="margin-right: 25px; max-width: 20%;">
+                            <div>
+                                <i class="fa-solid fa-person-shelter pb-3" style="color: white;"></i>
+                                <span style="margin-right: 10px; color: white;">Room: 610</span>
+                                <i class="fa-solid fa-key" style="color: white;"></i>
+                                <small style="color: white;">Tenant ID: 164</small>
+                                <h5 class="display-3" style="font-weight: bold; color: white;">Vladimir Beduya</h5>
+                                <div class="d-flex flex-wrap justify-content-start align-items-start">
+                                    <div class="card px-2 border-0 bg-transparent" style="margin-right: 10px; color: white;">
+                                        <label for="Room details" style="color: white;"><b>Email:</b> beduyavladimir@gmail.com</label>
+                                        <label for="Room details" style="color: white;"><b>Mobile:</b> +639204165091</label>
+                                        <label for="Room details" style="color: white;"><b>Emergency Contact No.:</b> +639204165091</label>
+                                    </div>
+                                    <div class="card px-2 border-0 bg-transparent" style="margin-left: 5px; color: white;">
+                                        <label for="Room details" style="color: white;"><b>Account Credentials</b></label>
+                                        <label for="Room details" style="color: white;"><b>Username:</b> tenant_beduya</label>
+                                        <label for="Room details" style="color: white;"><b>Password:</b> tenant_beduya</label>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-wrap justify-content-start mt-3">
+                                    <a href="../../views/admin/admin-tenants.php" class="btn btn-primary" style="margin-right: 10px;">Back</a>
+                                    <a class="btn btn-success" data-toggle="modal"  data-target="#previewRegisteredTenant" href="update.php?id=14" style="margin-right: 10px;">Update Account</a>
+                                    <a class="btn btn-danger" href="delete.php?id=14">Remove Account</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="previewRegisteredTenant" tabindex="-1" role="dialog" aria-labelledby="previewRegisteredTenant" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <!-- Modal header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 30px; font-weight: bold;">Update Tenant Profile</h5>
+                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="larger-icon">&times;</span>
+                </button>
+                
+                
+            </div>
+            <div class="card px-5 mx-2 mt-2 card-no-border">
+                <div id="tenant-acc-form" class="create-tenant-profile">
+
+                <!-- Fill up form for a tenant account -->
+                <form action="admin-tenants.php" method="POST" enctype="multipart/form-data">
+                    <br>
+                <div class="row">
+
+                <!-- Left side -->
+                <div class="col-md-6">
+                <!-- Tenant Full Name -->
+                <div class="form-group">
+                    <label for="Tenant's full name"><i class="fa-solid fa-id-card-clip"></i> Fullname</label>
+                    <input required="" type="text" id="fetchFullName" name="tenant-full-name" placeholder="Firstname Surname" class="form-control " value="">
+                    <span class="invalid-feedback"></span>
+                </div>
+
+                <!-- Tenant Mobile Number -->
+                <div class="form-group">
+                    <label for="Tenant's mobile number"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Number</label>
+                    <input type="text" id="fetchNumber" name="tenant-num" placeholder="+639000000000" class="form-control " value="">
+                    <span class="invalid-feedback"></span>
+                </div>
+
+                <!-- Tenant Emergency Contact No. -->
+                <div class="form-group">
+                    <label for="Tenant's emergency contact number"><i class="fa-solid fa-phone-volume"></i> Emergency Contact Number</label>
+                    <input type="text" id="fetchEmergencyNum" name="tenant-emergency-num" placeholder="+639000000000" class="form-control " value="">
+                    <span class="invalid-feedback"></span>
+                </div>
+
+                <!-- Tenant Email -->
+                <div class="form-group">
+                    <label for="Tenant's email"><i class="fa-solid fa-envelope-open-text"></i> Email</label>
+                    <input required="" type="email" id="fetchEmail" name="tenant-email" placeholder="username@domain.com" class="form-control " value="">
+                    <span class="invalid-feedback"></span>
+                </div>
+                </div>
+
+
+                <!-- Right side -->
+                <div class="col-md-6">
+                <!-- Tenant Username -->
+                <div class="form-group">
+                    <label for="Tenant's username"><i class="fa-solid fa-users-rectangle"></i>  Username</label>
+                    <p><i style="color: blue;">This will be used by the tenant as their login credentials</i></p>
+                    <input required="" type="text" id="fetchUserName" name="tenant-username" placeholder="tenant_username" class="form-control " value="">
+                    <span class="invalid-feedback"></span>
+                </div>
+
+                <!-- Tenant Password -->
+                <div class="form-group">
+                    <label for="Tenant's password"><i class="fa-solid fa-lock"></i> Password</label>
+                    <p><i style="color: blue;">This will be used by the tenant as their login credentials</i></p>
+                    <input required="" type="password" id="fetchPassword" name="tenant-password" placeholder="********" class="form-control " value="">
+                    <span class="invalid-feedback"></span>
+                </div>
+
+                <!-- Tenant assigned room -->
+                <div class="form-group">
+                    <label for="Tenant's room"><i class="fa-solid fa-people-roof"></i>  Assign a room</label>
+                    <!-- <input required type="password" id="fetchRoom" name="tenant-assigned-room" placeholder="000" class="form-control " value=""> -->
+                    <span class="invalid-feedback"></span>
+                    <!-- Create a query to retrieve all options from the AVAILABLE_ROOMS where occupancy_status is "Available" -->
+                    <select required="" id="fetchRoom" name="tenant-assigned-room" class="form-control">
+                        <option value="100">100</option>
+                        <option value="101">101</option>
+                        <option value="401">401</option>
+                        <option value="501">501</option>
+                        <option value="610">610</option>
+                    </select>
+                </div>
+
+                <!-- Tenant facial photo -->
+                <div class="form-group">
+                    <label for="Tenant's photo"><i class="fa-solid fa-image-portrait"></i> Upload a tenant's face photo</label>
+                    <input type="file" id="tenantPhotoPreview" name="face_photo_upload" class="form-control " value="" required="">
+                    <div class="card px-5 mt-2 mb-2 card-no-border">
+                        <img id="previewImage" class="card-img-top mb-2" width="600" height="auto">
+                        <script>
+                            const fileInput = document.getElementById("tenantPhotoPreview");
+                            const previewImage = document.getElementById("previewImage");
+                            fileInput.addEventListener("change", function() {
+                                const file = fileInput.files[0];
+                                const reader = new FileReader();
+                                reader.addEventListener("load", function() {
+                                    previewImage.src = reader.result;
+                                });
+
+                                if (file) {
+                                    reader.readAsDataURL(file);
+                                }
+                            });
+                        </script>
+                    </div>
+                    <span class="invalid-feedback"></span>
+                </div>
+                </div>
+                </div>
+
+                <!-- Submit form, and preview the tenant details in a modal -->
+                <div class="form-group">
+                <input type="button" onclick="fetchData()" class="btn btn-primary form-control" name="" value="Update Tenant" data-toggle="modal" data-target="#previewRegisteredTenant">
+                </div>
+
+                <!-- Preview registered tenant in the modal -->
+                <!-- @note Try to retrieve the POST values if invoked method is POST -->
+                <!-- Modal -->
+
+                <div class="modal fade" id="previewRegisteredTenant" tabindex="-1" role="dialog" aria-labelledby="previewRegisteredTenant" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Review Tenant Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <img class="card-img-top" alt="" align="center" id="previewImgTenantModal" width="50%" height="50%">
+                        <script>
+                            const fetchFileInput = document.getElementById("tenantPhotoPreview");
+                            const renderModalImg = document.getElementById("previewImgTenantModal");  
+                            fetchFileInput.addEventListener("change", function() {
+                                const file = fetchFileInput.files[0];
+                                const reader = new FileReader();
+                                reader.addEventListener("load", function() {
+                                    renderModalImg.src = reader.result;
+                                });
+
+                                if (file) {
+                                    reader.readAsDataURL(file);
+                                }
+                            });
+                        </script>
+                    </div>
+                    <h3 id="modalPreview_tenant-fullname" style="padding-top: 10px;"></h3>
+                    <h6><b id="modalPreview_tenant-room"></b></h6>
+                    <!-- Tenant POST details -->
+                    <ul class="list-group list-group-flush">
+                        <li id="modalPreview_tenant-contactNum" class="list-group-item"></li>
+                        <li id="modalPreview_tenant-emergencyNum" class="list-group-item"></li>
+                        <li id="modalPreview_tenant-email" class="list-group-item"></li>
+                    </ul>
+                    <div class="card-body">
+                        <div class="modal-body">
+                            <h5>Login Credentials</h5>
+                            <ul class="list-group list-group-flush">
+                                <li id="modalPreview_tenant-username" class="list-group-item"></li>
+                                <li id="modalPreview_tenant-password" class="list-group-item"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" name="submit-tenant" class="btn btn-outline-success form-control" value="Register Tenant">
+                </div>
+                </div>
+
+                <script>
+                    var tenant_fullname, tenant_room, tenant_contactNum, tenant_emergencyNum, tenant_email, tenant_username, tenant_password;
+
+                    function fetchData() {
+                        tenant_fullname = document.getElementById("fetchFullName").value; 
+                        tenant_room = document.getElementById("fetchRoom").value; 
+                        tenant_contactNum = document.getElementById("fetchNumber").value; 
+                        tenant_emergencyNum = document.getElementById("fetchEmergencyNum").value; 
+                        tenant_email = document.getElementById("fetchEmail").value; 
+                        tenant_username = document.getElementById("fetchUserName").value; 
+                        tenant_password = document.getElementById("fetchPassword").value; 
+
+                        // Render the fetched values for modal preview
+                        renderFetchedData_toModalPreview();
+                    }
+
+                    function renderFetchedData_toModalPreview() {
+                        document.getElementById("modalPreview_tenant-fullname").innerHTML = tenant_fullname;
+                        document.getElementById("modalPreview_tenant-room").innerHTML = "@Room: " + tenant_room;
+                        document.getElementById("modalPreview_tenant-contactNum").innerHTML = "Contact No.: <b>" + tenant_contactNum + "</b>";
+                        document.getElementById("modalPreview_tenant-emergencyNum").innerHTML = "Emergency Contact No.: <b>" + tenant_emergencyNum + "</b>";
+                        document.getElementById("modalPreview_tenant-email").innerHTML = "Email: <b>" + tenant_email + "</b>";
+                        document.getElementById("modalPreview_tenant-username").innerHTML = "Username: " + tenant_username;
+                        document.getElementById("modalPreview_tenant-password").innerHTML = "Password: " + tenant_password;
+                    }
+                </script>
+                </div>
+                </div>  
+                </form>
+                          
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    // Wait for the DOM to be fully loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get a reference to the add tenant button
+        const updateTenantButton = document.getElementById("updateTenantButton");
+
+        // Add a click event listener to the button
+        updateTenantButton.addEventListener("click", function() {
+            // When the button is clicked, show the modal
+            const modal = document.getElementById("previewRegisteredTenant");
+            modal.style.display = "block";
+        });
+
+        // Get a reference to the close button of the modal
+        const closeModalButton = document.querySelector("#previewRegisteredTenant .close");
+
+        // Add a click event listener to the close button
+        closeModalButton.addEventListener("click", function() {
+            // When the close button is clicked, hide the modal
+            const modal = document.getElementById("previewRegisteredTenant");
+            modal.style.display = "none";
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <br><br>
+</body>
+</html>

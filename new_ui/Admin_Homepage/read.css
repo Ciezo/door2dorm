@@ -1,0 +1,35 @@
+/* global.css */
+* {
+    /* Overalls customizations */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    scroll-behavior: smooth;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+
+.container {
+    padding-top: 50px;
+}
+.navbar .navbar-brand {
+    padding-left: 35px;
+}
+.navbar .collapse .navbar-nav .active {
+    background-color: white;
+    border-radius: 5px;
+    color:black;
+}
+.card {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    margin-bottom: 50px;
+}
+.shadow-border {
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}

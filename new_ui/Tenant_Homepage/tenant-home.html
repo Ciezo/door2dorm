@@ -1,0 +1,171 @@
+
+<!-- 
+    Filename: config.php
+    Description: The remote database configuration at ClearDB MySQL Heroku. 
+ -->
+
+ <script>console.log("Could not find or read the .env file: ")Unable to read any of the environment file(s) at [/app/.env].</script>
+ <script>
+     console.log("Connection SUCCESSFUL!");
+ </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Home</title>
+
+ <!-- Bootstrap from https://getbootstrap.com/ -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+ <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
+
+ <!-- CSS Global theming and styles -->
+ <link href="../../css/globals.css" rel="stylesheet">
+
+ <link href="tenant-home.css" rel="stylesheet">
+
+ <!-- jQuery-->
+ <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+ <style>
+
+ </style>
+
+</head>
+<body>
+ <!-- Bootstrap navbar -->
+ <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
+     <a class="navbar-brand" href="#">      
+             Hi <i class="fa-regular fa-hand fa-shake"></i> Welcome, tenant_beduya! 
+     </a>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+         <div class="navbar-nav">
+             <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-house-lock"></i> Home <span class="sr-only"></span></a>
+             <a class="nav-item nav-link px-2" href="tenant-account.php">My Account </span></a>
+             <a class="nav-item nav-link px-2" href="tenant-payment.php">Payment </span></a>
+             <a class="nav-item nav-link px-2" href="tenant-securityLogs.php">Security Logs </span></a>
+             <a class="nav-item nav-link px-2" href="tenant-messages.php">Message </span></a>
+             <a class="nav-item nav-link px-2" href="../../components/custom/logout.php">Logout </span></a>
+         </div>
+     </div>
+ </nav> -->
+
+
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 shadow px-10">
+    <a class="navbar-brand text-white" href="#">      
+        Welcome <i class="fa-regular fa-hand fa-shake"></i>, tenant_beduya! 
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon navbar-toggler-icon-black"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active px-2 text-black" href="#"><i class="fa-solid fa-house-lock"></i> Home <span class="sr-only"></span></a>
+            <a class="nav-item nav-link px-2 text-white" href="tenant-account.php">My Account </a>
+            <a class="nav-item nav-link px-2 text-white" href="tenant-payment.php">Payment </a>
+            <a class="nav-item nav-link px-2 text-white" href="tenant-securityLogs.php">Security Logs </a>
+            <a class="nav-item nav-link px-2 text-white" href="tenant-messages.php">Message </a>
+            <a class="nav-item nav-link px-2 text-white" href="../../components/custom/logout.php">Logout </a>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+
+
+
+
+ <!-- Content goes here -->
+
+
+<!-- <div class="container-fluid" style="background-color:rgb(34, 58, 90)"> -->
+<div class="container-fluid" style="background-image: url('image/bedroom_sample.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center;">
+    <div class="container">
+    <!-- Tenant Account Overview -->
+    <div class="tenant-acc-overview">
+        <!-- <h2 style="font-size: 36px;">My Account</h2>
+        <p>Account overview</p> -->
+
+        <div class="card-body">
+            <div class="list-group list-group-transparent">
+                <div class="list-group-item list-group-item-action flex-column align-items-start border-0 custom-height" style="background-color: rgba(37, 51, 67, 0.384);">
+                    <div class="d-flex flex-row bd-highlight custom-margin-left custom-margin-top">
+                        <img class="tenant-pic d-none d-sm-flex" src="image/sample.jpg" alt="Avatar" style="margin-right: 25px; max-width: 20%;">
+                        <div>
+                            <i class="fa-solid fa-person-shelter pb-3" style="color: white;"></i>
+                            <span style="margin-right: 10px; color: white;">Room: 610</span>
+                            <i class="fa-solid fa-key" style="color: white;"></i>
+                            <small style="color: white;">Tenant ID: 164</small>
+                            <h5 class="display-3" style="font-weight: bold; color: white;">Vladimir Beduya</h5>
+                            <div class="card px-2 border-0 bg-transparent" style="margin-right: 5px; color: white;">
+                                <label for="Room details" style="color: white;">Room details:</label>
+                                <p class="mb-1" style="color: white;">A studio type room with aircon. A balcony, 1 bathroom and 1 kitchen with free sofa bed</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+    </div>
+    </div>
+</div>
+
+
+
+
+<div class="container">  
+    <!-- Tenant Balances overview -->
+    <div class="modern-table">
+        <h2 style="font-weight: bold;">My Balances</h2>
+        <p>List of my current balances</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Bill Type</th>
+                    <th>Charges</th>
+                    <th>Due Date</th>
+                    <th>Payment Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Rental</td>
+                    <td class="text-danger">Waiting for updates...</td>
+                    <td class="text-danger">Waiting for updates...</td>
+                    <td class="text-danger">Waiting for updates...</td>
+                </tr>
+                <tr>
+                    <td>Electricity</td>
+                    <td class="text-danger">Waiting for updates...</td>
+                    <td class="text-danger">Waiting for updates...</td>
+                    <td class="text-danger">Waiting for updates...</td>
+                </tr>
+                <tr>
+                    <td>Water</td>
+                    <td class="text-danger">Waiting for updates...</td>
+                    <td class="text-danger">Waiting for updates...</td>
+                    <td class="text-danger">Waiting for updates...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+ </div>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+/* global.css */
+* {
+    /* Overalls customizations */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    scroll-behavior: smooth;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+
+.container {
+    padding-top: 50px;
+}
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.navbar .navbar-brand {
+    padding-left: 35px;
+}
+.navbar .collapse .navbar-nav .active {
+    background-color: rgb(197, 195, 195);
+    border-radius: 5px;
+    color:black;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
+}
+.navbar-toggler-icon-black {
+    background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="black" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22" /%3E%3C/svg%3E');
+}
+
+
+
+
+
+.tenant-acc-overview {
+    padding-bottom: 50px;
+}
+.tenant-balances-overview {
+    padding-bottom: 50px;
+}
+.tenant-pic{
+    border-radius: 50%;
+    /* width: 15vw; */
+    /* height: 30vh; */
+}
+
+.table tbody td {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.custom-height {
+    height: 340px;
+}
+
+.custom-margin-top {
+    margin-top: 30px;
+}
+
+.custom-margin-left{
+    margin-left: 25px
+}
+
+
+
+/* Custom table styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+.table tbody td {
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Modern table styles */
+.modern-table {
+    margin: 20px 0;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modern-table thead th {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.modern-table tbody td {
+    vertical-align: middle;
+}
+
+.modern-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+

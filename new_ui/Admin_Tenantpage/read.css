@@ -1,0 +1,94 @@
+/* global.css */
+* {
+    /* Overalls customizations */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    scroll-behavior: smooth;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.container {
+    padding-top: 50px;
+}
+.navbar .navbar-brand {
+    padding-left: 35px;
+}
+.navbar .collapse .navbar-nav .active {
+    background-color: white;
+    border-radius: 5px;
+    color:black;
+}
+/* .card {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    margin-bottom: 50px;
+} */
+
+
+
+
+.tenant-acc-overview {
+    padding-bottom: 50px;
+}
+.tenant-balances-overview {
+    padding-bottom: 50px;
+}
+.tenant-pic{
+    border-radius: 50%;
+    /* width: 15vw; */
+    /* height: 30vh; */
+}
+
+.table tbody td {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.custom-height {
+    height: 340px;
+}
+
+.custom-margin-top {
+    margin-top: 30px;
+}
+
+.custom-margin-left{
+    margin-left: 25px
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    /* background-color: #fff;
+    margin: 15% auto;
+    border: 1px solid #888; */
+    width: 100%;
+}
+.larger-icon {
+    font-size: 27px; /* Adjust the size as needed */
+}
+.modal-header {
+    padding-left: 50px; /* Adjust the padding value as needed */
+    /* Additional styles if required */
+}
+.modal-content {
+    height: 620px; /* Set the desired height of the modal */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+.modal-header .close {
+    border: none; /* Remove the border */
+}
+.card-no-border {
+    border: none;
+}

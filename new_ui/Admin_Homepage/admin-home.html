@@ -1,0 +1,693 @@
+<!-- 
+    Filename: config.php
+    Description: The remote database configuration at ClearDB MySQL Heroku. 
+ -->
+
+<html lang="en">
+  <head>
+    <script>
+      console.log("Could not find or read the .env file: ")Unable to read any of the environment file(s) at [/app/.env].
+    </script>
+    <script>
+      console.log("Connection SUCCESSFUL!");
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+
+    <!-- Bootstrap from https://getbootstrap.com/ -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- Buttons Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-QO4fotXa17xHKALnu43F72AvlFP4vFv9I7d3ZP62Eekj2NzHLr2Z5Z5ecYJzupcWdGgJ2Ss7WjWsHKBBlXy58w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/c36559a51c.js"
+      crossorigin="anonymous"
+    ></script>
+    <style media="all" id="fa-v4-font-face">
+      /*!
+ * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ * Copyright 2023 Fonticons, Inc.
+ */
+      @font-face {
+        font-family: "FontAwesome";
+        font-display: block;
+        src: url(https://ka-f.fontawesome.com/releases/v6.4.0/webfonts/free-fa-solid-900.woff2)
+            format("woff2"),
+          url(https://ka-f.fontawesome.com/releases/v6.4.0/webfonts/free-fa-solid-900.ttf)
+            format("truetype");
+      }
+      @font-face {
+        font-family: "FontAwesome";
+        font-display: block;
+        src: url(https://ka-f.fontawesome.com/releases/v6.4.0/webfonts/free-fa-brands-400.woff2)
+            format("woff2"),
+          url(https://ka-f.fontawesome.com/releases/v6.4.0/webfonts/free-fa-brands-400.ttf)
+            format("truetype");
+      }
+      @font-face {
+        font-family: "FontAwesome";
+        font-display: block;
+        src: url(https://ka-f.fontawesome.com/releases/v6.4.0/webfonts/free-fa-regular-400.woff2)
+            format("woff2"),
+          url(https://ka-f.fontawesome.com/releases/v6.4.0/webfonts/free-fa-regular-400.ttf)
+            format("truetype");
+        unicode-range: u+f003, u+f006, u+f014, u+f016-f017, u+f01a-f01b, u+f01d,
+          u+f022, u+f03e, u+f044, u+f046, u+f05c-f05d, u+f06e, u+f070,
+          u+f087-f088, u+f08a, u+f094, u+f096-f097, u+f09d, u+f0a0, u+f0a2,
+          u+f0a4-f0a7, u+f0c5, u+f0c7, u+f0e5-f0e6, u+f0eb, u+f0f6-f0f8, u+f10c,
+          u+f114-f115, u+f118-f11a, u+f11c-f11d, u+f133, u+f147, u+f14e,
+          u+f150-f152, u+f185-f186, u+f18e, u+f190-f192, u+f196, u+f1c1-f1c9,
+          u+f1d9, u+f1db, u+f1e3, u+f1ea, u+f1f7, u+f1f9, u+f20a, u+f247-f248,
+          u+f24a, u+f24d, u+f255-f25b, u+f25d, u+f271-f274, u+f278, u+f27b,
+          u+f28c, u+f28e, u+f29c, u+f2b5, u+f2b7, u+f2ba, u+f2bc, u+f2be,
+          u+f2c0-f2c1, u+f2c3, u+f2d0, u+f2d2, u+f2d4, u+f2dc;
+      }
+      @font-face {
+        font-family: "FontAwesome";
+        font-display: block;
+        src: url(https://ka-f.fontawesome.com/releases/v6.4.0/webfonts/free-fa-v4compatibility.woff2)
+            format("woff2"),
+          url(https://ka-f.fontawesome.com/releases/v6.4.0/webfonts/free-fa-v4compatibility.ttf)
+            format("truetype");
+        unicode-range: u+f041, u+f047, u+f065-f066, u+f07d-f07e, u+f080, u+f08b,
+          u+f08e, u+f090, u+f09a, u+f0ac, u+f0ae, u+f0b2, u+f0d0, u+f0d6, u+f0e4,
+          u+f0ec, u+f10a-f10b, u+f123, u+f13e, u+f148-f149, u+f14c, u+f156,
+          u+f15e, u+f160-f161, u+f163, u+f175-f178, u+f195, u+f1f8, u+f219,
+          u+f27a;
+      }
+    </style>
+    <style media="all" id="fa-v5-font-face">
+
+    </style>
+    <style media="all" id="fa-main"></style>
+
+    <!-- jQuery-->
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.js"
+      integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+      integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+      integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS Global theming and styles -->
+    <link href="admin-home.css" rel="stylesheet" />
+    <style type="text/css" id="operaUserStyle"></style>
+    <style type="text/css">
+    </style>
+  </head>
+
+  <body data-new-gr-c-s-check-loaded="14.1111.0" data-gr-ext-installed="">
+    <!-- Bootstrap navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+      <a class="navbar-brand" href="#">
+        <i class="fa-solid fa-building-user"></i>
+        Welcome, Admin!
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="true"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active px-2" href="#"
+            ><i class="fa-solid fa-house-user"></i> Home
+            <span class="sr-only"></span
+          ></a>
+          <a class="nav-item nav-link px-2" href="admin-payment.php">Payment</a>
+          <a class="nav-item nav-link px-2" href="admin-tenants.php">Tenants</a>
+          <a class="nav-item nav-link px-2" href="admin-securityLogs.php"
+            >Security Logs</a
+          >
+          <a class="nav-item nav-link px-2" href="admin-facenet.php">FaceNet</a>
+          <a class="nav-item nav-link px-2" href="admin-messages.php"
+            >Messages</a
+          >
+          <a
+            class="nav-item nav-link logout px-2"
+            href="../../components/custom/logout.php"
+            >Logout</a
+          >
+        </div>
+      </div>
+    </nav>
+
+  <!-- Content goes here -->
+  <div class="container-fluid"  style="width: 80%; padding-top: 70px; padding-bottom: 70px;">
+
+    
+    <!-- Admin creates list of available rooms -->
+    <div class="admin-avail-rooms-list">
+        <h2>Available Rooms/Units</h2>
+        <p>You may set to list or post your available rooms/units here</p>
+
+        <!-- <a class="btn btn-outline-primary" href="../../api/rooms/create.php"
+          >Set an available room</a> -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#previewRegisteredTenant">
+            <i class="fas fa-plus ml-2"></i> Set an available room 
+          </button>
+
+          
+          
+
+        <!-- Get a local list of rooms/units in a table -->
+        <div class="container-fluid px-auto">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <!-- Table headers -->
+              <!-- Table body in a loop. Data is fetched from the database -->
+              <thead class="thead-dark">
+                <tr class="table-dark">
+                  <th scope="col" style="width: 2%;"  class="text-center">#</th>
+                  <th scope="col" style="width: 10%;"  class="text-center">Room No.</th>
+                  <th scope="col" style="width: 5%;">Type</th>
+                  <th scope="col" style="width: 15%;">Category</th>
+                  <th scope="col" style="width: 3%;"  class="text-center">Genders</th>
+                  <th scope="col" style="width: 20%;">Pricing per month</th>
+                  <th scope="col" style="width: 5%;"  class="text-center">Occupants</th>
+                  <th scope="col" style="width: 8%;">Status</th>
+                  <th scope="col" style="width: 13%;"  class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td  class="text-center">54</td>
+                  <td class="text-center">100</td>
+                  <td>Studio</td>
+                  <td>With Airconditiong Unit</td>
+                  <td  class="text-center">Mix</td>
+                  <td>A great room for couples, or small family.</td>
+                  <td  class="text-center">4</td>
+                  <td>Available</td>
+                  <td class="text-center">
+                    <a class="btn btn-success btn-sm" href="../../api/rooms/update.php?id=114" style="flex-grow: 1; width: 77px; margin-bottom: 10px; margin-top: 10px;">
+                      <i class="fas fa-edit"></i>
+                      <span style="margin-left: 2px; font-size: 100%;">Edit</span>
+                    </a>
+
+                    <a class="btn btn-outline-danger btn-sm" href="../../api/rooms/delete.php?id=114" style="flex-grow: 1; ">
+                      <i class="fas fa-trash-alt"></i> 
+                      <span style="margin-left: 2px; font-size: 100%;">Delete</span>
+                    </a>
+                  </td>
+                  
+                  
+
+                  <!-- <td style="display: flex; justify-content: space-between;" class="text-center">
+                    <a class="btn btn-outline-danger btn-sm" href="../../api/rooms/delete.php?id=114" style="margin-right: 2px; flex-grow: 3;">
+                      <i class="fas fa-trash-alt"></i> 
+                      <span style="margin-left: 2px;">Delete</span>
+                    </a>
+                    <a class="btn btn-success btn-sm" href="../../api/rooms/update.php?id=114" style="margin-left: 2px; flex-grow: 3;">
+                      <i class="fas fa-edit"></i>
+                      <span style="margin-left: 2px;">Edit</span>
+                    </a>
+                  </td> -->
+ 
+                  
+                </tr>
+                <tr>
+                  <td  class="text-center">84</td>
+                  <td  class="text-center">101</td>
+                  <td>Double</td>
+                  <td>With Airconditiong Unit</td>
+                  <td  class="text-center">Mix</td>
+                  <td>
+                    A great room for two people. 1 Bathroom, 1 kitchen, with aircon.
+                    Up to 4 maximum persons are allowed.
+                  </td>
+                  <td  class="text-center">2</td>
+                  <td>Available</td>
+                  <td class="text-center">
+                    <a class="btn btn-success btn-sm" href="../../api/rooms/update.php?id=114" style="flex-grow: 1; width: 77px; margin-bottom: 10px; margin-top: 10px;">
+                      <i class="fas fa-edit"></i>
+                      <span style="margin-left: 2px; font-size: 100%;">Edit</span>
+                    </a>
+
+                    <a class="btn btn-outline-danger btn-sm" href="../../api/rooms/delete.php?id=114" style="flex-grow: 1; ">
+                      <i class="fas fa-trash-alt"></i> 
+                      <span style="margin-left: 2px; font-size: 100%;">Delete</span>
+                    </a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td  class="text-center">94</td>
+                  <td  class="text-center">401</td>
+                  <td>Triple</td>
+                  <td>With Airconditiong Unit</td>
+                  <td  class="text-center">Female</td>
+                  <td>
+                    All females studio type room. Pets are allowed. The room has 1
+                    kitchen and 1 bathroom. 4 beds with balcony
+                  </td>
+                  <td  class="text-center">4</td>
+                  <td>Available</td>
+                  <td class="text-center">
+                    <a class="btn btn-success btn-sm" href="../../api/rooms/update.php?id=114" style="flex-grow: 1; width: 77px; margin-bottom: 10px; margin-top: 10px;">
+                      <i class="fas fa-edit"></i>
+                      <span style="margin-left: 2px; font-size: 100%;">Edit</span>
+                    </a>
+
+                    <a class="btn btn-outline-danger btn-sm" href="../../api/rooms/delete.php?id=114" style="flex-grow: 1; ">
+                      <i class="fas fa-trash-alt"></i> 
+                      <span style="margin-left: 2px; font-size: 100%;">Delete</span>
+                    </a>
+                  </td>
+                  
+                </tr>
+                <tr>
+                  <td  class="text-center">104</td>
+                  <td  class="text-center">501</td>
+                  <td>Triple</td>
+                  <td>Without Airconditiong Unit</td>
+                  <td  class="text-center">Male</td>
+                  <td>
+                    A great room for males, but no aircon only e-fan. It has 1 bed,
+                    1 bathroom, and 1 kitchen.
+                  </td>
+                  <td  class="text-center">3</td>
+                  <td>Available</td>
+                  <td class="text-center">
+                    <a class="btn btn-success btn-sm" href="../../api/rooms/update.php?id=114" style="flex-grow: 1; width: 77px; margin-bottom: 10px; margin-top: 10px;">
+                      <i class="fas fa-edit"></i>
+                      <span style="margin-left: 2px; font-size: 100%;">Edit</span>
+                    </a>
+
+                    <a class="btn btn-outline-danger btn-sm" href="../../api/rooms/delete.php?id=114" style="flex-grow: 1; ">
+                      <i class="fas fa-trash-alt"></i> 
+                      <span style="margin-left: 2px; font-size: 100%;">Delete</span>
+                    </a>
+                  </td>
+                  
+                  
+                </tr>
+                <tr>
+                  <td  class="text-center">114</td>
+                  <td  class="text-center">610</td>
+                  <td>Studio</td>
+                  <td>With Airconditiong Unit</td>
+                  <td  class="text-center">Mix</td>
+                  <td>
+                    A studio type room with aircon. A balcony, 1 bathroom and 1
+                    kitchen with free sofa bed
+                  </td>
+                  <td  class="text-center">5</td>
+                  <td>Available</td>
+                  <td class="text-center">
+                    <a class="btn btn-success btn-sm" href="../../api/rooms/update.php?id=114" style="flex-grow: 1; width: 77px; margin-bottom: 10px; margin-top: 10px;">
+                      <i class="fas fa-edit"></i>
+                      <span style="margin-left: 2px; font-size: 100%;">Edit</span>
+                    </a>
+
+                    <a class="btn btn-outline-danger btn-sm" href="../../api/rooms/delete.php?id=114" style="flex-grow: 1; ">
+                      <i class="fas fa-trash-alt"></i> 
+                      <span style="margin-left: 2px; font-size: 100%;">Delete</span>
+                    </a>
+                  </td>
+                  
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <br />
+
+
+      <!-- Overview of Tenants' Balances -->
+      <h2>Overview of Tenants' Balances</h2>
+      <p> This is where you can see all your tenants' balances both paid and unpaid</p>
+      <div id="periodic-refresh5secs-overviewBalances" class="admin-listAll-tenants-balances">
+        <!-- 
+    Filename: config.php
+    Description: The remote database configuration at ClearDB MySQL Heroku. 
+-->
+
+        <script>
+          console.log("Could not find or read the .env file: ")Unable to read any of the environment file(s) at [/app/.env].
+        </script>
+        <script>
+          console.log("Connection SUCCESSFUL!");
+        </script>
+
+      <div class="row shadow-border">
+        <!-- Rentals -->
+        <div class="col-lg-6">
+
+          <div class="card px-2 mx-2 card-no-border">
+            <h4>Monthly billings for rentals</h4>
+            <table class="table table-striped">
+              <tbody></tbody>
+              <thead class="thead-dark">
+                <tr class="table-dark">
+                  <th scope="col">Name</th>
+                  <th scope="col">Charges</th>
+                  <th scope="col">Due Date</th>
+                  <th scope="col">Details</th>
+                  <th scope="col">Payment Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Chariz Valerie Secuya</td>
+                  <td>8500</td>
+                  <td>2023-06-03</td>
+                  <td>Rental</td>
+                  <td>Unpaid</td>
+                </tr>
+                <tr>
+                  <td>Cheska Navarro</td>
+                  <td>12300</td>
+                  <td>2023-04-30</td>
+                  <td>Rental</td>
+                  <td>Unpaid</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Electricity -->
+        <div class="col-lg-6">
+          <div class="card">
+
+            <div class="card mx-2 my-2 card-no-border">
+              <h4>Monthly billings for electricity</h4>
+              <div class="alert alert-danger">
+                <em>There are no listed billings yet!</em>
+              </div>
+              <table class="table table-striped">
+                <tbody></tbody>
+              </table>
+            </div>
+
+
+            <!-- Water -->
+            <div class="card  mx-2 my-3 card-no-border">
+              <h4>Monthly billings for water</h4>
+              <div class="alert alert-danger">
+                <em>There are no listed billings yet!</em>
+              </div>
+              <table class="table table-striped">
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+
+        <script>
+          console.log("Refreshed billings");
+        </script>
+
+      </div>
+
+      
+      </div>
+
+      <!-- Scheduled Visits -->
+      <div id="refresh-5secs-bookings" class="admin-listAll-sched-booked-visits">
+        <!-- Filename: config.php Description: The remote database configuration at ClearDB MySQL Heroku.-->
+        <script>
+          console.log("Could not find or read the .env file: ")Unable to read any of the environment file(s) at [/app/.env].
+        </script>
+        <script>
+          console.log("Connection SUCCESSFUL!");
+        </script>
+
+        <h2>Scheduled Visitors</h2>
+        <p>This section presents all bookings and visits</p>
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr class="table-dark">
+              <th scope="col">Name</th>
+              <th scope="col">Vising Purpose</th>
+              <th scope="col">Date</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Amogus Sugoma</td>
+              <td>To find the susiest unit of all time</td>
+              <td>2023-04-29</td>
+              <td>
+                <a
+                  class="btn btn-outline-success"
+                  href="../../api/visitor/read.php?id=4"
+                  >View ID</a
+                >
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <td>Cloyd Van Secuya</td>
+              <td>To find room</td>
+              <td>2023-04-20</td>
+              <td>
+                <a
+                  class="btn btn-outline-success"
+                  href="../../api/visitor/read.php?id=14"
+                  >View ID</a
+                >
+              </td>
+            </tr>
+          </tbody>
+          <script>
+            console.log("Fetched dynamic content: Scheduled Visits");
+          </script>
+        </table>
+      </div>
+
+      <br/><br/>
+    </div>
+
+    <!-- Creating Room Profile -->
+    <div class="modal fade" id="previewRegisteredTenant" tabindex="-1" role="dialog" aria-labelledby="previewRegisteredTenant" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <!-- Modal header -->
+                <div class="modal-header">
+
+                  <h5 class="modal-title" id="exampleModalLongTitle" style="font-size: 30px; font-weight: bold;">Setup an available unit or room</h5>
+                    
+                  <button type="button" class="close border-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="larger-icon">&times;</span>
+                  </button>
+     
+                </div>
+
+                <div class="card px-5 mx-2 mt-2 card-no-border">
+                    <div id="tenant-acc-form" class="create-tenant-profile">
+                        <form action="create.php" method="POST" enctype="multipart/form-data">
+                          <br>
+                            <!-- Room or Unit number || name="room-number"-->
+                            <div class="form-group">
+                                <label for="Room/Unit Number"><strong>Room or Unit Number</strong></label>
+                                <input type="text" name="room-number" placeholder="000" class="form-control " value="">
+                                <span class="invalid-feedback"></span>
+                            </div>
+                            <br>
+                            <!-- Room Type || name="room-type"-->
+                            <div class="form-group">
+                              <label for="Selecting a Room type"><strong>Select a room type</strong></label>
+                                <select class="form-control" name="room-type" id="" required="">
+                                    <option value="Single">Single</option>
+                                    <option value="Double">Double</option>
+                                    <option value="Triple">Triple</option>
+                                    <option value="Quad">Quad</option>
+                                    <option value="Studio">Studio</option>
+                                </select>
+                            </div>
+                            <br>
+                            <!-- Room Category || name="room-category" -->
+                            <div class="form-group">
+                                <label for="Selecting a Room Category"><strong>Select room category</strong></label>
+                                <select class="form-control" name="room-category" id="" required="">
+                                    <option value="With Airconditiong Unit">With Airconditiong Unit</option>
+                                    <option value="Without Airconditiong Unit">Without Airconditiong Unit</option>
+                                    <option value="With Electric Fans">With Electric Fans</option>
+                                    <option value="Without Electric Fans">Without Electric Fans</option>
+                                </select>
+                            </div>
+                            <br>
+                            <!-- Gender to assign || name="room-gender"-->
+                            <div class="form-group">
+                                <label for="Assigning Genders"><strong>Assign genders to occupy the room</strong></label>
+                                <select class="form-control" name="room-gender" id="" required="">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Mix">Mix</option>
+                                </select>
+                            </div>
+                            <br>
+                            <!-- Room Details || name="room-details"-->
+                            <div class="form-group">
+                                <label for="Writing unit description"><strong>Give a description for room details</strong></label>
+                                <textarea name="room-details" placeholder="Write a short description about the unit" rows="5" class="form-control "></textarea>
+                                <span class="invalid-feedback"></span>
+                            </div>
+                            <br>
+                            <!-- Pricing || name="room-pricing"-->
+                            <div class="form-group">
+                                <label for="Setting Monthly Prices"><strong>Set Monthtly Pricing</strong></label>
+                                <textarea name="room-pricing" placeholder="Php 0.00" rows="1" class="form-control "></textarea>
+                                <span class="invalid-feedback"></span>
+                            </div>
+                            <br>
+                            <!-- Number of occupants || name="number-occupants" -->
+                            <div class="form-group">
+                                <label><strong>Set number of occupants</strong></label>
+                                <textarea name="number-occupants" placeholder="0" rows="1" class="form-control "></textarea>
+                                <span class="invalid-feedback"></span>
+                            </div>
+                            <br>
+                            <!-- Occupancy Status || name="occupy_status" -->
+                            <div class="form-group">
+                                <label for="Setting status of room (available or taken)"><strong>Set Occupancy Status</strong></label>
+                                <select class="form-control" name="occupy_status" id="" required="">
+                                    <option value="Available">Available</option>
+                                    <option value="Taken">Taken</option>
+                                </select>
+                            </div>
+                            <br>
+                            <!-- Room Photo -->
+                            <div class="form-group">
+                                <label for="Upload a photo"><strong>Upload a photo of the unit</strong></label>
+                                <input type="file" class="form-control" name="file_photo_upload" required>
+                                <span class="invalid-feedback"></span>
+                            </div>
+                            <br><br>
+
+                        <div class="form-group">
+                          <input type="button" onclick="fetchData()" class="btn btn-primary form-control" name="" value="Register Room" data-toggle="modal" data-target="#previewRegisteredTenant">
+                        </div>
+                        <br><br>
+
+                        </form>        
+                              
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get a reference to the add tenant button
+            const addTenantButton = document.getElementById("addTenantButton");
+
+            // Add a click event listener to the button
+            addTenantButton.addEventListener("click", function() {
+                // When the button is clicked, show the modal
+                const modal = document.getElementById("previewRegisteredTenant");
+                modal.style.display = "block";
+            });
+
+            // Get a reference to the close button of the modal
+            const closeModalButton = document.querySelector("#previewRegisteredTenant .close");
+
+            // Add a click event listener to the close button
+            closeModalButton.addEventListener("click", function() {
+                // When the close button is clicked, hide the modal
+                const modal = document.getElementById("previewRegisteredTenant");
+                modal.style.display = "none";
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+    <!-- Script src to dynamically refresh and load bookings -->
+    <script
+      type="text/javascript"
+      src="../../js/dynamic-load-Bookings.js"
+    ></script>
+    <!-- Script src to dynamically load billings overview -->
+    <script
+      type="text/javascript"
+      src="../../js/dynamic-load-adminBillingsOverview.js"
+    ></script>
+    <!-- Script src to dynamically laod messages -->
+    <script
+      type="text/javascript"
+      src="../../js/dynamic-load-adminAllMsgOverview.js"
+    ></script>
+    <!-- Script src to dynamically load security logs overview -->
+    <script
+      type="text/javascript"
+      src="../../js/dynamic-load-SecurityLogsOverview.js"
+    ></script>
+  </body>
+
+  <grammarly-desktop-integration
+    data-grammarly-shadow-root="true"
+  ></grammarly-desktop-integration>
+</html>

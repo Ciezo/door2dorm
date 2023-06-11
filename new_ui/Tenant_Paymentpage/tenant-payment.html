@@ -1,0 +1,251 @@
+
+<!-- 
+    Filename: config.php
+    Description: The remote database configuration at ClearDB MySQL Heroku. 
+ -->
+
+<script>console.log("Could not find or read the .env file: ")Unable to read any of the environment file(s) at [/app/.env].</script>
+    <script>
+        console.log("Connection SUCCESSFUL!");
+    </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+
+    <!-- Bootstrap from https://getbootstrap.com/ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
+
+    <!-- CSS Global theming and styles -->
+    <!-- <link href="../../css/globals.css" rel="stylesheet"> -->
+    <link href="tenant-payment.css" rel="stylesheet">
+
+    <!-- jQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <!-- Bootstrap navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+        <a class="navbar-brand text-white" href="#">      
+            Welcome <i class="fa-regular fa-hand fa-shake"></i>, tenant_beduya! 
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon navbar-toggler-icon-white"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link px-2 text-white" href="tenant-home.php">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link px-2 text-white" href="tenant-account.php">My Account </a>
+                <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-money-bill-wave"></i> Payment </span></a>
+                <a class="nav-item nav-link px-2 text-white" href="tenant-securityLogs.php">Security Logs </a>
+                <a class="nav-item nav-link px-2 text-white" href="tenant-messages.php">Message </a>
+                <a class="nav-item nav-link px-2 text-white" href="../../components/custom/logout.php">Logout </a>
+            </div>
+        </div>
+    </nav>
+    
+
+
+
+
+
+
+    <!-- Content goes here -->
+    <div class="container custom-container">
+        <div class="row">
+
+            <div class="col-lg-9">
+                <!-- Tenant Billing Information -->
+                <div class="tenant-billing-information">
+                    <h2>Tenant Billing Information</h2>
+                        
+                    <p>Listed in here are your current balanaces</p>
+                <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr class="table-dark">
+                                    <th scope="col" style="font-size: 14px;">TENANT ID</th>
+                                    <th scope="col" style="font-size: 14px;">PAYMENT ID</th>
+                                    <th scope="col" style="font-size: 14px;">TYPE</th>
+                                    <th scope="col" style="font-size: 14px;">CHARGES</th>
+                                    <th scope="col" style="font-size: 14px;">DUE DATE</th>
+                                    <th scope="col" style="font-size: 14px;">TO BE PAID BY</th>
+                                    <th scope="col" style="font-size: 14px;">PAYMENT STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rental billings -->
+                                <tr>
+                                    <td>164</td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>Rental</td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>
+                                    </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                </tr>
+            
+                                <!-- Electricity Billings -->
+                                <tr>
+                                    <td>164</td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>Electricity</td>
+                                    <td> 
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                </tr>
+            
+                                <!-- Water Billings -->
+                                <tr>
+                                    <td>164</td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>Water</td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+
+                <!-- Payment History -->
+                <div class="payment-history">
+                    <h2>Payment History</h2>
+                    <p>Here you can have an overview of all your paid and successful transactions</p>
+                    <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr class="table-dark">
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Charges</th>
+                                    <th scope="col">Payment Status</th>
+                                    <th scope="col">Date Paid</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rental billings -->
+                                <tr>
+                                    <td>Rental</td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>
+                                    </td>
+                                </tr>
+            
+                                <!-- Electricity Billings -->
+                                <tr>
+                                    <td>Electricity</td>
+                                    <td> 
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                </tr>
+            
+                                <!-- Water Billings -->
+                                <tr>
+                                    <td>Water</td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                    <td>
+                                        <span style='color:red'>Waiting for updates...<span>                            </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>              
+            </div>
+
+
+            <div class="col-lg-3  shadow-border">
+                <!-- Uploading proof of payment -->
+                <div class="upload-proof-of-payment fixed">
+                    
+                    <h2>Proof of payment</h2>
+                    <p>You can upload an image attachment for your proof of payments</p>
+                    <form action="tenant-payment.php" method="POST" enctype="multipart/form-data">
+                        <!-- Choose Bill Type -->
+                        <div class="form-group">
+                            <label style= "font-weight: bold;">Choose a bill type</label>
+                            <select name="bill-type-option" class="form-control">
+                                <option value="Rental">Rental</option>
+                                <option value="Electricity">Electricity</option>
+                                <option value="Water">Water</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label style= "font-weight: bold;">Put the reference code here</label>
+                            <p><i>Write here your reference code billing</i></p>
+                            <small>Example: Meralco Reference Billing Code</small>
+                            <input type="text" name="payment-ref-code" placeholder="000AAABBBCCC" class="form-control " value="">
+                            <span class="invalid-feedback"></span>
+                        </div>
+                        <br>
+                        <!-- Upload photo -->
+                        <div class="form-group">
+                            <label style= "font-weight: bold;">Upload your proof of payment here</label>
+                            <input type="file" name="file-proof-payment" class="form-control " value="" required>
+                        </div>
+                        <br>
+                        <!-- Submit -->
+                        <!-- Default values to submit as hidden -->
+                        <input type="hidden" name="date_uploaded" value="06-03-2023">
+                        <input type="hidden" name="proof_by" value="Vladimir Beduya">
+
+
+                        <div class="d-flex justify-content-end">
+                            <input type="submit" name="upload-proof-payment" class="btn btn-primary">
+                        </div>
+
+                    </form>
+                </div>  
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+        
+       </div>
+    </div>
+</body>
+</html>

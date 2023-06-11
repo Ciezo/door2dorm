@@ -1,0 +1,75 @@
+/* global.css */
+* {
+    /* Overalls customizations */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+    scroll-behavior: smooth;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+
+
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.container {
+    padding-top: 4%;
+}
+.navbar .navbar-brand {
+    padding-left: 35px;
+}
+.navbar .collapse .navbar-nav .active {
+    background-color: rgb(197, 195, 195);
+    border-radius: 5px;
+    color:black;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 0.2);
+}
+.navbar-toggler-icon-black {
+    background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="black" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22" /%3E%3C/svg%3E');
+}
+
+
+
+
+.tenant-billing-information {
+    padding-bottom: 50px;
+}
+
+
+
+.upload-proof-of-payment {
+    padding-bottom: 50px;
+}
+
+.payment-history {
+    padding-bottom: 50px;
+}
+
+.fixed {
+    position: sticky;
+    top: 20px; /* Adjust the value to set the desired distance from the top */
+}
+
+.shadow-border {
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+
+
+
+.custom-container {
+    max-width: 1500px; /* Adjust the desired width */
+    position: relative;
+}
+
+.table thead th {
+    font-weight: 700;
+    text-transform: uppercase;
+    
+}
