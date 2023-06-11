@@ -1,0 +1,166 @@
+
+<!-- 
+    Filename: config.php
+    Description: The remote database configuration at ClearDB MySQL Heroku. 
+ -->
+
+ <script>console.log("Could not find or read the .env file: ")Unable to read any of the environment file(s) at [/app/.env].</script>
+ <script>
+     console.log("Connection SUCCESSFUL!");
+ </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>FaceNet: Facial Recognition</title>
+
+ <!-- Bootstrap from https://getbootstrap.com/ -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+ <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
+
+ <!-- CSS Global theming and styles -->
+ <link href="../../css/globals.css" rel="stylesheet">
+ <link href="admin-facenet.css" rel="stylesheet">
+
+ <!-- jQuery-->
+ <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+ <style>
+ </style>
+ <script>
+     $(document).ready(function(){
+         $('.toast').toast(true);
+     });
+ </script>
+</head>
+<body>
+ <!-- Bootstrap navbar -->
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+     <a class="navbar-brand" href="#">      
+         <i class="fa-solid fa-building-user"></i>
+             Welcome, Admin! 
+     </a>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+         <div class="navbar-nav">
+             <a class="nav-item nav-link px-2" href="admin-home.php">Home <span class="sr-only"></span></a>
+             <a class="nav-item nav-link px-2" href="admin-payment.php">Payment</a>
+             <a class="nav-item nav-link px-2" href="admin-tenants.php">Tenants</a>
+             <a class="nav-item nav-link px-2" href="admin-securityLogs.php">Security Logs</a>
+             <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-user-shield"></i> FaceNet</a>
+             <a class="nav-item nav-link px-2" href="admin-messages.php">Messages</a>
+             <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
+         </div>
+     </div>
+ </nav>
+
+ <!-- Content goes here -->
+ <div class="container">
+    <div class="column">
+
+
+        <div class="row justify-content-center">
+            <!-- View all images from the database -->
+            <div class="col-lg-7">
+
+                <div class="view-all-face-img">
+                    <h2>View all tenant images from the database</h2>
+                    <p>You can preview all tenant facial captures</p>
+                    <a href="admin-view_all-tenant-imgs.php" class="btn btn-primary">View all captures</a>
+                </div>
+            </div>
+        </div>
+            
+        <!-- FaceNet -->
+        <div class="row justify-content-center">
+
+            <div class="col-lg-7">
+
+                <div class="face-net">
+                    <div class="card px-5 mx-2 shadow-border">
+                        <h2>Register face capture of a tenant</h2>
+                        <p>Here you can register the facial capture of a tenant so they can be recognized by facial recognition</p>
+                        <form action="admin-facenet.php" id="_facenet_form" method="POST" enctype="multipart/form-data" class="pt-2">
+                            <div class="form-group">
+                                <label style= "font-weight: bold;">Full Name</label> <br>
+                                <small><i> Select a tenant to register them in FaceNet</i></small>
+                                <!-- Dynamic options listing based on registered tenants -->
+                                <select name="tenant-name-face-photo" id="tenant-selector" class="form-control">
+                                    <option value="Chariz Valerie Secuya">Chariz Valerie Secuya</option><option value="Raul Duran">Raul Duran</option><option value="Jorge Mora">Jorge Mora</option><option value="Ivan Caballero">Ivan Caballero</option><option value="Jose Miguel Bravo">Jose Miguel Bravo</option><option value="Jesus Ferrer">Jesus Ferrer</option><option value="Xavier Ferrer">Xavier Ferrer</option><option value="Raul Carmona">Raul Carmona</option><option value="Alfredo Vicente">Alfredo Vicente</option><option value="Juan jose Guerrero">Juan jose Guerrero</option><option value="Cloyd Van Secuya">Cloyd Van Secuya</option><option value="Cheska Navarro">Cheska Navarro</option><option value="Vladimir Beduya">Vladimir Beduya</option>                        </select>
+                                <span class="invalid-feedback"></span>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label style= "font-weight: bold;">Choose photo</label>
+                                <input type="file" id="file_tenant_photo" name="tenant-photo-file" class="form-control" required>
+                                <span class="invalid-feedback"></span>
+
+                                <br>
+                                <label style= "font-weight: bold;">Preview</label> <br>
+                                <div style="text-align: center;">
+                                    <img id="previewTenantFacePhoto" class="card-img-top mb-2 preview-image ">
+                                    <script>
+                                        const fetchFileInput = document.getElementById("file_tenant_photo");
+                                        const renderImgModal = document.getElementById("previewTenantFacePhoto");
+                                            fetchFileInput.addEventListener("change", function() {
+                                                const file = fetchFileInput.files[0];
+                                                const reader = new FileReader();
+                                                reader.addEventListener("load", function() {
+                                                    renderImgModal.src = reader.result;
+                                                    });
+
+                                                    if (file) {
+                                                        reader.readAsDataURL(file);
+                                                    }
+                                            });
+                                    </script> 
+                                </div>
+
+                            </div>
+                            <br>
+
+                            <!-- Register button -->
+                            <div class="d-flex justify-content-end">
+                                <input type="submit" name="register_face" value="Register face" class="btn btn-primary">
+                            </div>
+
+                            <br><br>
+                            <small style="color:red;">**By registering the tenant's facial capture. They will be recognized by the facial recognition software</small><br>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+ </div>
+
+
+ <!-- Toast, Popup notication -->
+ <div class="toast card mx-3" role="alert" aria-live="assertive" aria-atomic="true">
+     <div class="toast-header">
+         <strong class="mr-auto"><i class="fa-solid fa-id-card-clip"></i> FaceNet Notification</strong>
+     </div>
+     <div class="toast-body">
+         Facial capture registration, successful!
+     </div>
+ </div>
+
+ <script>
+     $(document).ready(function() {
+     $("#_facenet_form").submit(function(e) {
+             $('.toast').show();
+             $('.toast').toast(3000);
+         });
+     });
+</script> 
+</body>
+</html>
