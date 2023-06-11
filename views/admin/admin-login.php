@@ -115,6 +115,7 @@ if (isset($_POST['admin-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="hero-content flex flex-col lg:flex-row lg:space-x-8">
     <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <div class="card-body">
+      <form action="admin-login.php" class="admin-login-form" method="POST">
         <div class="form-control">
           <label class="label">
             <span class="label-text">Username</span>
@@ -131,8 +132,9 @@ if (isset($_POST['admin-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
           </label>
         </div>
         <div class="form-control mt-6">
-          <button class="btn btn-warning" name="admin-login" type="submit" >Login</button>
+          <button class="btn btn-warning" name="admin-login" type="submit" value="LOGIN">Login</button>
         </div>
+        </form>
       </div>
     </div>
     <div class="text-center lg:text-left">
