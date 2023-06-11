@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payments</title>
+
+    <!-- Bootstrap from https://getbootstrap.com/ -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/c36559a51c.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS Global theming and styles -->
+    <link href="../../css/globals.css" rel="stylesheet" />
+
+    <!-- jQuery-->
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.js"
+      integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+      integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+      integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .container {
+        padding-top: 50px;
+      }
+      .navbar .navbar-brand {
+        padding-left: 35px;
+      }
+      .navbar .collapse .navbar-nav .active {
+        background-color: white;
+        border-radius: 5px;
+        color: black;
+      }
+      .navbar .collapse .navbar-nav .logout:hover {
+        background-color: red;
+        color: white;
+        border-radius: 5px;
+      }
+      table tr td {
+        margin: 0px;
+      }
+      .dynamic-tenant-selector {
+        margin-bottom: 20px;
+      }
+      .dynamic-tenant-selector label {
+        transform: translate(0%, -50%);
+      }
+      .dynamic-tenant-selector .tenant-btn {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Bootstrap navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+      <a class="navbar-brand" href="#">
+        <i class="fa-solid fa-building-user"></i>
+        Welcome, Admin!
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="true"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link px-2" href="admin-home.php"
+            >Home <span class="sr-only"></span
+          ></a>
+          <a class="nav-item nav-link active px-2" href="#"
+            ><i class="fa-solid fa-credit-card"></i> Payment</a
+          >
+          <a class="nav-item nav-link px-2" href="admin-tenants.php">Tenants</a>
+          <a class="nav-item nav-link px-2" href="admin-securityLogs.php"
+            >Security Logs</a
+          >
+          <a class="nav-item nav-link px-2" href="admin-facenet.php">FaceNet</a>
+          <a class="nav-item nav-link px-2" href="admin-messages.php"
+            >Messages</a
+          >
+          <a
+            class="nav-item nav-link logout px-2"
+            href="../../components/custom/logout.php"
+            >Logout</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content goes here -->
+    <div class="container">
+      <!-- Current outstanding each tenant payments table -->
+      <div
+        id="periodic-refresh5secs-tenants-payments"
+        class="current-tenants-payments"
+      >
+        <div class="hero mt-6">
+          <div class="hero-content text-center">
+            <div class="max-w-md">
+              <h1 class="text-5xl font-bold">Payments</h1>
+              <p class="py-6">
+                This section presents the outstanding balances of tenants
+              </p>
+              <div class="dynamic-tenant-selector">
+                <!-- This is a form that submits a tenant name as an input which is used to dynamically
+                          generate a payments table. 
+                      -->
+                <form
+                  action="admin-payment.php"
+                  method="POST"
+                  enctype="multipart/form-data"
+                >
+                  <!-- Dynamic options listing based on registered tenants -->
+                  <select
+                    name="tenant-selected"
+                    id="tenant-selector"
+                    class="form-control select select-warning w-full"
+                  >
+                    <option disabled selected>Choose a tenant</option>
+                    <option value="Test">Cheska Navarro</option>
+                    <!-- <?php 
+                                  // Create a query to fetch all Tenants
+                                  $sql = "SELECT * FROM TENANT";
+                                  $results = mysqli_query($conn, $sql);
+          
+                                  // Check returned results
+                                  if ($results->num_rows > 0) {
+                                      while($rows = mysqli_fetch_array($results)) {
+                                          echo    '<option value="'.$rows["full_name"].'">'.$rows["full_name"].'</option>';
+                                      }
+                                  }
+                              ?> -->
+                  </select>
+                  <input
+                    type="submit"
+                    name="select-tenant"
+                    class="btn btn-warning tenant-btn"
+                    value="Review tenant payment"
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Editable table with live reflected changed to the database -->
+        <h5 class="mb-2">User's Balances</h5>
+
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr class="table-dark">
+              <th scope="col">Tenant ID</th>
+              <th scope="col">Bill Type</th>
+              <th scope="col">Charges</th>
+              <th scope="col">Due Date</th>
+              <th scope="col">Payment Status</th>
+              <th scope="col">Set Billings</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Rental row billing type-->
+            <tr>
+              <td>014</td>
+              <td>Rental</td>
+              <td>
+                <div class="badge badge-error px-2">Unassigned</div>
+              </td>
+              <td>
+                <div class="badge badge-error px-2">Unassigned</div>
+              </td>
+              <td>
+                <div class="badge badge-error px-2">Unassigned</div>
+              </td>
+              <td>
+                <!-- Trigger a modal for inputs -->
+                <button
+                  id="modal_rental_updates"
+                  class="btn btn-outline-dark"
+                  data-toggle="modal"
+                  data-target="#modal_rental_charges"
+                >
+                  Update charges
+                </button>
+                <button
+                  class="btn btn-outline-success"
+                  data-toggle="modal"
+                  data-target="#modal_rental_payment_acknowledgement"
+                >
+                  Review payments
+                </button>
+              </td>
+            </tr>
+            <!-- Electricty row billing type -->
+            <tr>
+              <td>104</td>
+              <td>Electricity</td>
+              <td>
+                <div class="badge badge-error px-2">Unassigned</div>
+              </td>
+              <td>
+                <div class="badge badge-error px-2">Unassigned</div>
+              </td>
+              <td>
+                <div class="badge badge-error px-2">Unassigned</div>
+              </td>
+              <td>
+                <!-- Trigger a modal for inputs -->
+                <button
+                  id="modal_electricity_updates"
+                  class="btn btn-outline-dark"
+                  data-toggle="modal"
+                  data-target="#modal_electricity_charges"
+                >
+                  Update charges
+                </button>
+                <button
+                  class="btn btn-outline-success"
+                  data-toggle="modal"
+                  data-target="#modal_electricity_payment_acknowledgement"
+                >
+                  Review payments
+                </button>
+              </td>
+            </tr>
+            <!-- Water row billing type -->
+            <tr>
+              <td>104</td>
+              <td>Water</td>
+              <td>
+                <div class="badge badge-error px-2">Unassigned</div>
+              </td>
+              <td>
+                <div class="badge badge-error px-2">Unassigned</div>
+              </td>
+              <td>
+                <div class="badge badge-error px-2">Unassigned</div>
+              </td>
+              <td>
+                <!-- Trigger a modal for inputs -->
+                <button
+                  id="modal_water_updates"
+                  class="btn btn-outline-dark"
+                  data-toggle="modal"
+                  data-target="#modal_water_charges"
+                >
+                  Update charges
+                </button>
+                <button
+                  class="btn btn-outline-success"
+                  data-toggle="modal"
+                  data-target="#modal_water_payment_acknowledgement"
+                >
+                  Review payments
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <!-- Payment history of each tenant. Displays all previous transactions which are paid -->
+      <div
+        id="periodic-refresh5secs-payment-history"
+        class="tenant-payment-history" 
+      >
+        <div class="hero">
+          <div class="hero-content text-center">
+            <div class="max-w-md">
+              <h1 class="text-5xl font-bold">Payment History</h1>
+              <p class="py-6">
+                This section displays all paid transactions from <b>Tenant</b>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- This table will load and refresh based on the selected tenant from the tenant-selector -->
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr class="table-dark">
+              <th scope="col">Payment ID</th>
+              <th scope="col">Tenant ID</th>
+              <th scope="col">Bill Type</th>
+              <th scope="col">Charges</th>
+              <th scope="col">Due Date</th>
+              <th scope="col">Date Paid</th>
+              <th scope="col">Payment Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Rental row billing type-->
+            <tr>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>104</td>
+              <td>Rental</td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+            </tr>
+            <!-- Electricty row billing type -->
+            <tr>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>104</td>
+              <td>Electricity</td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+            </tr>
+            <!-- Water row billing type -->
+            <tr>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>104</td>
+              <td>Water</td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+              <td>
+                <b style="color: red">Waiting for updates...</b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
