@@ -246,19 +246,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["tenant-ref-img"] = $img_tenant_ref;
             $_SESSION["tenant-photo"] = $tenant_image_to_upload;
             
-
-            // Begin inserting the tenant image to the
-            $sql = "INSERT INTO IMG_TENANT_ASSOC(tenant_name, img_ref, tenant_img)
-                                VALUES
-                                (
-                                    '$tenant_fullName',
-                                    '$img_tenant_ref',
-                                    '$tenant_image_to_upload'
-                                )";  
-            mysqli_query($conn, $sql);
-            $conn->close();
-            
-            sleep(2);
             // Send the form data to the local API
             header("location: ../../api/tenant/create.php");
     }
@@ -479,6 +466,7 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
                     <!-- Tenant Mobile Number -->
                     <div class="form-group">
                         <label for="Tenant's mobile number"><i class="fa-solid fa-mobile-screen-button"></i> Mobile Number</label>
+                        <small><b>Ensure to include the Philippine country code '+639'</b></small>
                         <input type="text" id="fetchNumber" name="tenant-num" placeholder="+639000000000" class="form-control <?php echo (!empty($_err_tenant_num)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_num ; ?>">
                         <span class="invalid-feedback"><?php echo $_err_tenant_num ;?></span>
                     </div>
@@ -486,6 +474,7 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
                     <!-- Tenant Emergency Contact No. -->
                     <div class="form-group">
                         <label for="Tenant's emergency contact number"><i class="fa-solid fa-phone-volume"></i> Emergency Contact Number</label>
+                        <small><b>Ensure to include the Philippine country code '+639'</b></small>
                         <input type="text" id="fetchEmergencyNum" name="tenant-emergency-num" placeholder="+639000000000" class="form-control <?php echo (!empty($_err_tenant_emergencyNum)) ? 'is-invalid' : ''; ?>" value="<?php echo $tenant_emergencyNum ; ?>">
                         <span class="invalid-feedback"><?php echo $_err_tenant_emergencyNum ;?></span>
                     </div>

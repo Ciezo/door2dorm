@@ -16,9 +16,6 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Create an sQL Delete statement
     $sql = "DELETE FROM TENANT WHERE tenant_id = $id";
 
-    // Delete the associated img 
-    $sql_delete_assoc_img = "DELETE FROM IMG_TENANT_ASSOC WHERE img_id = $id";
-
     // Delete the facenet img 
     $sql_delete_registered_face = "DELETE FROM FACE_IMG WHERE tenant_id = $id";
 
@@ -47,7 +44,6 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
      *      4. TENANT       (PARENT)
      */
     // First delete the related Entitities to Tenant
-    if (mysqli_query($conn, $sql_delete_assoc_img)) {
         // Once this executes, now, delete the FaceNet image
         if (mysqli_query($conn, $sql_delete_registered_face)) {
             // Once this executes delete all messages from Tenant
@@ -66,7 +62,6 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                 } else { header("location: ../../views/error/error2.php"); }
             } else { header("location: ../../views/error/error2.php"); }
         } else { header("location: ../../views/error/error2.php"); }
-    } else { header("location: ../../views/error/error2.php"); }
 
 
     // Begin executing the query to delete the main tenant record

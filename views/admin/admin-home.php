@@ -151,36 +151,11 @@ if (!isset($_SESSION["admin-username"])) {
         </div>
         <br>
         <!-- Security logs -->
-        <div class="admin-viewAll-securityLogs">
-            <h2>Security Logs</h2>
-            <p>This section presents the security loggings retrieved by FaceNet</p>
-
-            <table class="table table-striped">
-                <thead class="thead-dark">
-                    <tr class="table-dark">
-                        <th scope="col">Name</th>
-                        <th scope="col">Room No.</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Sample Name 1</td>
-                        <td>Sample Room 1</td>
-                        <td>Checked In or Checked Out</td>
-                    </tr>
-                    <tr>
-                        <td>Sample Name 1</td>
-                        <td>Sample Room 1</td>
-                        <td>Checked In or Checked Out</td>
-                    </tr>
-                    <tr>
-                        <td>Sample Name 1</td>
-                        <td>Sample Room 1</td>
-                        <td>Checked In or Checked Out</td>
-                    </tr>
-                </tbody>
-            </table>
+        <h2>Security Logs</h2>
+        <p>This section presents the security loggings retrieved by FaceNet</p>
+        <div id="refresh1secs-SecurityLogs-overview" class="admin-viewAll-securityLogs">
+            <!-- Dynamica content, load every 1 second -->
+            <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
         </div>
         <br>
         <!-- Messages overview -->
@@ -204,5 +179,7 @@ if (!isset($_SESSION["admin-username"])) {
     <script type="text/javascript" src="../../js/dynamic-load-adminBillingsOverview.js"></script>
     <!-- Script src to dynamically laod messages -->
     <script type="text/javascript" src="../../js/dynamic-load-adminAllMsgOverview.js"></script>
+    <!-- Script src to dynamically load security logs overview -->
+    <script type="text/javascript" src="../../js/dynamic-load-SecurityLogsOverview.js"></script>
 </body>
 </html>
