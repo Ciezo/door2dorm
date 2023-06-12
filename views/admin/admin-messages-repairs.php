@@ -21,6 +21,8 @@ if (!isset($_SESSION["admin-username"])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- CSS Global theming and styles -->
     <link href="../../css/globals.css" rel="stylesheet">
@@ -74,8 +76,14 @@ if (!isset($_SESSION["admin-username"])) {
     <!-- Content goes here -->
     <div class="container">
         <div class="messages-listAll">
-            <h2>Messages</h2>
-            <p>This page displays all the submitted queries from tenants</p>
+            <div class="hero mt-6">
+                <div class="hero-content text-center">
+                    <div class="max-w-md">
+                        <h1 class="text-5xl font-bold">Messages</h1>
+                        <p class="py-6">This page displays all the submitted queries from tenants</p>
+                    </div>
+                </div>
+            </div>
             <div class="card text-center">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
