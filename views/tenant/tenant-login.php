@@ -28,21 +28,19 @@ if(isset($_POST['tenant-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html data-theme="light" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login, Tenant</title>
 
-    <!-- Bootstrap from https://getbootstrap.com/ -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
 
     <!-- CSS Global theming and styles -->
     <link href="../../css/globals.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
      
     <!-- jQuery-->
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
@@ -111,45 +109,52 @@ if(isset($_POST['tenant-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav px-2">
-                <a class="nav-item nav-link" href="../landing_page.php">Home <span class="sr-only"></span></a>
-                <a class="nav-item nav-link active" href="#">Tenant</a>
-                <a class="nav-item nav-link" href="../admin/admin-login.php">Admin</a>
+                <a class="nav-item nav-link px-2" href="../landing_page.php">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link px-2" href="#">Tenant</a>
+                <a class="nav-item nav-link active px-2" href="../admin/admin-login.php">Admin</a>
             </div>
         </div>
     </nav>
 
     <!-- Content goes here -->
-    <div class="container">
-        <div class="card mx-2 mt-3 mb-5">
-            <div class="table mb-1">
-                <div class="row">
-                    <!-- Left-side -->
-                    <div class="col-4 left-side mx-3 mt-1" style="overflow: hidden;">
-                        <h2 id="header_welcome">Sign in now as a dedicated tenant!</h2>
+    <div class="hero min-h-screen " style="background-image: url(https://xx.bstatic.com/data/xphoto/1440x810/332/33284819.jpg?size=S);">
+        <div class="hero-overlay bg-opacity-60">
+    </div>
+    
+    <div class="hero-content flex flex-col lg:flex-row lg:space-x-8">
+        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div class="card-body">
+                <form action="tenant-login.php" class="tenant-login" method="POST">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text"><i class="fa-solid fa-users-rectangle"></i> Username</span>
+                        </label>
+                        <input type="text" name="tenant-username" required="" placeholder="Username" class="input input-bordered" />
                     </div>
-                    <!-- right-side -->
-                    <div class="col right-side">
-                        <center>
-                            <img src="../../assets/images/resident-vector.png" alt="Friendly Admin Image Icon" width="200" height="200" style="overflow: hidden;">
-                                <form action="tenant-login.php" class="tenant-login" method="POST">
-                                    <h1>Hello! 👋<br>Welcome Back, Tenant!</h1>
-                                    <small class="px-2 mb-3 text-secondary">Enter the account credentials given to you by the dormitory admin</small>
-                                    <br><br>
-                                    <div class="form-group">
-                                        <label><i class="fa-solid fa-users-rectangle"></i> Username</label>
-                                        <input type="text" class="form-control" name="tenant-username" placeholder="my_username" required="">
-                                        <br>
-                                        <label><i class="fa-solid fa-lock-open"></i> Password</label>
-                                        <input type="password" class="form-control" name="tenant-password" placeholder="*********" required="">
-                                        <input class="btn btn-primary" name="tenant-login" type="submit" value="LOGIN"><br>
-                                        <a href="tenant-forgot-pw.php" class="btn btn-outline-danger mt-2"><i class="fa-solid fa-circle-xmark" style="color: #e85b45;"></i> Forgot password?</a>
-                                    </div>
-                                </form>
-                        </center>
+                    
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text"><i class="fa-solid fa-lock-open"></i> Password</span>
+                        </label>
+                        <input type="password" name="tenant-password" placeholder="Password" class="input input-bordered" required=""/>
+                        
+                        <label class="label">
+                            <a href="tenant-forgot-pw.php" class="label-text-alt link link-hover"><i class="fa-solid fa-circle-xmark" style="color: #e85b45;"></i> Forgot password?</a>
+                        </label>
                     </div>
-                </div>
+                    
+                    <div class="form-control mt-6">
+                        <button class="btn btn-warning" name="tenant-login" type="submit" >Login</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
+    
+        <div class="text-center lg:text-left">
+            <h1 class="text-5xl font-bold mb-6 text-white">Welcome back, Tenant. 👋</h1>
+            <p class="text-white">Enter the account credentials given to you by the dormitory admin.</p>
+        </div>
+  </div>
+</div>
 </body>
 </html>
