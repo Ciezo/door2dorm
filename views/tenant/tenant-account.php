@@ -63,6 +63,8 @@ $conn->close();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- CSS Global theming and styles -->
     <link href="../../css/globals.css" rel="stylesheet">
@@ -101,7 +103,7 @@ $conn->close();
     <!-- Bootstrap navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
         <a class="navbar-brand" href="#">      
-                Hi <i class="fa-regular fa-hand fa-shake"></i> Welcome, <?php echo $_SESSION["tenant-username"]?>! 
+                Hi <i class="fa-regular fa-hand fa-shake ml-2 mr-2"></i> Welcome, <?php echo $_SESSION["tenant-username"]?>! 
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -121,11 +123,17 @@ $conn->close();
     <!-- Content goes here -->
     <div class="container">
        <!-- Tenant Account Information  -->
-       <div class="card px-3 mx-2 mt-2 mb-5">
+       <div class="hero mt-6">
+            <div class="hero-content text-center">
+                <div class="max-w-md">
+                    <h1 class="text-5xl font-bold">Tenant Account Information</h1>
+                    <p class="py-6">This is your profile where your personal information resides</p>
+                </div>
+            </div>
+       </div>
+       <div class="card px-3 mx-2 mt-2 mb-2">
            <div id="periodic-refresh10secs-tenant-acc-info" class="tenant-account-information">
-                <h2 class="mt-2">Tenant Account Information</h2>
-                <p>This is your profile where your personal information resides</p>
-                <div class="card" style="width: 95%">
+                <div class="card px-4 mt-2 mb-2" style="width: 95%">
                     <div class="card-header"><h2><b><?php echo $tenant_full_name; ?></b></h2></div>
                     <!-- Tenant Info -->
                     <div class="card-body">
@@ -141,7 +149,7 @@ $conn->close();
                                         </ul>
                                     </div>
                                     <div class="card px-2 mx-2">
-                                        <h6><i class="fa-solid fa-cloud"></i> Write your status here</h6>
+                                        <h6><i class="fa-solid fa-cloud mb-2"></i> Write your status here</h6>
                                         <textarea id="tenant-write-status" class="form-control" name="tenant-self-status" cols="30" rows="5" placeholder="Today I am feeling..."></textarea>
                                         <button class="btn btn-outline-primary mt-2" id="post_status" onclick="set_tenant_status()">Post</button>
                                         <div class="card px-2 mt-2 overflow-auto" style="height: 150px">
@@ -163,11 +171,17 @@ $conn->close();
        </div>
 
        <!-- Tenant Assigned Rooms -->
+       <div class="hero mt-6">
+            <div class="hero-content text-center">
+                <div class="max-w-md">
+                    <h1 class="text-5xl font-bold">My Room</h1>
+                    <p class="py-6">This is your current occupying rooms</p>
+                </div>
+            </div>
+       </div>
        <div class="card px-3 mx-2 mt-2 mb-5">
            <div id="periodic-refresh10secs-tenant-room" class="tenant-assigned-room">
-                <h2 class="mt-2">My Room</h2>
-                <p>This is your current occupying room</p>
-                <table class="table">
+                <table class="table mt-2 ">
                     <thead class="thead-dark">
                         <tr class="table-dark">
                             <th>Room No.</th>
@@ -191,10 +205,16 @@ $conn->close();
        </div>
 
        <!-- Tenant E-contract -->
-       <div class="card px-3 mx-2 mt-2 mb-5">
+       <div class="hero mt-6">
+            <div class="hero-content text-center">
+                <div class="max-w-md">
+                    <h1 class="text-5xl font-bold">Review your contact</h1>
+                    <p class="py-6">You can review your signed contract here</p>
+                </div>
+            </div>
+       </div>
+       <div class="flex justify-center items-center mb-6">
            <div class="tenant-eContract">
-                <h2 class="mt-2">Review your contact</h2>
-                <p>You can review your signed contract here</p>
                 <button class="btn btn-outline-primary">Download Copy</button>
                 <button class="btn btn-outline-primary">View E-contract</button>
            </div>
