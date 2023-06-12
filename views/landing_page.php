@@ -162,6 +162,9 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Loading screen animation -->
     <link href="../css/loading.css" rel="stylesheet">   
 
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- jQuery-->
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
@@ -204,7 +207,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 <a class="nav-item nav-link active px-2" href="#">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link px-2" href="tenant/tenant-login.php">Tenant</a>
                 <a class="nav-item nav-link px-2" href="admin/admin-login.php">Admin</a>
-                <b><a class="nav-item nav-link fa-solid fa-book-bookmark fa-bounce btn btn-warning px-2" href="#sched-book-visit" style="color:black">  Book Now!</a></b>
+                <b><a class="nav-item nav-link px-2" href="#sched-book-visit" style="color:yellow;"><i class="fa-solid fa-book-bookmark"></i> Book Now!</a></b>
             </div>
         </div>
     </nav>
@@ -212,16 +215,23 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Content Wrapper -->
     <div class="container">
         <div id="loadingDiv"><img src="../assets/images/Rolling-1s-200px.gif" alt="Loading screen"></div>
+        <!-- <h1>List Of Available Rooms</h1> -->
+        <header class="bg-gray-800 text-white pb-4 mb-2 rounded-lg">
+            <div class="container mx-auto px-4 flex justify-center">
+                <h1 class="text-3xl font-bold">List of available rooms:</h1>
+            </div>
+        </header>
+
+        <!-- @todo List of available rooms displayed in a grid -->
         <div class="card px-2 mx-2">
-            <h1>List Of Available Rooms</h1>
-            <div id="periodic-refresh-5secs" class="rooms-avail-table">
+            <div id="periodic-refresh-5secs" class="rooms-avail-table mt-2">
                 <!-- Dynamic Table: Listing of Available rooms -->
                 <!-- Create a query to select all available rooms -->
             </div>
         </div>
-
-        <div id="sched-book-visit" class="request-visit">
-            <h1>Schedule Visits</h1>
+ 
+        <div id="sched-book-visit" class="request-visit max-w-lg mx-auto p-6 bg-white rounded shadow-md mb-4">
+            <h1 class="text-2xl font-bold mb-6">Schedule Visits</h1>
             <!-- Fill up form for a visitor -->
             <form action="landing_page.php" method="POST" enctype="multipart/form-data">
                 <!-- Visitor full name -->
@@ -289,7 +299,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 <br>
                 <!-- Submit form, and trigger modal -->
                 <div class="form-group">
-                    <input type="button" name="schedule-visit-submit-form" data-toggle="modal" data-target="#previewBookingDetails" onclick="submitForm()" class="btn btn-primary" value="Book now!">
+                    <input type="button" name="schedule-visit-submit-form" data-toggle="modal" data-target="#previewBookingDetails" onclick="submitForm()" class="btn btn-warning w-full" value="Book now!">
                 </div>
                 
                 <!-- Modal -->
