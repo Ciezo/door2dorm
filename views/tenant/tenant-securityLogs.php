@@ -21,6 +21,8 @@ if (!isset($_SESSION["tenant-username"])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- CSS Global theming and styles -->
     <link href="../../css/globals.css" rel="stylesheet">
@@ -48,7 +50,7 @@ if (!isset($_SESSION["tenant-username"])) {
     <!-- Bootstrap navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3">
         <a class="navbar-brand" href="#">      
-                Hi <i class="fa-regular fa-hand fa-shake"></i> Welcome, <?php echo $_SESSION["tenant-username"]?>! 
+                Hi <i class="fa-regular fa-hand fa-shake ml-2 mr-2"></i> Welcome, <?php echo $_SESSION["tenant-username"]?>! 
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -67,9 +69,15 @@ if (!isset($_SESSION["tenant-username"])) {
 
     <!-- Content goes here -->
     <div class="container">
+        <div class="hero mt-6">
+            <div class="hero-content text-center">
+                <div class="max-w-md">
+                    <h1 class="text-5xl font-bold">Security Logs</h1>
+                    <p class="py-6">Here are your security logging check-ins and check-outs based on facial recognition</p>
+                </div>
+            </div>
+       </div>
         <div id="tenant-security-logs" class="tenant-security-logs">
-            <h2>Security Logs</h2>
-            <p>Here are your security logging check-ins and check-outs based on facial recognition</p>
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <tr class="table-dark">
