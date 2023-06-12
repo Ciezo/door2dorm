@@ -34,7 +34,7 @@ function getMessages_byReports() {
     require("../../config.php");
 
     // Create a query to select all messages based on Report type 
-    $sql = "SELECT * FROM MESSAGES WHERE msg_type='Report'";
+    $sql = "SELECT * FROM MESSAGES WHERE msg_type='Reports'";
     $messages = mysqli_query($conn, $sql);
 
     return $messages;
