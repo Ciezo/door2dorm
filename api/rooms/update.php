@@ -258,6 +258,7 @@ else {
             <div class="form-group">
                 <label for="Updating a Room type">Update room type</label>
                 <select class="form-control" name="room-type" id="" required="">
+                <?php echo '<option selected="'.$room_type.'" disabled>'.$room_type.'</option>'?>
                     <option value="Single">Single</option>
                     <option value="Double">Double</option>
                     <option value="Triple">Triple</option>
@@ -270,6 +271,7 @@ else {
             <div class="form-group">
                 <label for="Updating a Room Category">Update room category</label>
                 <select class="form-control" name="room-category" id="" required="">
+                    <?php echo '<option selected="'.$room_category.'" disabled>'.$room_category.'</option>'?>
                     <option value="With Airconditiong Unit">With Airconditiong Unit</option>
                     <option value="Without Airconditiong Unit">Without Airconditiong Unit</option>
                 </select>
@@ -279,6 +281,7 @@ else {
             <div class="form-group">
                 <label for="Assigning Genders">Update assigned genders who will be occupying the room</label>
                 <select class="form-control" name="room-gender" id="" required="">
+                <?php echo '<option selected="'.$gender_assign.'" disabled>'.$gender_assign.'</option>'?>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Mix">Mix</option>

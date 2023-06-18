@@ -117,7 +117,7 @@ if (!isset($_SESSION["admin-username"])) {
                         echo    '<td>'.$row['room_type'].'</td>';               // Room Type
                         echo    '<td>'.$row['room_category'].'</td>';           // Room Category
                         echo    '<td>'.$row['gender_assign'].'</td>';           // Genders Assigned
-                        echo    '<td>'.$row['details'].'</td>';                 // Pricing
+                        echo    '<td>Php '.$row['pricing'].'</td>';             // Pricing
                         echo    '<td>'.$row['num_of_occupants'].'</td>';        // No. of occupants
                         echo    '<td>'.$row['occupancy_status'].'</td>';        // Status
 
