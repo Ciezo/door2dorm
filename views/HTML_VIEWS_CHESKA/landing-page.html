@@ -1,0 +1,550 @@
+<!-- <div class="card">
+            <div class="card-header text-center">With Airconditioning Unit</div>
+            <div class="card-body">
+              <h5 class="card-title">Studio</h5>
+              <img
+                class="card-img-top"
+                src="https://www.carltonhotel.sg/uploads/9/8/2/4/98249840/studio-room_19_orig.jpg"
+                alt="Card image cap"
+              />
+              <div class="card-body text-center">
+                <h2 class="card-text">Rent starts at</h2>
+                <div class="btn-area mx-1">
+                  <button class="btn btn-warning">PHP 9800</button>
+                  <span class="px-1"></span>
+                  <a
+                    class="btn btn-outline-primary"
+                    href="../api/rooms/read.php?id='.$row['room_id'].'"
+                    >More info</a
+                  >
+                </div>
+              </div>
+
+              <div class="card-footer text-muted">
+                Maximum number of occupants allowed:
+                <b>3</b>
+              </div>
+            </div>
+
+            
+
+          </div> -->
+
+<!-- <div class="card w-80 bg-base-100 shadow-xl mt-2">
+            <figure class="px-10 pt-10">
+              <img
+                src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+                alt="Shoes"
+                class="rounded-xl"
+              />
+            </figure>
+            <div class="card-body items-center text-center">
+              <h2 class="card-title">Shoes!</h2>
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+              <div class="card-actions">
+                <button class="btn btn-primary">Buy Now</button>
+              </div>
+            </div>
+          </div> -->
+
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Door2Dorm Home</title>
+
+    <!-- Bootstrap from https://getbootstrap.com/ -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/c36559a51c.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- CSS Global theming and styles -->
+    <link href="../css/globals.css" rel="stylesheet" />
+
+    <!-- Loading screen animation -->
+    <link href="../css/loading.css" rel="stylesheet" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- jQuery-->
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.js"
+      integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+      integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+      integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .container {
+        padding-top: 50px;
+      }
+      .navbar .navbar-brand {
+        padding-left: 35px;
+      }
+      .rooms-avail-table {
+        padding-bottom: 50px;
+      }
+      .rooms-avail-table table {
+        margin-top: 22px;
+      }
+      table tr td {
+        width: auto;
+      }
+      .card {
+        margin-bottom: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Bootstrap navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+      <a class="navbar-brand" href="#">
+        <i class="fa-solid fa-building-user"></i>
+        Door2Dorm
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="true"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav px-2">
+          <a class="nav-item nav-link active px-2" href="#"
+            >Home <span class="sr-only">(current)</span></a
+          >
+          <a class="nav-item nav-link px-2" href="tenant/tenant-login.php"
+            >Tenant</a
+          >
+          <a class="nav-item nav-link px-2" href="admin/admin-login.php"
+            >Admin</a
+          >
+          <b
+            ><a
+              class="nav-item nav-link fa-solid fa-book-bookmark fa-bounce btn btn-warning px-2"
+              href="#sched-book-visit"
+              style="color: black"
+            >
+              Book Now!</a
+            ></b
+          >
+        </div>
+      </div>
+    </nav>
+    <!-- Content Wrapper -->
+    <div class="container">
+      <div id="loadingDiv">
+        <img src="../assets/images/Rolling-1s-200px.gif" alt="Loading screen" />
+      </div>
+      <!-- <h1>List Of Available Rooms</h1> -->
+      <header class="bg-gray-800 text-white pb-4 mb-2 rounded-lg">
+        <div class="container mx-auto px-4 flex justify-center">
+          <h1 class="text-3xl font-bold">List of available rooms:</h1>
+        </div>
+      </header>
+      <div class="card">
+        <div id="periodic-refresh-5secs" class="rooms-avail-table">
+          <div class="container">
+            <div class="w-full flex flex-wrap justify-center">
+                <div class="card w-80 bg-base-100 shadow-xl mx-4">
+                    <figure>
+                      <img
+                        src="https://www.carltonhotel.sg/uploads/9/8/2/4/98249840/studio-room_19_orig.jpg"
+                        alt="Shoes"
+                      />
+                    </figure>
+                    <div class="card-body items-center text-center">
+                      <h2 class="card-title text-2xl font-bold mb-2">Studio</h2>
+                      <div class="badge badge-secondary">With Air-conditioning</div>
+                      <div class="badge badge-outline mb-2">
+                        Max Occupants Allowed: 2
+                      </div>
+                      <p>Rent starts at:</p>
+                      <div class="card-actions">
+                        <button class="btn btn-warning">PHP 9800</button>
+                        <a
+                          class="btn btn-outline-primary"
+                          href="../api/rooms/read.php?id='.$row['room_id'].'"
+                          >More info</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card w-80 bg-base-100 shadow-xl mx-4">
+                    <figure>
+                      <img
+                        src="https://cache.marriott.com/content/dam/marriott-renditions/NYCOX/nycox-twin-0021-hor-clsc.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1846px:*"
+                        alt="Shoes"
+                      />
+                    </figure>
+                    <div class="card-body items-center text-center">
+                      <h2 class="card-title text-2xl font-bold mb-2">Double</h2>
+                      <div class="badge badge-secondary">With Air-conditioning</div>
+                      <div class="badge badge-outline mb-2">
+                        Max Occupants Allowed: 2
+                      </div>
+                      <p>Rent starts at:</p>
+                      <div class="card-actions">
+                        <button class="btn btn-warning">PHP 12300</button>
+                        <a
+                          class="btn btn-outline-primary"
+                          href="../api/rooms/read.php?id='.$row['room_id'].'"
+                          >More info</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card w-80 bg-base-100 shadow-xl mx-4">
+                    <figure>
+                      <img
+                        src="https://www.carltonhotel.sg/uploads/9/8/2/4/98249840/studio-room_19_orig.jpg"
+                        alt="Shoes"
+                      />
+                    </figure>
+                    <div class="card-body items-center text-center">
+                      <h2 class="card-title text-2xl font-bold mb-2">Studio</h2>
+                      <div class="badge badge-secondary">With Air-conditioning</div>
+                      <div class="badge badge-outline mb-2">
+                        Max Occupants Allowed: 2
+                      </div>
+                      <p>Rent starts at:</p>
+                      <div class="card-actions">
+                        <button class="btn btn-warning">PHP 9800</button>
+                        <a
+                          class="btn btn-outline-primary"
+                          href="../api/rooms/read.php?id='.$row['room_id'].'"
+                          >More info</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card w-80 bg-base-100 shadow-xl mx-4">
+                    <figure>
+                      <img
+                        src="https://www.carltonhotel.sg/uploads/9/8/2/4/98249840/studio-room_19_orig.jpg"
+                        alt="Shoes"
+                      />
+                    </figure>
+                    <div class="card-body items-center text-center">
+                      <h2 class="card-title text-2xl font-bold mb-2">Studio</h2>
+                      <div class="badge badge-secondary">With Air-conditioning</div>
+                      <div class="badge badge-outline mb-2">
+                        Max Occupants Allowed: 2
+                      </div>
+                      <p>Rent starts at:</p>
+                      <div class="card-actions">
+                        <button class="btn btn-warning">PHP 9800</button>
+                        <a
+                          class="btn btn-outline-primary"
+                          href="../api/rooms/read.php?id='.$row['room_id'].'"
+                          >More info</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  
+            </div>
+
+            <!-- Add more card elements here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="sched-book-visit"
+      class="request-visit max-w-lg mx-auto p-6 bg-white rounded shadow-md mb-4"
+    >
+      <h2 class="text-2xl font-bold mb-6">Schedule Visits</h2>
+      <!-- Fill up form for a visitor -->
+      <form
+        action="landing_page.php"
+        method="POST"
+        enctype="multipart/form-data"
+        class="grid grid-cols-1 gap-4"
+      >
+        <!-- Visitor full name -->
+        <div class="form-group">
+          <label for="Full name of visitor">Full Name</label>
+          <input
+            type="text"
+            name="visitor-full-name"
+            id="fetch_fullName"
+            placeholder="My full name"
+            class="form-control <?php echo (!empty($_err_visitor_fullName)) ? 'is-invalid' : ''; ?>"
+            value="<?php echo $visitor_fullName; ?>"
+          />
+          <span class="invalid-feedback"
+            ><?php echo $_err_visitor_fullName; ?></span
+          >
+        </div>
+        <!-- Visitor purpose -->
+        <div class="form-group">
+          <label for="Full name of visitor">Purpose of visit</label>
+          <input
+            type="text"
+            name="visitor-purpose"
+            id="fetch_visitPurpose"
+            placeholder="Write here your visiting reasons"
+            class="form-control <?php echo (!empty($_err_visit_purpose)) ? 'is-invalid' : ''; ?>"
+            value="<?php echo $visit_purpose; ?>"
+          />
+          <span class="invalid-feedback"
+            ><?php echo $_err_visit_purpose; ?></span
+          >
+        </div>
+        <!-- Visitor contact number -->
+        <div class="form-group">
+          <label for="Contact Number of Visitor">Contact Number</label>
+          <input
+            type="text"
+            name="visitor-contact"
+            id="fetch_visitContact"
+            placeholder="+639000000000"
+            class="form-control <?php echo (!empty($_err_visitor_contact)) ? 'is-invalid' : ''; ?>"
+            value="<?php echo $visitor_contact; ?>"
+          />
+          <span class="invalid-feedback"
+            ><?php echo $_err_visitor_contact; ?></span
+          >
+        </div>
+        <!-- Visitor pick date -->
+        <div class="form-group">
+          <label for="Full name of visitor">Pick a date</label>
+          <input
+            type="date"
+            name="visitor-date"
+            id="fetch_visitDate"
+            placeholder="mm/dd/yyyy"
+            class="input input-bordered w-full"
+          />
+          <span class="invalid-feedback"><?php echo $_err_visit_date; ?></span>
+        </div>
+        <!-- Visitor pick time -->
+        <div class="form-group">
+          <label for="Full name of visitor">Pick a time</label>
+          <input
+            type="time"
+            name="visitor-time"
+            id="fetch_visitTime"
+            placeholder=""
+            class="input input-bordered w-full"
+          />
+          <span class="invalid-feedback"><?php echo $_err_visit_time; ?></span>
+        </div>
+        <!-- Visitor ID upload -->
+        <div class="form-group">
+          <label for="Upload a photo">Upload a photo of your valid ID</label>
+          <input
+            type="file"
+            id="fetch_photo"
+            name="visitor-ID"
+            class="form-control"
+            required
+          />
+          <div class="card px-5 mt-2 mb-2">
+            <h5>Preview</h5>
+            <img
+              id="previewImage"
+              class="card-img-top mb-2"
+              width="600"
+              height="auto"
+            />
+            <script>
+              const fetchFileInput = document.getElementById("fetch_photo");
+              const renderImgModal = document.getElementById("previewImage");
+              fetchFileInput.addEventListener("change", function () {
+                const file = fetchFileInput.files[0];
+                const reader = new FileReader();
+                reader.addEventListener("load", function () {
+                  renderImgModal.src = reader.result;
+                });
+
+                if (file) {
+                  reader.readAsDataURL(file);
+                }
+              });
+            </script>
+          </div>
+
+          <span class="invalid-feedback"></span>
+          <span class="invalid-feedback"><?php echo $_err_visitor_ID; ?></span>
+        </div>
+        <!-- Submit form, and trigger modal -->
+        <div class="form-group">
+          <input
+            type="button"
+            name="schedule-visit-submit-form"
+            data-toggle="modal"
+            data-target="#previewBookingDetails"
+            onclick="submitForm()"
+            class="btn btn-warning w-full"
+            value="Book now!"
+          />
+        </div>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="previewBookingDetails"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="previewBookingDetails"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">
+                  Review booking details
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="card" style="width: 100%">
+                  <img
+                    class="card-img-top"
+                    alt=""
+                    align="center"
+                    id="modal_preview_VisitorID"
+                    width="50%"
+                    height="50%"
+                  />
+                  <script>
+                    const fileFetchInput =
+                      document.getElementById("fetch_photo");
+                    const renderPreviewImgOnSubmit = document.getElementById(
+                      "modal_preview_VisitorID"
+                    );
+                    fileFetchInput.addEventListener("change", function () {
+                      const file = fileFetchInput.files[0];
+                      const reader = new FileReader();
+                      reader.addEventListener("load", function () {
+                        renderPreviewImgOnSubmit.src = reader.result;
+                      });
+
+                      if (file) {
+                        reader.readAsDataURL(file);
+                      }
+                    });
+                  </script>
+                  <div
+                    class="card-header"
+                    id="modal_preview_VisitorFullName"
+                  ></div>
+                  <div class="card-body">
+                    <p id="modal_preview_visitPurpose"></p>
+                    <ul class="list-group list-group-flush">
+                      <li
+                        class="list-group-item"
+                        id="modal_preview_VisitDate"
+                      ></li>
+                      <li
+                        class="list-group-item"
+                        id="modal_preview_VisitTime"
+                      ></li>
+                      <li
+                        class="list-group-item"
+                        id="modal_preview_VisitContact"
+                      ></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <input
+                    type="submit"
+                    name="confirm-booking"
+                    class="btn btn-primary"
+                  />
+                </div>
+
+                <script>
+                  function submitForm() {
+                    var full_name =
+                      document.getElementById("fetch_fullName").value;
+                    var visit_purpose =
+                      document.getElementById("fetch_visitPurpose").value;
+                    var visit_contact =
+                      document.getElementById("fetch_visitContact").value;
+                    var visit_time =
+                      document.getElementById("fetch_visitTime").value;
+                    var visit_date =
+                      document.getElementById("fetch_visitDate").value;
+
+                    document.getElementById(
+                      "modal_preview_VisitorFullName"
+                    ).innerHTML = full_name;
+                    document.getElementById(
+                      "modal_preview_visitPurpose"
+                    ).innerHTML =
+                      "<b>My Visiting Purpose:</b><br>" + visit_purpose;
+                    document.getElementById(
+                      "modal_preview_VisitDate"
+                    ).innerHTML = "<b>Scheduled at: </b>" + visit_date;
+                    document.getElementById(
+                      "modal_preview_VisitTime"
+                    ).innerHTML = "<b>On: </b>" + visit_time;
+                    document.getElementById(
+                      "modal_preview_VisitContact"
+                    ).innerHTML = "<b>Contact No.: </b>" + visit_contact;
+                  }
+                </script>
+              </div>
+            </div>
+          </div>
+          <!-- </form> -->
+        </div>
+
+        <!-- Script file to dynamic load and refresh list of available rooms -->
+        <script
+          type="text/javascript"
+          src="../js/dynamic-load-AvailableRooms.js"
+        ></script>
+      </form>
+    </div>
+  </body>
+</html>
