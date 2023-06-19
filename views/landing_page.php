@@ -161,8 +161,8 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Loading screen animation -->
     <link href="../css/loading.css" rel="stylesheet">   
-
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.1.1/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- jQuery-->
@@ -302,85 +302,72 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 <br>
                 <!-- Submit form, and trigger modal -->
                 <div class="form-group">
-                    <input type="button" name="schedule-visit-submit-form" data-toggle="modal" data-target="#previewBookingDetails" onclick="submitForm()" class="btn btn-warning w-full" value="Book now!">
-                </div>
-                
-                <!-- Modal -->
-                <div class="modal fade" id="previewBookingDetails" tabindex="-1" role="dialog" aria-labelledby="previewBookingDetails" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Review booking details</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="card" style="width: 100%;">
-                                <img class="card-img-top" alt="" align="center" id="modal_preview_VisitorID" width="50%" height="50%">
-                                <script>
-                                    const fileFetchInput = document.getElementById("fetch_photo");
-                                    const renderPreviewImgOnSubmit = document.getElementById("modal_preview_VisitorID");
-                                    fileFetchInput.addEventListener("change", function() {
-                                        const file = fileFetchInput.files[0];
-                                        const reader = new FileReader();
-                                        reader.addEventListener("load", function() {
-                                            renderPreviewImgOnSubmit.src = reader.result;
-                                        });
-
-                                        if (file) {
-                                            reader.readAsDataURL(file);
-                                        }
-                                    });
-                                </script>
-                                <div class="card-header" id="modal_preview_VisitorFullName"></div>
-                                <div class="card-body">
-                                    <p id="modal_preview_visitPurpose"></p>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item" id="modal_preview_VisitDate"></li>
-                                        <li class="list-group-item" id="modal_preview_VisitTime"></li>
-                                        <li class="list-group-item" id="modal_preview_VisitContact"></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <input type="submit" name="confirm-booking" class="btn btn-primary">
-                            </div>
-
-                            <script>
-                                // Get the input values
-                                /**
-                                 * id="fetch_visitTime" 
-                                    id="fetch_visitDate" 
-                                    id="fetch_visitPurpose" 
-                                    id="fetch_visitContact"
-                                    id="fetch_fullName"
-                                */
-
-                                function submitForm() {
-                                    var full_name = document.getElementById("fetch_fullName").value;
-                                    var visit_purpose = document.getElementById("fetch_visitPurpose").value;
-                                    var visit_contact = document.getElementById("fetch_visitContact").value;
-                                    var visit_time = document.getElementById("fetch_visitTime").value;
-                                    var visit_date = document.getElementById("fetch_visitDate").value;
-                                    
-                                    document.getElementById("modal_preview_VisitorFullName").innerHTML = full_name;
-                                    document.getElementById("modal_preview_visitPurpose").innerHTML = "<b>My Visiting Purpose:</b><br>" + visit_purpose;
-                                    document.getElementById("modal_preview_VisitDate").innerHTML = "<b>Scheduled at: </b>" + visit_date;
-                                    document.getElementById("modal_preview_VisitTime").innerHTML = "<b>On: </b>" + visit_time;
-                                    document.getElementById("modal_preview_VisitContact").innerHTML = "<b>Contact No.: </b>" + visit_contact;
-                                }
-                            </script>
-
-                        </div>
-                    </div>
+                    <!-- <input type="button" name="schedule-visit-submit-form" data-toggle="modal" data-target="#previewBookingDetails" onclick="submitForm()" class="btn btn-warning w-full" value="Book now!"> -->
+                    <!-- <input type="button" class="btn btn-warning w-full" onclick="previewBookingDetails.showModal(); submitForm()" value="Book now!"></input> -->
+                    <input type="submit" name="confirm-booking" class="btn btn-warning w-full" value="Confirm Booking">
                 </div>
             </form>
         </div>
-        
     </div>
+
+    <!-- Tailwind Modal -->
+    <!-- @note
+        I have no idea how to properly trigger this that can submit the form using the confirm-booking button.
+        The modal can be triggered.
+        The IDs can be edited as well
+        The problem is that I cannot submit and parse the form.
+    -->
+    <dialog id="previewBookingDetails" class="modal">
+        <form method="dialog" class="modal-box">
+            <div class="card" style="width: 100%;">
+                <img class="card-img-top" alt="" align="center" id="modal_preview_VisitorID" width="50%" height="50%">
+                <script>
+                    const fileFetchInput = document.getElementById("fetch_photo");
+                    const renderPreviewImgOnSubmit = document.getElementById("modal_preview_VisitorID");
+                    fileFetchInput.addEventListener("change", function() {
+                        const file = fileFetchInput.files[0];
+                        const reader = new FileReader();
+                        reader.addEventListener("load", function() {
+                            renderPreviewImgOnSubmit.src = reader.result;
+                        });
+                        if (file) {
+                            reader.readAsDataURL(file);
+                        }
+                    });
+                </script>
+                <div class="card-header" id="modal_preview_VisitorFullName"></div>
+                <div class="card-body">
+                    <p id="modal_preview_visitPurpose"></p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" id="modal_preview_VisitDate"></li>
+                        <li class="list-group-item" id="modal_preview_VisitTime"></li>
+                        <li class="list-group-item" id="modal_preview_VisitContact"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal-action">
+                <input type="submit" name="confirm-booking" class="btn" value="Confirm Booking">
+            </div>
+        </form>
+    </dialog>
     <!-- Script file to dynamic load and refresh list of available rooms -->
     <script type="text/javascript" src="../js/dynamic-load-AvailableRooms.js"></script>
+
+    <script>
+    function submitForm() {
+        var full_name = document.getElementById("fetch_fullName").value;
+        var visit_purpose = document.getElementById("fetch_visitPurpose").value;
+        var visit_contact = document.getElementById("fetch_visitContact").value;
+        var visit_time = document.getElementById("fetch_visitTime").value;
+        var visit_date = document.getElementById("fetch_visitDate").value;
+
+        document.getElementById("modal_preview_VisitorFullName").innerHTML = full_name;
+        document.getElementById("modal_preview_visitPurpose").innerHTML = "<b>My Visiting Purpose:</b><br>" + visit_purpose;
+        document.getElementById("modal_preview_VisitDate").innerHTML = "<b>Scheduled at: </b>" + visit_date;
+        document.getElementById("modal_preview_VisitTime").innerHTML = "<b>On: </b>" + visit_time;
+        document.getElementById("modal_preview_VisitContact").innerHTML = "<b>Contact No.: </b>" + visit_contact;
+    }
+    </script>
 </body>
 </html>
