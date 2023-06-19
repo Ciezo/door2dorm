@@ -216,7 +216,7 @@ $conn->close();
        <div class="flex justify-center items-center mb-6">
            <div class="tenant-eContract">
                 <button class="btn btn-outline-primary">Download Copy</button>
-                <button class="btn btn-outline-primary">View E-contract</button>
+                <a href="tenant-contract.php" class="btn btn-outline-primary">View E-contract</a>
            </div>
        </div>
     </div>
