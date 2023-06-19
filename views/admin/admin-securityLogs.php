@@ -53,8 +53,6 @@ if (!isset($_SESSION["admin-username"])) {
             padding-bottom: 50px;
         }
         .shadow-border {
-            position: relative;
-            z-index: 1;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

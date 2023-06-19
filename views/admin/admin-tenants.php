@@ -317,7 +317,12 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
             margin: 0px;
             width: 100px;
         }
-        
+        .shadow-border {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -345,26 +350,52 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
 
     <!-- Content goes here -->
     <div class="container">
+        <!-- List of all tenants -->
+        <div class="card shadow-border px-5 mx-2 mt-2">
+            <h2 class="mt-2">List of All Tenants</h2>
+            <p>This section displays all registered tenants and their personal information</p>
+            
+            <!-- Search Bar -->
+            <div class="search-bar mb-2">
+                <a href="#add-tenant" class="btn btn-primary mb-2"><i class="fas fa-plus ml-2"></i> Add Tenant</a>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input type="text" id="searchInput" placeholder="Search tenant..." class="form-control">
+                </div>
+                <div class="text-center mt-5">
+                </div>
+            </div>
+
+            <div id="periodic-refresh10secs-ListAll-Tenants" class="list-of-all-registered-tenants">
+                <!-- Dynamic content loads every 10 seconds -->
+                <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
+            </div>
+        </div>
+    
         <!-- List of tenants balances -->
-        <div class="card px-5 mx-2 mt-2">
+        <div class="card shadow-border px-5 mx-2 mt-2">
             <div class="all-tenants-balances">
                 <h2 class="mt-2">Tenants Balances</h2>
                 <p>This section presents all the unpaid balances from all tenants</p>
                 <!-- Unpaid rentals -->
-                <table class="table table-striped">
-                    <h5>Unpaid Rental Bills</h5>
-                    <thead class="thead-dark">
-                        <tr class="table-dark">
-                            <th scope="col">Name</th>
-                            <th scope="col">Rental Bills</th>
-                            <th scope="col">Due Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Per row is for each tenant balance -->
+                <h5>Unpaid Rental Bills</h5>        
+                    <!-- Per row is for each tenant balance -->
                         <?php 
                             // Rentals
                             if ($results_rental_payments->num_rows > 0) {
+                                echo '<table class="table table-striped">';
+                                echo    '<h5>Unpaid Rental Bills</h5>';
+                                echo    '<thead class="thead-dark">';
+                                echo        '<tr class="table-dark">';
+                                echo            '<th scope="col">Name</th>';
+                                echo            '<th scope="col">Rental Bills</th>';
+                                echo            '<th scope="col">Due Date</th>';
+                                echo        '</tr>';
+                                echo    '</thead>';
+                                echo '</table>'; 
+
+                                echo '<tbody>';
+
                                 while ($rentals_billings = mysqli_fetch_array($results_rental_payments)) {
                                     echo "<tr>";
                                     echo    "<td>".$rentals_billings["to_be_paid_by"]."</td>";
@@ -372,26 +403,35 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
                                     echo    "<td>".$rentals_billings["due_date"]."</td>";
                                     echo "</tr>";
                                 }
+                            } else {
+                                echo    '<div class="alert alert-info mt-2" role="alert">';
+                                echo    '<i class="fa-solid fa-circle-info" style="padding-right: 5px;"></i>';
+                                echo    '<b>No unpaid rental bills present</b>';
+                                echo    '</div>'; 
                             }
                         ?>
                     </tbody>
                 </table>
                 <br><br>
                 <!-- Unpaid electricity -->
-                <table class="table table-striped">
-                    <h5>Unpaid Electricity Bills</h5>
-                    <thead class="thead-dark">
-                        <tr class="table-dark">
-                            <th scope="col">Name</th>
-                            <th scope="col">Electricity Bills</th>
-                            <th scope="col">Due Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <h5>Unpaid Electricity Bills</h5>
                         <!-- Per row is for each tenant balance -->
                         <?php 
                             // Electricity
                             if ($results_electricity_payments->num_rows > 0) {
+                                echo '<table class="table table-striped">';
+                                echo    '<h5>Unpaid Rental Bills</h5>';
+                                echo    '<thead class="thead-dark">';
+                                echo        '<tr class="table-dark">';
+                                echo            '<th scope="col">Name</th>';
+                                echo            '<th scope="col">Rental Bills</th>';
+                                echo            '<th scope="col">Due Date</th>';
+                                echo        '</tr>';
+                                echo    '</thead>';
+                                echo '</table>'; 
+
+                                echo '<tbody>';
+
                                 while ($electricity_billings = mysqli_fetch_array($results_electricity_payments)) {
                                     echo "<tr>";
                                     echo    "<td>".$electricity_billings["to_be_paid_by"]."</td>";
@@ -399,26 +439,35 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
                                     echo    "<td>".$electricity_billings["due_date"]."</td>";
                                     echo "</tr>";
                                 }
+                            } else {
+                                echo    '<div class="alert alert-info mt-2" role="alert">';
+                                echo    '<i class="fa-solid fa-circle-info" style="padding-right: 5px;"></i>';
+                                echo    '<b>No unpaid electricity bills present</b>';
+                                echo    '</div>'; 
                             }
                         ?>
                     </tbody>
                 </table>
                 <br><br>
                 <!-- Unpaid water -->
-                <table class="table table-striped">
-                    <h5>Unpaid Water Bills</h5>
-                    <thead class="thead-dark">
-                        <tr class="table-dark">
-                            <th scope="col">Name</th>
-                            <th scope="col">Water Bills</th>
-                            <th scope="col">Due Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <h5>Unpaid Water Bills</h5>
                         <!-- Per row is for each tenant balance -->
                         <?php 
                             // Electricity
                             if ($results_water_payments->num_rows > 0) {
+                                echo '<table class="table table-striped">';
+                                echo    '<h5>Unpaid Rental Bills</h5>';
+                                echo    '<thead class="thead-dark">';
+                                echo        '<tr class="table-dark">';
+                                echo            '<th scope="col">Name</th>';
+                                echo            '<th scope="col">Rental Bills</th>';
+                                echo            '<th scope="col">Due Date</th>';
+                                echo        '</tr>';
+                                echo    '</thead>';
+                                echo '</table>'; 
+
+                                echo '<tbody>';
+
                                 while ($water_billings = mysqli_fetch_array($results_water_payments)) {
                                     echo "<tr>";
                                     echo    "<td>".$water_billings["to_be_paid_by"]."</td>";
@@ -426,31 +475,20 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
                                     echo    "<td>".$water_billings["due_date"]."</td>";
                                     echo "</tr>";
                                 }
+                            } else {
+                                echo    '<div class="alert alert-info mt-2" role="alert">';
+                                echo    '<i class="fa-solid fa-circle-info" style="padding-right: 5px;"></i>';
+                                echo    '<b>No unpaid water bills present</b>';
+                                echo    '</div>'; 
                             }
                         ?>
                     </tbody>
                 </table>
-                
-                <!-- To retrieve all tenants' unpaid balances of all bill types -->
-                <div class="card px-5 mx-2 mt-2">
-                </div>
             </div>
         </div>
-
-        <!-- List of all tenants -->
-        <div class="card px-5 mx-2 mt-2">
-            <h2 class="mt-2">List of All Tenants</h2>
-            <p>This section displays all registered tenants and their personal information</p>
-            <div id="periodic-refresh10secs-ListAll-Tenants" class="list-of-all-registered-tenants">
-                <!-- Dynamic content loads every 10 seconds -->
-                <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
-            </div>
-        </div>
-        
-        <br><br>
 
         <!-- Creating Tenant Profile -->
-        <div class="card px-5 mx-2 mt-2">
+        <div class="card shadow-border px-5 mx-2 mt-2" id="add-tenant">
             <div id= "tenant-acc-form" class="create-tenant-profile">
                 <h2 class="mt-2">Create Tenant Profile</h2>
                 <p>This section is where an admin can create an account for an inquiring tenant</p>
@@ -648,5 +686,28 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
     </div>
     <!-- Script src to dynamically load list of tenants -->
     <script type="text/javascript" src="../../js/dynamic-load-ListAllTenants.js"></script>
+
+    <!-- Search bar -->
+    <script>
+        $(document).ready(function() {
+            // Function to filter tenant cards based on search input
+            function filterTenants(searchTerm) {
+                $('.card').each(function() {
+                    var fullName = $(this).find('.card-header').text().toLowerCase();
+                    if (fullName.includes(searchTerm.toLowerCase())) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+
+            // Listen for changes in the search input
+            $('#searchInput').on('input', function() {
+                var searchTerm = $(this).val();
+                filterTenants(searchTerm);
+            });
+        });
+    </script>
 </body>
 </html>
