@@ -52,6 +52,14 @@ if (!isset($_SESSION["admin-username"])) {
         .log-table {
             padding-bottom: 50px;
         }
+        .shadow-border {
+            position: relative;
+            z-index: 1;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -82,19 +90,26 @@ if (!isset($_SESSION["admin-username"])) {
         <div class="security-logs">
             <h2>Security Logs</h2>
             <p>Here is the section where security loggins are present using biometric security measures</p>
-            
-            <h4>Time-ins</h4>
-            <p>These are entries for authorized tenants who checked-in within the premises</p>
-            <!-- Time-in log tables -->
-            <div class="log-table time-ins" id="time-in-securityLog">
+            <div class="row shadow-border">
+                <div class="col-lg-6" id="room-table">
+                    <!-- Time-in log tables -->
+                    <h4>Time-ins</h4>
+                    <p>These are entries for authorized tenants who checked-in within the premises</p>
+                    <div class="card px-2">
+                        <div class="log-table time-ins pt-1" id="time-in-securityLog">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" id="room-table">
+                    <!-- Time-out log tables -->
+                    <h4>Time-outs</h4>
+                    <p>These are entries for authorized tenants who checked out from the premises</p>
+                    <div class="card px-2">
+                        <div class="log-table time-outs" id="time-out-securityLog">
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <h4>Time-outs</h4>
-            <p>These are entries for authorized tenants who checked out from the premises</p>
-            <div class="log-table time-outs" id="time-out-securityLog">
-                <!-- Time-out log tables -->
-            </div>
-
         </div>
     </div>
     <!-- Script to load time-ins -->
