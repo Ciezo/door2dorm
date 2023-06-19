@@ -2,7 +2,7 @@
     require("../../config.php");
 ?>
 <!-- Rentals -->
-<div class="card px-2 mx-2">
+<div class="card px-5 mx-2">
     <table class="table table-striped">
         <h4>Monthly billings for rentals</h4>
         <tbody>

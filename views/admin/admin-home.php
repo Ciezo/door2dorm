@@ -81,71 +81,73 @@ if (!isset($_SESSION["admin-username"])) {
         <div class="admin-avail-rooms-list">
             <h2>Available Rooms/Units</h2>
             <p>You may set to list or post your available rooms/units here</p>
-            <a class="btn btn-outline-primary" href="../../api/rooms/create.php">Set an available room</a>
+            <a class="btn btn-primary" href="../../api/rooms/create.php"><i class="fas fa-plus ml-2"></i> Set an available room</a>
             
             <!-- Get a local list of rooms/units in a table -->
-            <table class="container-fluid px-auto table table-striped">
-                <!-- Table headers -->
-                <!-- Table body in a loop. Data is fetched from the database -->
-                <?php
-                // Create a query to fetch all data for available rooms
-                $sql = "SELECT * FROM AVAILABLE_ROOMS";
-                $results = mysqli_query($conn, $sql); 
-
-                if ($results->num_rows > 0) {
-
-                    echo '<thead class="thead-dark">';
-                    echo    '<tr class="table-dark">';
-                    echo        '<th scope="col">#</th>';
-                    echo        '<th scope="col">Room No.</th>';
-                    echo        '<th scope="col">Room Type</th>';
-                    echo        '<th scope="col">Room Category</th>';
-                    echo        '<th scope="col">Genders Assigned</th>';
-                    echo        '<th scope="col">Pricing per month</th>';
-                    echo        '<th scope="col">No. Of Occupants</th>';
-                    echo        '<th scope="col">Status</th>';
-                    echo        '<th scope="col">Actions</th>';
-                    echo    '</tr>';
-                    echo '</thead>';
-
-                    echo '<tbody>';
-                    // Begin fetching the results as rows
-                    while($row = mysqli_fetch_array($results)) {
-                        echo '<tr>';    // A row entry
-                        echo    '<td>'.$row['room_id'].'</td>';                      // ID 
-                        echo    '<td>'.$row['room_number'].'</td>';             // Room No.
-                        echo    '<td>'.$row['room_type'].'</td>';               // Room Type
-                        echo    '<td>'.$row['room_category'].'</td>';           // Room Category
-                        echo    '<td>'.$row['gender_assign'].'</td>';           // Genders Assigned
-                        echo    '<td>Php '.$row['pricing'].'</td>';             // Pricing
-                        echo    '<td>'.$row['num_of_occupants'].'</td>';        // No. of occupants
-                        echo    '<td>'.$row['occupancy_status'].'</td>';        // Status
-
-                        // Actions to Update or Remove a Room
-                        echo    '<td>';
-                        echo        '<a class="btn btn-outline-success" href="../../api/rooms/update.php?id='.$row['room_id'].'">Update</a>';    // Update room  api/rooms/update
-                        echo        '<a class="btn btn-outline-danger" href="../../api/rooms/delete.php?id='.$row['room_id'].'">Remove</a>';     // Remove room  api/rooms/delete
-                        echo    '</td>';
-                        echo '</tr>'; 
+            <div class="card mt-2 px-2">
+                <table class="container-fluid px-auto table table-striped">
+                    <!-- Table headers -->
+                    <!-- Table body in a loop. Data is fetched from the database -->
+                    <?php
+                    // Create a query to fetch all data for available rooms
+                    $sql = "SELECT * FROM AVAILABLE_ROOMS";
+                    $results = mysqli_query($conn, $sql); 
+    
+                    if ($results->num_rows > 0) {
+    
+                        echo '<thead class="thead-dark">';
+                        echo    '<tr class="table-dark">';
+                        echo        '<th scope="col">#</th>';
+                        echo        '<th scope="col">Room No.</th>';
+                        echo        '<th scope="col">Room Type</th>';
+                        echo        '<th scope="col">Room Category</th>';
+                        echo        '<th scope="col">Genders Assigned</th>';
+                        echo        '<th scope="col">Pricing per month</th>';
+                        echo        '<th scope="col">No. Of Occupants</th>';
+                        echo        '<th scope="col">Status</th>';
+                        echo        '<th scope="col">Actions</th>';
+                        echo    '</tr>';
+                        echo '</thead>';
+    
+                        echo '<tbody>';
+                        // Begin fetching the results as rows
+                        while($row = mysqli_fetch_array($results)) {
+                            echo '<tr>';    // A row entry
+                            echo    '<td>'.$row['room_id'].'</td>';                      // ID 
+                            echo    '<td>'.$row['room_number'].'</td>';             // Room No.
+                            echo    '<td>'.$row['room_type'].'</td>';               // Room Type
+                            echo    '<td>'.$row['room_category'].'</td>';           // Room Category
+                            echo    '<td>'.$row['gender_assign'].'</td>';           // Genders Assigned
+                            echo    '<td>Php '.$row['pricing'].'</td>';             // Pricing
+                            echo    '<td>'.$row['num_of_occupants'].'</td>';        // No. of occupants
+                            echo    '<td>'.$row['occupancy_status'].'</td>';        // Status
+    
+                            // Actions to Update or Remove a Room
+                            echo    '<td>';
+                            echo        '<a class="btn btn-success btn-sm mx-2" href="../../api/rooms/update.php?id='.$row['room_id'].'"><i class="fas fa-edit"></i> </a>';    // Update room  api/rooms/update
+                            echo        '<a class="btn btn-outline-danger btn-sm mx-2" href="../../api/rooms/delete.php?id='.$row['room_id'].'"><i class="fas fa-trash-alt"></i> </a>';     // Remove room  api/rooms/delete
+                            echo    '</td>';
+                            echo '</tr>'; 
+                        }
+    
+                        echo '</tbody>';
+                        // echo '</table>';
                     }
-
-                    echo '</tbody>';
-                    // echo '</table>';
-                }
-
-                else {
-                    echo '<br>';
-                    echo '<br>';
-                    echo '<div class="alert alert-danger"><em>There are no records found for available rooms!</em></div>';
-                }
-                ?>
-            </table>
+    
+                    else {
+                        echo '<br>';
+                        echo '<br>';
+                        echo '<div class="alert alert-danger"><em>There are no records found for available rooms!</em></div>';
+                    }
+                    ?>
+                </table>
+            </div>
         </div>
         <br>
         <!-- Overview of Tenants Listing and Balances -->
         <h2>Overview of Tenants' Balances</h2>
         <p>This is where you can see all your tenants' balances both paid and unpaid</p>
-        <div id="periodic-refresh5secs-overviewBalances" class="admin-listAll-tenants-balances">
+        <div id="periodic-refresh5secs-overviewBalances" class="admin-listAll-tenants-balances pb-2">
             <!-- Dynamic Content, loads every 5 secs -->
             <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
         </div>
@@ -153,21 +155,13 @@ if (!isset($_SESSION["admin-username"])) {
         <!-- Security logs -->
         <h2>Security Logs</h2>
         <p>This section presents the security loggings retrieved by FaceNet</p>
-        <div id="refresh1secs-SecurityLogs-overview" class="admin-viewAll-securityLogs">
+        <div id="refresh1secs-SecurityLogs-overview" class="admin-viewAll-securityLogs pb-2">
             <!-- Dynamica content, load every 1 second -->
             <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
         </div>
         <br>
-        <!-- Messages overview -->
-        <h2>Messages</h2>
-        <p>Overview of all messages from tenants</p>
-        <div id="periodic-refresh5secs-overviewMessages" class="admin-viewAll-messages">
-            <!-- Dynamic content, load every 5 secs -->
-            <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
-        </div>
-        <br>
         <!-- Scheduled Visits -->
-        <div id="refresh-5secs-bookings" class="admin-listAll-sched-booked-visits">
+        <div id="refresh-5secs-bookings" class="admin-listAll-sched-booked-visits pb-2">
             <!-- Dyanmic content, loads every 5 secs -->
             <div id="loadingDiv"><img src="../../assets/images/Ellipsis-1s-200px.gif" alt="" width="50" height="50"></div>
         </div>
@@ -177,8 +171,6 @@ if (!isset($_SESSION["admin-username"])) {
     <script type="text/javascript" src="../../js/dynamic-load-Bookings.js"></script>
     <!-- Script src to dynamically load billings overview -->
     <script type="text/javascript" src="../../js/dynamic-load-adminBillingsOverview.js"></script>
-    <!-- Script src to dynamically laod messages -->
-    <script type="text/javascript" src="../../js/dynamic-load-adminAllMsgOverview.js"></script>
     <!-- Script src to dynamically load security logs overview -->
     <script type="text/javascript" src="../../js/dynamic-load-SecurityLogsOverview.js"></script>
 </body>
