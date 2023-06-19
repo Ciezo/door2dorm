@@ -13,8 +13,9 @@
                                 echo    '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($row["tenant_photo"]).'" alt="Tenant Photo" width="250" height="300">';
                                 echo        '<div class="card-body">';
                                 echo            '<ul class="list-group list-group-flush">';
-                                echo                '<li class="list-group-item" id=""><b>Assigned Room: '.$row["room_assign"].'</b></li>';
-                                echo                '<li class="list-group-item" id=""><b>'.$row["mobile_num"].'</b></li>';
+                                echo                '<li class="list-group-item" id=""><i class="fa-solid fa-person-booth"></i> <b>Assigned Room: '.$row["room_assign"].'</b></li>';
+                                echo                '<li class="list-group-item" id=""><i class="fa-solid fa-mobile-screen-button"></i> Mobile: <b>'.$row["mobile_num"].'</b></li>';
+                                echo                '<li class="list-group-item" id=""><i class="fa-regular fa-envelope"></i> Email: <b>'.$row["email"].'</b></li>';
                                 echo            '</ul>';
                                 echo        '</div>';
                                 echo        '<div class="card-footer">';

@@ -135,7 +135,7 @@ else {
 
     <!-- Content goes here -->
     <div class="container">
-        <div class="card" style="width: 100%;">
+        <div class="card" style="width: 45%;">
             <div class="card">
                 <?php echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($tenant_photo).'" alt="Tenant Photo">'; ?>
             </div>
@@ -155,10 +155,13 @@ else {
                     <li class="list-group-item" id="">Password: <b><?php echo $password; ?></b></li>
                 </ul>
             </div>
+            
+            <div class="card-body">
+                <a href="../../views/admin/admin-tenants.php" class="btn btn-outline-primary">Back</a>
+                <?php echo '<a class="btn btn-outline-success" href="update.php?id='.$id.'">Update Account</a>';  ?>
+                <?php echo '<a class="btn btn-outline-danger" href="delete.php?id='.$id.'">Remove Account</a>';  ?>
+            </div>
         </div>
-        <a href="../../views/admin/admin-tenants.php" class="btn btn-outline-primary">Back</a>
-        <?php echo '<a class="btn btn-outline-success" href="update.php?id='.$id.'">Update Account</a>';  ?>
-        <?php echo '<a class="btn btn-outline-danger" href="delete.php?id='.$id.'">Remove Account</a>';  ?>
     </div>
     <br><br>
 </body>
