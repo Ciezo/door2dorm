@@ -3,6 +3,8 @@ require("../../config.php");
 session_start(); 
 
 error_reporting(0);
+$username = $password = "";
+$_err_ = "";
 if(isset($_POST['admin-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {    
     $username = ($_POST["admin-username"]);
     $password = ($_POST["admin-password"]);
@@ -22,7 +24,7 @@ if(isset($_POST['admin-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     else {
-        Print '<script>alert("Incorrect Username or Password!");</script>';
+        $_err_ = "Wrong username or password!";
     }
 }
 ?>
@@ -35,6 +37,11 @@ if(isset($_POST['admin-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login, Administrator</title>
 
+    <!-- Bootstrap from https://getbootstrap.com/ -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
 
     <!-- CSS Global theming and styles -->
@@ -96,7 +103,7 @@ if(isset($_POST['admin-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <!-- Bootstrap navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
         <a class="navbar-brand" href="#">      
             <i class="fa-solid fa-building-user"></i>
                 Door2Dorm 
@@ -120,34 +127,35 @@ if(isset($_POST['admin-login']) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
 
   <div class="hero-content flex flex-col lg:flex-row lg:space-x-8">
+    <div class="text-center lg:text-left">
+        <h1 class="text-5xl font-bold mb-6 text-white">Welcome back, Admin!</h1>
+        <p class="text-white">Continue as administrator.</p>
+    </div>
     <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
         <div class="card-body">
             <form action="admin-login.php" class="admin-login-form" method="POST">
-                <div class="form-control">
+                <div class="form-control mb-2">
                     <label class="label">
                         <span class="label-text"><i class="fa-solid fa-user-secret"></i> Username</span>
                     </label>
-                    <input type="text" name="admin-username" required="" placeholder="Username" class="input input-bordered" />
+                    <input type="text" name="admin-username" required placeholder="Username" class="input input-bordered <?php echo (!empty($_err_)) ? 'is-invalid' : ''; ?>" value="<?php echo $username ; ?>">
+                    <span class="invalid-feedback"><b>😪 <?php echo $_err_ ;?></b></span>
                 </div>
                 
-                <div class="form-control">
+                <div class="form-control mb-2">
                     <label class="label">
                         <span class="label-text"><i class="fa-solid fa-vault"></i> Password</span>
                     </label>
-                    <input type="password" name="admin-password" placeholder="Password" class="input input-bordered" required=""/>
+                    <input type="password" name="admin-password" required placeholder="Password" class="input input-bordered <?php echo (!empty($_err_)) ? 'is-invalid' : ''; ?>" value="<?php echo $password ; ?>">
+                    <span class="invalid-feedback"><b>😪 <?php echo $_err_ ;?></b></span>
                 </div>
                 <div class="form-control mt-6">
-                    <button class="btn btn-warning" name="admin-login" type="submit" value="LOGIN">Login</button>
+                    <button class="btn btn-warning" name="admin-login" type="submit" value="LOGIN">Login as Administrator</button>
                 </div>
-          </form>
+        </form>
         </div>
-    </div>
-
-    <div class="text-center lg:text-left">
-        <h1 class="text-5xl font-bold mb-6 text-white">Welcome back, Admin.</h1>
-        <p class="text-white">Continue as administrator.</p>
     </div>
   </div>
 </div>
-    </body>
+</body>
 </html>

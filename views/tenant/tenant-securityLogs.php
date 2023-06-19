@@ -91,11 +91,12 @@ if (!isset($_SESSION["tenant-username"])) {
                         <?php
                             // Select only the tables based on who is logged-in.
                             // We want to get all security loggings based on who is logged-in
-                            $current_tenant = $_SESSION["tenant-Fname"];
+                            // And retrieve those occupants assigned in the room
+                            $current_room = $_SESSION["tenant-room"];
 
-                            // Create queries to select all time-in and time-out tables from the current_tenant
-                            $get_time_ins = "SELECT * FROM SECURITY_LOGS_TIME_IN WHERE tenant_name = '$current_tenant'";
-                            $get_time_outs = "SELECT * FROM SECURITY_LOGS_TIME_OUT WHERE tenant_name = '$current_tenant'";
+                            // Create queries to select all time-in and time-out tables from the current_room
+                            $get_time_ins = "SELECT * FROM SECURITY_LOGS_TIME_IN WHERE tenant_name = '$current_room'";
+                            $get_time_outs = "SELECT * FROM SECURITY_LOGS_TIME_OUT WHERE tenant_name = '$current_room'";
                             $results_time_ins = mysqli_query($conn, $get_time_ins);
                             $results_time_outs = mysqli_query($conn, $get_time_outs);
                             
