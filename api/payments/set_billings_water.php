@@ -20,7 +20,7 @@ if (isset($_POST["billings_water"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     $water_charges = $_POST["water_charges"];
     $water_due_date = $_POST["water_due_date"];
     $payment_status = $_POST["water_payment_status"];
-    $date_paid = "current";
+    $date_paid = date("d/M/Y");
 
     // We need to check first if there is an existing payment record
     $sql_payment_existing_record = "SELECT * FROM PAYMENTS_WATER WHERE tenant_id=$tenant_id";

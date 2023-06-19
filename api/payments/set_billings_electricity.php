@@ -20,7 +20,7 @@ if (isset($_POST["billings_electricity"]) && $_SERVER["REQUEST_METHOD"] == "POST
     $electricity_charges = $_POST["electricity_charges"];
     $electricity_due_date = $_POST["electricity_due_date"];
     $payment_status = $_POST["electricity_payment_status"];
-    $date_paid = "current";
+    $date_paid = date("d/M/Y");
 
     // We need to check first if there is an existing payment record
     $sql_payment_existing_record = "SELECT * FROM PAYMENTS_ELECTRICITY WHERE tenant_id=$tenant_id";

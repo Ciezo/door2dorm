@@ -20,7 +20,7 @@ if (isset($_POST["billings_rentals"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     $rental_charges = $_POST["rental_charges"];
     $rental_due_date = $_POST["rental_due_date"];
     $payment_status = $_POST["rental_payment_status"];
-    $date_paid = "current";
+    $date_paid = date("d/M/Y");
 
     // We need to check first if there is an existing payment record
     $sql_payment_existing_record = "SELECT * FROM PAYMENTS_RENTAL WHERE tenant_id=$tenant_id";

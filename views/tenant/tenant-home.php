@@ -91,6 +91,7 @@ $conn->close();
 
     <!-- CSS Global theming and styles -->
     <link href="../../css/globals.css" rel="stylesheet">
+    <link href="../../css/tenant-home.css" rel="stylesheet">
 
     <!-- jQuery-->
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
@@ -139,141 +140,153 @@ $conn->close();
     </nav>
 
     <!-- Content goes here -->
-    <div class="container">
-       <!-- Tenant Account Overview -->
-       <div class="tenant-acc-overview">
-            <h2>My Account</h2>
-            <p>Account overview</p>
-            <div class="card-body">
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1"><?php echo $tenant_full_name; ?></h5>
-                            <small>Tenant ID: <?php echo $tenant_id; ?></small>
+    <div class="container-fluid"
+        style="background-image: url('../../assets/images/bedroom_sample.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center;">
+        <div class="container">
+            <!-- Tenant Account Overview -->
+            <div class="tenant-acc-overview">
+                <div class="card-body">
+                    <div class="list-group list-group-transparent">
+                        <div class="list-group-item list-group-item-action flex-column align-items-start border-0 custom-height"
+                            style="background-color: rgba(37, 51, 67, 0.384);">
+                            <div class="d-flex flex-row bd-highlight custom-margin-left custom-margin-top">
+                            <?php echo '<img class="tenant-pic d-none d-sm-flex" src="data:image/png;base64,'.base64_encode($tenant_photo).'" alt="Tenant Photo" style="margin-right: 25px; max-width: 20%;">'; ?>
+                                <div>
+                                    <i class="fa-solid fa-person-shelter pb-3" style="color: white;"></i>
+                                    <span style="margin-right: 10px; color: white;">Room: <?php echo $tenant_room_assign; ?></span>
+                                    <i class="fa-solid fa-key" style="color: white;"></i>
+                                    <small style="color: white;">Tenant ID: <?php echo $tenant_id; ?></small>
+                                    <h5 class="display-3" style="font-weight: bold; color: white;"><?php echo $tenant_full_name; ?></h5>
+                                    <div class="card px-2 border-0 bg-transparent"
+                                        style="margin-right: 5px; color: white;">
+                                        <label for="Room details" style="color: white;">Room details:</label>
+                                        <p class="mb-1" style="color: white;"><?php echo $room_details; ?></p>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        <i class="fa-solid fa-person-shelter pb-3"></i>
-                        Room: <?php echo $tenant_room_assign; ?>
-                        <div class="card px-2">
-                            <label for="Room details">Room details:</label>
-                            <p class="mb-1"><?php echo $room_details; ?></p>
-                        </div>
-                    </a>
+                    </div>
                 </div>
-            </div> 
-       </div>
-       
-       <!-- Tenant Balances overview -->
-       <div class="tenant-balances-overview">
-            <h2>My Balances</h2>
-            <p>List of my current balances</p>
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr class="table-dark">
-                        <th scope="col">Bill Type</th>
-                        <th scope="col">Charges</th>
-                        <th scope="col">Due Date</th>
-                        <th scope="col">Payment Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Rental billings -->
-                    <tr>
-                        <td>Rental</td>
-                        <td> 
-                            <?php
-                                if (!(empty($results_rental_payments["charges"]))) {
-                                    echo "Php ".$results_rental_payments["charges"]; 
-                                } else {
-                                    echo "<b style='color:red'>Waiting for updates...<b>";
-                                }
-                            ?>
-                        </td>
-                        <td>
-                            <?php 
-                                if (!(empty($results_rental_payments["due_date"]))) {
-                                    echo $results_rental_payments["due_date"]; 
-                                } else {
-                                    echo "<b style='color:red'>Waiting for updates...<b>";
-                                }
-                            ?>
-                        </td>
-                        <td>
-                            <?php 
-                                if (!(empty($results_rental_payments["payment_status"]))) {
-                                    echo $results_rental_payments["payment_status"]; 
-                                } else {
-                                    echo "<b style='color:red'>Waiting for updates...<b>";
-                                }
-                            ?>
-                        </td>
-                    </tr>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Electricity Billings -->
-                    <tr>
-                        <td>Electricity</td>
-                        <td> 
-                            <?php 
-                                if (!(empty($results_electricity_payments["charges"]))) {
-                                    echo "Php ".$results_electricity_payments["charges"]; 
-                                } else {
-                                    echo "<b style='color:red'>Waiting for updates...<b>";
-                                }
-                            ?>
-                        </td>
-                        <td>
-                            <?php 
-                                if (!(empty($results_electricity_payments["due_date"]))) {
-                                    echo $results_electricity_payments["due_date"];
-                                } else {
-                                    echo "<b style='color:red'>Waiting for updates...<b>";
-                                }
-                            ?>
-                        </td>
-                        <td>
-                            <?php 
-                                if (!(empty($results_electricity_payments["payment_status"]))) {
-                                    echo $results_electricity_payments["payment_status"]; 
-                                } else {
-                                    echo "<b style='color:red'>Waiting for updates...<b>";
-                                }
-                            ?>
-                        </td>
-                    </tr>
-
-                    <!-- Water Billings -->
-                    <tr>
-                        <td>Water</td>
-                        <td> 
-                            <?php
-                                if (!(empty($results_water_payments["charges"]))) {
-                                    echo "Php ".$results_water_payments["charges"]; 
-                                } else {
-                                    echo "<b style='color:red'>Waiting for updates...<b>";
-                                }
-                            ?>
-                        </td>
-                        <td>
-                            <?php
-                                if (!(empty($results_water_payments["due_date"]))) {
-                                    echo $results_water_payments["due_date"]; 
-                                } else {
-                                    echo "<b style='color:red'>Waiting for updates...<b>";
-                                }
-                            ?>
-                        </td>
-                        <td>
-                            <?php 
-                                if (!(empty($results_water_payments["payment_status"]))) {
-                                    echo $results_water_payments["payment_status"]; 
-                                } else {
-                                    echo "<b style='color:red'>Waiting for updates...<b>";
-                                }
-                            ?>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-       </div>
+    <!-- Tenant Balances overview -->
+    <div class="container">
+        <div class="modern-table mx-5 px-4">
+            <div class="tenant-balances-overview">
+                 <h2>My Balances</h2>
+                 <p>List of my current balances</p>
+                 <table class="table">
+                     <thead class="thead-dark">
+                         <tr class="table-dark">
+                             <th scope="col">Bill Type</th>
+                             <th scope="col">Charges</th>
+                             <th scope="col">Due Date</th>
+                             <th scope="col">Payment Status</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <!-- Rental billings -->
+                         <tr>
+                             <td>Rental</td>
+                             <td> 
+                                 <?php
+                                     if (!(empty($results_rental_payments["charges"]))) {
+                                         echo "Php ".$results_rental_payments["charges"]; 
+                                     } else {
+                                         echo "<b style='color:red'>Waiting for updates...<b>";
+                                     }
+                                 ?>
+                             </td>
+                             <td>
+                                 <?php 
+                                     if (!(empty($results_rental_payments["due_date"]))) {
+                                         echo $results_rental_payments["due_date"]; 
+                                     } else {
+                                         echo "<b style='color:red'>Waiting for updates...<b>";
+                                     }
+                                 ?>
+                             </td>
+                             <td>
+                                 <?php 
+                                     if (!(empty($results_rental_payments["payment_status"]))) {
+                                         echo $results_rental_payments["payment_status"]; 
+                                     } else {
+                                         echo "<b style='color:red'>Waiting for updates...<b>";
+                                     }
+                                 ?>
+                             </td>
+                         </tr>
+        
+                         <!-- Electricity Billings -->
+                         <tr>
+                             <td>Electricity</td>
+                             <td> 
+                                 <?php 
+                                     if (!(empty($results_electricity_payments["charges"]))) {
+                                         echo "Php ".$results_electricity_payments["charges"]; 
+                                     } else {
+                                         echo "<b style='color:red'>Waiting for updates...<b>";
+                                     }
+                                 ?>
+                             </td>
+                             <td>
+                                 <?php 
+                                     if (!(empty($results_electricity_payments["due_date"]))) {
+                                         echo $results_electricity_payments["due_date"];
+                                     } else {
+                                         echo "<b style='color:red'>Waiting for updates...<b>";
+                                     }
+                                 ?>
+                             </td>
+                             <td>
+                                 <?php 
+                                     if (!(empty($results_electricity_payments["payment_status"]))) {
+                                         echo $results_electricity_payments["payment_status"]; 
+                                     } else {
+                                         echo "<b style='color:red'>Waiting for updates...<b>";
+                                     }
+                                 ?>
+                             </td>
+                         </tr>
+        
+                         <!-- Water Billings -->
+                         <tr>
+                             <td>Water</td>
+                             <td> 
+                                 <?php
+                                     if (!(empty($results_water_payments["charges"]))) {
+                                         echo "Php ".$results_water_payments["charges"]; 
+                                     } else {
+                                         echo "<b style='color:red'>Waiting for updates...<b>";
+                                     }
+                                 ?>
+                             </td>
+                             <td>
+                                 <?php
+                                     if (!(empty($results_water_payments["due_date"]))) {
+                                         echo $results_water_payments["due_date"]; 
+                                     } else {
+                                         echo "<b style='color:red'>Waiting for updates...<b>";
+                                     }
+                                 ?>
+                             </td>
+                             <td>
+                                 <?php 
+                                     if (!(empty($results_water_payments["payment_status"]))) {
+                                         echo $results_water_payments["payment_status"]; 
+                                     } else {
+                                         echo "<b style='color:red'>Waiting for updates...<b>";
+                                     }
+                                 ?>
+                             </td>
+                         </tr>
+                     </tbody>
+                 </table>
+            </div>
+        </div>
     </div>
 </body>
 </html>
