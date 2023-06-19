@@ -105,21 +105,44 @@ if (isset($_POST["upload-proof-payment"]) && $_SERVER["REQUEST_METHOD"] == "POST
     // $_err_proof_bill_type = $_err_payment_ref_code = $_err_img_proof = $_err_date_uploaded = $_err_proof_by
     if (empty($_err_proof_bill_type) && empty($_err_payment_ref_code) && empty($_err_img_proof) && 
         empty($_err_date_uploaded) && empty($_err_proof_by)) {
-            // Create a query to insert proof of payment into the database
-            $sql = "INSERT INTO PROOF_OF_PAYMENT (tenant_id, bill_type, paid_ref_code, proof_by, date_uploaded, img_proof) 
-                    VALUES
-                        (
-                            '$tenant_id',
-                            '$proof_bill_type', 
-                            '$payment_ref_code',
-                            '$proof_by',
-                            '$date_uploaded',
-                            '$img_proof'
-                        )";
+            
+            // Check existing data
+            $sql_check_if_somethingExists = "SELECT * FROM PROOF_OF_PAYMENT where tenant_id = $tenant_id AND bill_type = '$proof_bill_type'";
+            $results_check = mysqli_query($conn, $sql_check_if_somethingExists);
+            $results_check = mysqli_fetch_assoc($results_check);
 
-            // Execute the query 
-            if (mysqli_query($conn, $sql)) {
-                header("location: tenant-payment.php");
+            if (empty($results_check) || !isset($results_check) || $results_check->num_rows < 0) {
+                // Create a query to insert proof of payment into the database
+                $sql = "INSERT INTO PROOF_OF_PAYMENT (tenant_id, bill_type, paid_ref_code, proof_by, date_uploaded, img_proof) 
+                        VALUES
+                            (
+                                '$tenant_id',
+                                '$proof_bill_type', 
+                                '$payment_ref_code',
+                                '$proof_by',
+                                '$date_uploaded',
+                                '$img_proof'
+                            )";
+                            
+                            // Execute the query 
+                            if (mysqli_query($conn, $sql)) {
+                                header("location: tenant-payment.php");
+                            }
+            } 
+
+            else {
+                $sql = "UPDATE PROOF_OF_PAYMENT SET     
+                            bill_type = '$proof_bill_type',
+                            paid_ref_code = '$payment_ref_code',
+                            proof_by = '$proof_by',
+                            date_uploaded = '$date_uploaded',
+                            img_proof = '$img_proof'
+                        WHERE tenant_id = $tenant_id AND bill_type = '$proof_bill_type'";
+
+                        // Execute the query 
+                        if (mysqli_query($conn, $sql)) {
+                            header("location: tenant-payment.php");
+                        }
             }
         }
 }

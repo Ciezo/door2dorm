@@ -336,6 +336,9 @@ if (isset($_POST["select-tenant"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                         <!-- A button to set a value for marking payments as 'Paid'  -->
                         <form action="../../api/payments/set_billings_rental.php" method="POST">
                             <input type="hidden" name="tenant_id" value="<?php echo $results_tenant_profile["tenant_id"]; ?>">
+                            <input type="hidden" name="tenant_fullName" value="<?php echo $results_tenant_profile["full_name"]; ?>">
+                            <input type="hidden" name="tenant_phoneNumber" value="<?php echo $results_tenant_profile["mobile_num"]; ?>">
+                            <input type="hidden" name="tenant_email" value="<?php echo $results_tenant_profile["email"]; ?>">    
                             <input name="mark-paid-rental" type="submit" class="btn btn-outline-success" style="display:inline;" value="Mark as Paid"></input>
                         </form>
                     </div>
@@ -397,6 +400,9 @@ if (isset($_POST["select-tenant"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                         <!-- A button to set a value for marking payments as 'Paid'  -->
                         <form action="../../api/payments/set_billings_electricity.php" method="POST">
                             <input type="hidden" name="tenant_id" value="<?php echo $results_tenant_profile["tenant_id"]; ?>">
+                            <input type="hidden" name="tenant_fullName" value="<?php echo $results_tenant_profile["full_name"]; ?>">
+                            <input type="hidden" name="tenant_phoneNumber" value="<?php echo $results_tenant_profile["mobile_num"]; ?>">
+                            <input type="hidden" name="tenant_email" value="<?php echo $results_tenant_profile["email"]; ?>">
                             <input name="mark-paid-electricity" type="submit" class="btn btn-outline-success" style="display:inline;" value="Mark as Paid"></input>
                         </form>
                     </div>
@@ -458,6 +464,9 @@ if (isset($_POST["select-tenant"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                         <!-- A button to set a value for marking payments as 'Paid'  -->
                         <form action="../../api/payments/set_billings_water.php" method="POST">
                             <input type="hidden" name="tenant_id" value="<?php echo $results_tenant_profile["tenant_id"]; ?>">
+                            <input type="hidden" name="tenant_fullName" value="<?php echo $results_tenant_profile["full_name"]; ?>">
+                            <input type="hidden" name="tenant_phoneNumber" value="<?php echo $results_tenant_profile["mobile_num"]; ?>">
+                            <input type="hidden" name="tenant_email" value="<?php echo $results_tenant_profile["email"]; ?>">    
                             <input name="mark-paid-water" type="submit" class="btn btn-outline-success" style="display:inline;" value="Mark as Paid"></input>
                         </form>
                     </div>
@@ -483,6 +492,11 @@ if (isset($_POST["select-tenant"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                             <?php 
                                 if (!(empty($results_proof_payment_forRentalType))) {
                                     echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($results_proof_payment_forRentalType["img_proof"]).'" alt="Proof of payment">'; 
+                                    echo '<ul class="list-group list-group-flush">';
+                                    echo    '<li class="list-group-item"> Reference code: '.$results_proof_payment_forRentalType["paid_ref_code"].'</li>';
+                                    echo    '<li class="list-group-item"> Proof By: '.$results_proof_payment_forRentalType["proof_by"].'</li>';
+                                    echo    '<li class="list-group-item"> Date Uploaded: '.$results_proof_payment_forRentalType["date_uploaded"].'</li>';
+                                    echo '</ul>';
                                 } else {
                                     echo '<div class="alert alert-danger"><em><b>'. $results_tenant_profile["full_name"]. '</b> has not submitted any proof of payment yet!</em></div>';
                                 }
@@ -519,6 +533,11 @@ if (isset($_POST["select-tenant"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                             <?php 
                                 if (!(empty($results_proof_payment_forElectricType))) {
                                     echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($results_proof_payment_forElectricType["img_proof"]).'" alt="Proof of payment">'; 
+                                    echo '<ul class="list-group list-group-flush">';
+                                    echo    '<li class="list-group-item"> Reference code: '.$results_proof_payment_forElectricType["paid_ref_code"].'</li>';
+                                    echo    '<li class="list-group-item"> Proof By: '.$results_proof_payment_forElectricType["proof_by"].'</li>';
+                                    echo    '<li class="list-group-item"> Date Uploaded: '.$results_proof_payment_forElectricType["date_uploaded"].'</li>';
+                                    echo '</ul>';
                                 } else {
                                     echo '<div class="alert alert-danger"><em><b>'. $results_tenant_profile["full_name"]. '</b> has not submitted any proof of payment yet!</em></div>';
                                 }
@@ -555,6 +574,11 @@ if (isset($_POST["select-tenant"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                             <?php 
                                 if (!(empty($results_proof_payment_forWaterType))) {
                                     echo '<img class="card-img-top" src="data:image/png;base64,'.base64_encode($results_proof_payment_forWaterType["img_proof"]).'" alt="Proof of payment">'; 
+                                    echo '<ul class="list-group list-group-flush">';
+                                    echo    '<li class="list-group-item"> Reference code: '.$results_proof_payment_forWaterType["paid_ref_code"].'</li>';
+                                    echo    '<li class="list-group-item"> Proof By: '.$results_proof_payment_forWaterType["proof_by"].'</li>';
+                                    echo    '<li class="list-group-item"> Date Uploaded: '.$results_proof_payment_forWaterType["date_uploaded"].'</li>';
+                                    echo '</ul>';
                                 } else {
                                     echo '<div class="alert alert-danger"><em><b>'. $results_tenant_profile["full_name"]. '</b> has not submitted any proof of payment yet!</em></div>';
                                 }

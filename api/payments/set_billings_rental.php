@@ -120,6 +120,11 @@ if (isset($_POST["billings_rentals"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 // Check if the payment is being marked as Paid
 if (isset($_POST["mark-paid-rental"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     $tenant_id = $_POST["tenant_id"];
+    $tenant_name = $_POST["tenant_fullName"];
+    $tenant_email = $_POST["tenant_email"];
+    $electricity_charges = $_POST["electricity_charges"];
+    $electricity_due_date = $_POST["electricity_due_date"];
+    $tenant_phoneNum = $_POST["tenant_phoneNumber"];
     $get_current_date = date("d-m-Y"); 
     $_sql_update_payment_stat = "UPDATE PAYMENTS_RENTAL SET 
                                     payment_status = 'Paid',
