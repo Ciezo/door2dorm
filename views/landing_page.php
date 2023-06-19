@@ -143,7 +143,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html data-theme="light" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -223,10 +223,13 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
         </header>
 
         <!-- @todo List of available rooms displayed in a grid -->
-        <div class="card px-2 mx-2">
-            <div id="periodic-refresh-5secs" class="rooms-avail-table mt-2">
-                <!-- Dynamic Table: Listing of Available rooms -->
-                <!-- Create a query to select all available rooms -->
+        <div class="card">
+            <div class="rooms-avail-table mt-2">
+                <div class="container">
+                    <div class="w-full flex flex-wrap justify-center" id="periodic-refresh-5secs">
+                        <!-- Rooms content are displayed as cards -->  
+                    </div>
+                </div>
             </div>
         </div>
  
