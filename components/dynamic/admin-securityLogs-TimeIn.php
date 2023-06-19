@@ -34,7 +34,7 @@
                             echo        '<div class="alert alert-danger" role="alert">';
                             echo            '<h5><i class="fa-solid fa-circle-info"></i> No entries found!<h5>';
                             echo            '<p>';
-                            echo                'This can mean that no persons have been going out of the dormitory premises.';
+                            echo                'This can mean that no persons have been going inside the dormitory premises.';
                             echo            '</p>';
                             echo        '</div>';
                             echo    '</div>'; 

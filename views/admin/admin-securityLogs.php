@@ -91,6 +91,29 @@ if (!isset($_SESSION["admin-username"])) {
             <h2>Security Logs</h2>
             <p>Here is the section where security loggins are present using biometric security measures</p>
             <div class="row shadow-border">
+            
+                <!-- Filter -->
+                <div class="row">
+                    <div class="col-lg-10"></div>
+                    <div class="col-lg-2">
+                        <div class="d-flex justify-content-end">
+                            <div class="input-group">
+                                <div class="d-flex justify-content-end">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-transparent border-0">
+                                                <i class="fa-solid fa-filter"></i>
+                                                <span style="padding-left: 5px;">Filter by:</span>
+                                            </span>
+                                            <input type="text" class="form-control" id="room-filter" placeholder="Room no.">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="col-lg-6" id="room-table">
                     <!-- Time-in log tables -->
                     <h4>Time-ins</h4>
@@ -116,5 +139,23 @@ if (!isset($_SESSION["admin-username"])) {
     <script type="text/javascript" src="../../js/dynamic-load-TimeIns.js"></script>
     <!-- Script to load time-outs -->
     <script type="text/javascript" src="../../js/dynamic-load-TimeOuts.js"></script>
+
+    <!-- Filter -->
+    <script>
+        $(document).ready(function () {
+            $('#room-filter').keyup(function () {
+                var value = $(this).val().toLowerCase();
+                $('#room-table tbody tr').filter(function () {
+                    var roomNumber = $(this).find('td:nth-child(4)').text().toLowerCase();
+                    return roomNumber.indexOf(value) === -1;
+                }).toggle();
+                
+                if (value === "") {
+                    $('#room-table tbody tr').show();
+                }
+        });
+        });
+    </script>
+
 </body>
 </html>
