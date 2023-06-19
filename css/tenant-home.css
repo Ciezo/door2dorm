@@ -1,0 +1,71 @@
+/* global.css */
+* {
+    /* Overalls customizations */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.tenant-pic {
+    border-radius: 50%;
+    /* width: 15vw; */
+    /* height: 30vh; */
+}
+
+.table tbody td {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.custom-height {
+    height: 340px;
+}
+
+.custom-margin-top {
+    margin-top: 30px;
+}
+
+.custom-margin-left {
+    margin-left: 25px
+}
+
+
+
+/* Custom table styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+.table tbody td {
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Modern table styles */
+.modern-table {
+    margin: 20px 0;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modern-table thead th {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.modern-table tbody td {
+    vertical-align: middle;
+}
+
+.modern-table tbody tr:last-child td {
+    border-bottom: none;
+}
