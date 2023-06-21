@@ -86,7 +86,7 @@ else {
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-securityLogs.php">Security Logs</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-facenet.php">FaceNet</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-messages.php">Messages</a>
-                <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logut</a>
+                <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>
     </nav>
