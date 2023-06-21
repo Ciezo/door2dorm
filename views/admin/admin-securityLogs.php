@@ -87,7 +87,7 @@ if (!isset($_SESSION["admin-username"])) {
     <div class="container">
         <div class="security-logs">
             <h2>Security Logs</h2>
-            <p>Here is the section where security loggins are present using biometric security measures</p>
+            <p>Here is the section where security loggings are present using biometric security measures</p>
             <div class="row shadow-border">
             
                 <!-- Filter -->

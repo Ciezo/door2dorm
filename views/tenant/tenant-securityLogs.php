@@ -73,7 +73,7 @@ if (!isset($_SESSION["tenant-username"])) {
             <div class="hero-content text-center">
                 <div class="max-w-md">
                     <h1 class="text-5xl font-bold">Security Logs</h1>
-                    <p class="py-6">Here are your security logging check-ins and check-outs based on facial recognition</p>
+                    <p class="py-6">Here are your security loggings check-ins and check-outs based on facial recognition</p>
                 </div>
             </div>
        </div>
