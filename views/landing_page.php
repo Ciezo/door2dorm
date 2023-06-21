@@ -303,8 +303,8 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 <!-- Submit form, and trigger modal -->
                 <div class="form-group">
                     <!-- <input type="button" name="schedule-visit-submit-form" data-toggle="modal" data-target="#previewBookingDetails" onclick="submitForm()" class="btn btn-warning w-full" value="Book now!"> -->
-                    <!-- <input type="button" class="btn btn-warning w-full" onclick="previewBookingDetails.showModal(); submitForm()" value="Book now!"></input> -->
-                    <input type="submit" name="confirm-booking" class="btn btn-warning w-full" value="Confirm Booking">
+                    <input type="button" class="btn w-full mb-2" onclick="previewBookingDetails.showModal(); renderVisitForm()" value="Preview"></input>
+                    <input type="submit" name="confirm-booking" class="btn btn-warning w-full mb-2" value="Confirm Booking">
                 </div>
             </form>
         </div>
@@ -347,7 +347,8 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="modal-action">
-                <input type="submit" name="confirm-booking" class="btn" value="Confirm Booking">
+                <!-- <input type="submit" name="confirm-booking" class="btn" value="Confirm Booking"> -->
+                <button class="btn">Close</button>
             </div>
         </form>
     </dialog>
@@ -355,7 +356,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     <script type="text/javascript" src="../js/dynamic-load-AvailableRooms.js"></script>
 
     <script>
-    function submitForm() {
+    function renderVisitForm() {
         var full_name = document.getElementById("fetch_fullName").value;
         var visit_purpose = document.getElementById("fetch_visitPurpose").value;
         var visit_contact = document.getElementById("fetch_visitContact").value;
