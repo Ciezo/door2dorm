@@ -173,7 +173,7 @@ catch (Exception $e) {
             }
         ?>
         <br>
-        <a href="../../views/tenant/tenant-login.php" class="btn btn-outline-success form-control">Login to my account</a>
+        <a href="../../views/tenant/tenant-password-reset.php" class="btn btn-outline-success form-control">Update my password</a>
     </div>
 </body>
 </html>
