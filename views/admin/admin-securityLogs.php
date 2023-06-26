@@ -78,6 +78,8 @@ if (!isset($_SESSION["admin-username"])) {
                 <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-shield-halved"></i> Security Logs</a>
                 <a class="nav-item nav-link px-2" href="admin-facenet.php">FaceNet</a>
                 <a class="nav-item nav-link px-2" href="admin-messages.php">Messages</a>
+                <a class="nav-item nav-link px-2" href="admin-archive-tenants.php">Tenant Archives</a>
+                <a class="nav-item nav-link px-2" href="admin-archive-visitors.php">Visitor Archives</a>
                 <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>

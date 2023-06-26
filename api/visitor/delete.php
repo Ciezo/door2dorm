@@ -12,6 +12,27 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Get hidden input value
     $id = $_POST["id"];
 
+    /**
+     * Get the values for archiving
+     */
+    $name = $_POST["name"];
+    $mobile_num = $_POST["mobile_num"];
+    $purpose = $_POST["purpose"];
+    $date = $_POST["date"];
+    $time = $_POST["time"];
+
+    $archive_visitor = "INSERT INTO VISITOR(full_name, contact_no, visit_purpose, time_visit, date_visit) 
+            VALUES
+            (
+                '$name',
+                '$mobile_num',
+                '$purpose',
+                '$time',
+                '$date'
+            )";
+    // Archive the guest profile before redirect
+    mysqli_query($conn_bk, $archive_visitor);
+
     // Create an sQL Delete statement
     $sql = "DELETE FROM VISITOR WHERE visitor_id = $id";
 
@@ -33,6 +54,11 @@ else {
         // And if the ID is empty 
         // Get URL parameter for extraction
         $id =  trim($_GET["id"]);
+        $name = $_GET["name"];
+        $mobile_num = $_GET["mobile_num"];
+        $purpose = $_GET["purpose"];
+        $date = $_GET["date"];
+        $time = $_GET["time"];
     }
 }
 ?>
@@ -86,6 +112,8 @@ else {
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-securityLogs.php">Security Logs</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-facenet.php">FaceNet</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-messages.php">Messages</a>
+                <a class="nav-item nav-link px-2" href="./../views/admin/admin-archive-tenants.php">Tenant Archives</a>
+                <a class="nav-item nav-link px-2" href="./../views/admin/admin-archive-visitors.php">Visitor Archives</a>
                 <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>
@@ -97,7 +125,13 @@ else {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="alert alert-danger">
                 <input type="hidden" name="id" value="<?php echo trim($_GET["id"]); ?>"/>
+                <input type="hidden" name="name" value="<?php echo trim($_GET["name"]); ?>"/>
+                <input type="hidden" name="mobile_num" value="<?php echo trim($_GET["mobile_num"]); ?>"/>
+                <input type="hidden" name="purpose" value="<?php echo trim($_GET["purpose"]); ?>"/>
+                <input type="hidden" name="date" value="<?php echo trim($_GET["date"]); ?>"/>
+                <input type="hidden" name="time" value="<?php echo trim($_GET["time"]); ?>"/>
                 <p>Upon deletion. This record cannot be retrieved. Please, proceed with caution</p>
+                <p><b>This guest profile will be archived for security purposes.</b></p>
                 <p>
                     <input type="submit" value="Confirm" class="btn btn-danger">
                     <a class="btn btn-secondary ml-2" href="../../views/admin/admin-home.php">Cancel</a>

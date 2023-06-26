@@ -51,4 +51,26 @@ else {
         console.log("Connection SUCCESSFUL!");
     </script>'; 
 }
+
+$host_bk = $_ENV["DB_HOST_BK"];
+$user_bk = $_ENV["DB_USER_BK"];
+$pass_bk = $_ENV["DB_PASS_BK"];
+$schema_bk = $_ENV["DB_SCHEMA_BK"];
+        
+// Init connection_bk 
+$conn_bk = new mysqli($host_bk, $user_bk, $pass_bk, $schema_bk);
+    if ($conn_bk->connect_error) {
+        echo '
+        <script>
+            console.log("Could not establish connection to Heroku or EXCEEDED MAXIMUM CONNECTIONS!");
+        </script>'; 
+        die("Error connecting".$conn_bk->connect_error);
+    }
+
+    else {
+        echo '
+        <script>
+            console.log("Connection to backup server SUCCESSFUL!");
+        </script>'; 
+    }
 ?>

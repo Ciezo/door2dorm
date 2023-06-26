@@ -117,6 +117,8 @@ else {
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-securityLogs.php">Security Logs</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-facenet.php">FaceNet</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-messages.php">Messages</a>
+                <a class="nav-item nav-link px-2" href="../../views/admin/admin-archive-tenants.php">Tenant Archives</a>
+                <a class="nav-item nav-link px-2" href="../../views/admin/admin-archive-visitors.php"><i class="fa-solid fa-house-chimney-window"></i> Visitor Archives</a>
                 <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>
@@ -144,7 +146,7 @@ else {
             </div>
             <div class="card-footer">
                 <a href="../../views/admin/admin-home.php" class="btn btn-outline-primary">Back</a>
-                <?php echo '<a class="btn btn-outline-danger" href="delete.php?id='.$id.'">Remove</a>';  ?>
+                <?php echo '<a class="btn btn-outline-danger" href="delete.php?id=' . $id . '&name=' . $visitor_fullName . '&mobile_num=' . $visitor_contact . '&purpose='. $visit_purpose . '&date=' . $visit_date . '&time=' . $visit_time .'"><i class="fa-solid fa-trash"></i> Remove</a>'; ?>
             </div>
         </div>
 

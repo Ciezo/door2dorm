@@ -124,10 +124,12 @@ else {
             <div class="navbar-nav">
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-home.php">Home <span class="sr-only"></span></a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-payment.php">Payment</a>
-                <a class="nav-item nav-link active px-2" href="#">Tenants</a>
+                <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-person-shelter"></i>  Tenants</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-securityLogs.php">Security Logs</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-facenet.php">FaceNet</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-messages.php">Messages</a>
+                <a class="nav-item nav-link px-2" href="../../views/admin/admin-archive-tenants.php">Tenant Archives</a>
+                <a class="nav-item nav-link px-2" href="../../views/admin/admin-archive-visitors.php">Visitor Archives</a>
                 <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>
@@ -159,7 +161,7 @@ else {
             <div class="card-body">
                 <a href="../../views/admin/admin-tenants.php" class="btn btn-outline-primary">Back</a>
                 <?php echo '<a class="btn btn-outline-success" href="update.php?id='.$id.'">Update Account</a>';  ?>
-                <?php echo '<a class="btn btn-outline-danger" href="delete.php?id='.$id.'">Remove Account</a>';  ?>
+                <?php echo '<a class="btn btn-outline-danger" href="delete.php?id=' . $id . '&name=' . $tenant_full_name . '&mobile_num=' . $contactNum . '&username='. $username . '&email=' . $email . '&password=' . $password . '&emerg=' . $emergencyContact . '&room=' . $assigned_room .'"><i class="fa-solid fa-trash"></i> Remove Account</a>'; ?>
             </div>
         </div>
     </div>

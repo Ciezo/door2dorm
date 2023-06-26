@@ -14,19 +14,17 @@ if (!isset($_SESSION["admin-username"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messages</title>
+    <title>Visitor Archives</title>
 
     <!-- Bootstrap from https://getbootstrap.com/ -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- CSS Global theming and styles -->
     <link href="../../css/globals.css" rel="stylesheet">
-    
+
     <!-- jQuery-->
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
@@ -67,9 +65,9 @@ if (!isset($_SESSION["admin-username"])) {
                 <a class="nav-item nav-link px-2" href="admin-tenants.php">Tenants</a>
                 <a class="nav-item nav-link px-2" href="admin-securityLogs.php">Security Logs</a>
                 <a class="nav-item nav-link px-2" href="admin-facenet.php">FaceNet</a>
-                <a class="nav-item nav-link active px-2" href="#">Messages</a>
+                <a class="nav-item nav-link px-2" href="admin-messages.php">Messages</a>
                 <a class="nav-item nav-link px-2" href="admin-archive-tenants.php">Tenant Archives</a>
-                <a class="nav-item nav-link px-2" href="admin-archive-visitors.php">Visitor Archives</a>
+                <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-boxes-packing"></i> Visitor Archives</a>
                 <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>
@@ -77,40 +75,36 @@ if (!isset($_SESSION["admin-username"])) {
 
     <!-- Content goes here -->
     <div class="container">
-        <div class="messages-listAll">
-            <div class="hero mt-6">
-                <div class="hero-content text-center">
-                    <div class="max-w-md">
-                        <h1 class="text-5xl font-bold">Messages</h1>
-                        <p class="py-6">This page displays all the submitted queries from tenants</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card text-center">
-                <div class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-messages.php">General</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-messages-repairs.php">Repairs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="admin-messages-feedback.php">Feedback</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin-messages-report.php">Report</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Dynamically load messages -->
-                <div id="periodic-refresh8secs-messagesByFeedback" class="card-body overflow-auto">
-                </div>
-            </div>
+        <div class="visitor-archives">
+            <h2>Visitor Archives</h2>
+            <p>These are the delete guest lists which are acrhived for safety purposes.</p>
+
+            <!-- Visitor archive profiles are listed as cards -->
+            <?php 
+                $sql = "SELECT * FROM VISITOR";
+                $results = mysqli_query($conn_bk, $sql);
+                
+                if($results->num_rows > 0) {
+                    while($rows = mysqli_fetch_assoc($results)) {
+                        echo '<div class="profile card mx-2 px-2 mb-3">';
+                        echo    '<div class="card-header">';
+                        echo        '<span><b>'.$rows["full_name"].'</b></span>';
+                        echo    '</div>';
+                        echo    '<div class="card-body">';
+                        echo        '<ul class="list-group list-group-flush">';
+                        echo            '<li class="list-group-item">Mobile: '.$rows["contact_no"].'</li>';
+                        echo            '<li class="list-group-item">Visiting purpose: '.$rows["visit_purpose"].'</li>';
+                        echo            '<li class="list-group-item">Time: '.$rows["time_visit"].'</li>';
+                        echo            '<li class="list-group-item">Date: '.$rows["date_visit"].'</li>';
+                        echo        '</ul>';
+                        echo    '</div>';
+                    }
+                } else {
+                    echo '<div class="alert alert-danger" role="alert">No archive records found! </div>';
+                }
+            ?>
         </div>
     </div>
-
-    <!-- Script src to dynamically load messages -->
-    <script type="text/javascript" src="../../js/dynamic-load-adminMsgFeedback.js"></script>
+    
 </body>
 </html>

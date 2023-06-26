@@ -12,7 +12,33 @@ if (!isset($_SESSION["admin-username"])) {
 if(isset($_POST["id"]) && !empty($_POST["id"])){
     // Get hidden input value
     $id = $_POST["id"];
+    
+    /**
+     * Fetch the values from url
+     * 
+     */
+    $name = $_POST["name"];
+    $mobile_num = $_POST["mobile_num"];
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+    $email = $_POST["email"];
+    $emerg = $_POST["emerg"];
+    $room = $_POST["room"];
 
+    $archive_tenant = "INSERT INTO TENANT(full_name, mobile_num, username, email, password, emergency_contact_num, room_assign) 
+            VALUES
+            (
+                '$name',
+                '$mobile_num',
+                '$username',
+                '$email',
+                '$password',
+                '$emerg', 
+                '$room'
+            )";
+    // Archive the tenant profile before redirect
+    mysqli_query($conn_bk, $archive_tenant);
+        
     // Create an sQL Delete statement
     $sql = "DELETE FROM TENANT WHERE tenant_id = $id";
 
@@ -82,6 +108,13 @@ else {
         // And if the ID is empty 
         // Get URL parameter for extraction
         $id =  trim($_GET["id"]);
+        $name = $_GET["name"];
+        $mobile_num = $_GET["mobile_num"];
+        $username = $_GET["username"];
+        $password = $_GET["password"];
+        $email = $_GET["email"];
+        $emerg = $_GET["emerg"];
+        $room = $_GET["room"];
     }
 }
 ?>
@@ -140,6 +173,8 @@ else {
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-securityLogs.php">Security Logs</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-facenet.php">FaceNet</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-messages.php">Messages</a>
+                <a class="nav-item nav-link px-2" href="./../views/admin/admin-archive-tenants.php">Tenant Archives</a>
+                <a class="nav-item nav-link px-2" href="./../views/admin/admin-archive-visitors.php">Visitor Archives</a>
                 <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>
@@ -151,7 +186,15 @@ else {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="alert alert-danger">
                 <input type="hidden" name="id" value="<?php echo trim($_GET["id"]); ?>"/>
+                <input type="hidden" name="name" value="<?php echo trim($_GET["name"]); ?>"/>
+                <input type="hidden" name="mobile_num" value="<?php echo trim($_GET["mobile_num"]); ?>"/>
+                <input type="hidden" name="username" value="<?php echo trim($_GET["username"]); ?>"/>
+                <input type="hidden" name="password" value="<?php echo trim($_GET["password"]); ?>"/>
+                <input type="hidden" name="email" value="<?php echo trim($_GET["email"]); ?>"/>
+                <input type="hidden" name="emerg" value="<?php echo trim($_GET["emerg"]); ?>"/>
+                <input type="hidden" name="room" value="<?php echo trim($_GET["room"]); ?>"/>
                 <p>Upon deletion. This record cannot be retrieved. Please, proceed with caution</p>
+                <p><b>This tenant profile will be archived for safety purposes</b></p>
                 <p>
                     <input type="submit" value="Confirm" class="btn btn-danger">
                     <a class="btn btn-secondary ml-2" href="../../views/admin/admin-tenants.php">Cancel</a>

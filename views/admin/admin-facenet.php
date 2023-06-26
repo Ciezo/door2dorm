@@ -149,6 +149,8 @@ if (isset($_POST["register_face"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 <a class="nav-item nav-link px-2" href="admin-securityLogs.php">Security Logs</a>
                 <a class="nav-item nav-link active px-2" href="#"><i class="fa-solid fa-user-shield"></i> FaceNet</a>
                 <a class="nav-item nav-link px-2" href="admin-messages.php">Messages</a>
+                <a class="nav-item nav-link px-2" href="admin-archive-tenants.php">Tenant Archives</a>
+                <a class="nav-item nav-link px-2" href="admin-archive-visitors.php">Visitor Archives</a>
                 <a class="nav-item nav-link logout px-2" href="../../components/custom/logout.php">Logout</a>
             </div>
         </div>
