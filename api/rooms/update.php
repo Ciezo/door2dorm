@@ -64,7 +64,7 @@ else {
             // Validate room type
             $input_room_type = trim($_POST["room-type"]);
             if (empty($input_room_type)) {
-                $room_type = $input_room_type; 
+                $input_room_type = $room_type; 
             }
             else {
                 $room_type = $input_room_type; 
@@ -73,7 +73,7 @@ else {
             // Validate room category
             $input_room_category = trim($_POST["room-category"]);
             if (empty($input_room_category)) {
-                $room_category = $input_room_category; 
+                $input_room_category = $room_category; 
             }
             else { 
                 $room_category = $input_room_category; 
@@ -82,7 +82,7 @@ else {
             // Validate Room gender
             $input_room_gender = trim($_POST["room-gender"]); 
             if (empty($input_room_gender)) {
-                $gender_assign = $input_room_gender; 
+                $input_room_gender = $gender_assign ; 
             }
             else { 
                 $gender_assign = $input_room_gender;  
@@ -230,7 +230,7 @@ else {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active px-2" href="../../views/admin/admin-home.php">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link active px-2" href="../../views/admin/admin-home.php"><i class="fa-solid fa-house-user"></i> Home <span class="sr-only"></span></a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-payment.php">Payment</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-tenants.php">Tenants</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-securityLogs.php">Security Logs</a>

@@ -52,7 +52,7 @@ else {
     <script src="https://kit.fontawesome.com/c36559a51c.js" crossorigin="anonymous"></script>
 
     <!-- CSS Global theming and styles -->
-    <link href="../../css/globals.css" rel="stylesheet">\
+    <link href="../../css/globals.css" rel="stylesheet">
     
     <!-- jQuery  -->
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
@@ -84,7 +84,7 @@ else {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active px-2" href="../../views/admin/admin-home.php">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link active px-2" href="../../views/admin/admin-home.php"><i class="fa-solid fa-house-user"></i> Home <span class="sr-only"></span></a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-payment.php">Payment</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-tenants.php">Tenants</a>
                 <a class="nav-item nav-link px-2" href="../../views/admin/admin-securityLogs.php">Security Logs</a>
