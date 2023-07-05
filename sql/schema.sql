@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS FACE_IMG (
 );
 
 -- This table is responsible for capturing all time-ins of authorized tenants
-CREATE TABLE SECURITY_LOGS_TIME_IN (
+CREATE TABLE IF NOT EXISTS SECURITY_LOGS_TIME_IN (
     log_id          INT             NOT NULL auto_increment,
     tenant_name     VARCHAR(255)    NOT NULL, 
     tenant_room     VARCHAR(255)    NOT NULL, 
@@ -170,7 +170,7 @@ CREATE TABLE SECURITY_LOGS_TIME_IN (
 );
 
 -- This table is for time-outs of authorized tenants
-CREATE TABLE SECURITY_LOGS_TIME_OUT (
+CREATE TABLE IF NOT EXISTS SECURITY_LOGS_TIME_OUT (
     log_id          INT             NOT NULL auto_increment,
     tenant_name     VARCHAR(255)    NOT NULL, 
     tenant_room     VARCHAR(255)    NOT NULL, 
@@ -179,4 +179,15 @@ CREATE TABLE SECURITY_LOGS_TIME_OUT (
     capture         LONGBLOB, 
 
     PRIMARY KEY(log_id)
+);
+
+-- This table is for handling fingeprint data
+CREATE TABLE IF NOT EXISTS FINGERPRINT (
+    id                  INT                 NOT NULL auto_increment,
+    fingerprint_id      INT                 NOT NULL, 
+    name                VARCHAR(255)        NOT NULL,
+    date_enrolled       VARCHAR(100)        NOT NULL,
+    status              VARCHAR(100)        NOT NULL, 
+
+    PRIMARY KEY(id)
 );
