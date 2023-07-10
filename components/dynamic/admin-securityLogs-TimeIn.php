@@ -9,6 +9,7 @@
                             echo    '<tr>';
                             echo        '<th scope="col">Log ID</th>';
                             echo        '<th scope="col">Name</th>';
+                            echo        '<th scope="col">Date</th>';
                             echo        '<th scope="col">Checked-in</th>';
                             echo        '<th scope="col">Room</th>';
                             echo        '<th scope="col">Status</th>';
@@ -21,6 +22,7 @@
                                 echo "<tr>";
                                 echo    "<td>".$rows["log_id"]."</td>";
                                 echo    "<td>".$rows["tenant_name"]."</td>";
+                                echo    "<td>".$rows["date"]."</td>";
                                 echo    "<td>".$rows["time_in"]."</td>";
                                 echo    "<td>".$rows["tenant_room"]."</td>";
                                 echo    "<td>".$rows["status"]."</td>";

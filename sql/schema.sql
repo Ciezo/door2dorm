@@ -22,6 +22,8 @@ CREATE TABLE IF NOT EXISTS TENANT (
     password                VARCHAR(255)    NOT NULL,
     emergency_contact_num   VARCHAR(255)    NOT NULL, 
     room_assign             VARCHAR(100)    NOT NULL, 
+    lease_start             VARCHAR(100)    NOT NULL, 
+    lease_end               VARCHAR(100)    NOT NULL, 
 
     -- Photo or ID of the tenant
     tenant_photo            LONGBLOB        NOT NULL, 
@@ -162,6 +164,7 @@ CREATE TABLE IF NOT EXISTS SECURITY_LOGS_TIME_IN (
     log_id          INT             NOT NULL auto_increment,
     tenant_name     VARCHAR(255)    NOT NULL, 
     tenant_room     VARCHAR(255)    NOT NULL, 
+    date            VARCHAR(100)    NOT NULL, 
     time_in         VARCHAR(100)    NOT NULL, 
     status          VARCHAR(255)    NOT NULL, 
     capture         LONGBLOB,        
@@ -174,7 +177,8 @@ CREATE TABLE IF NOT EXISTS SECURITY_LOGS_TIME_OUT (
     log_id          INT             NOT NULL auto_increment,
     tenant_name     VARCHAR(255)    NOT NULL, 
     tenant_room     VARCHAR(255)    NOT NULL, 
-    time_out         VARCHAR(100)   NOT NULL, 
+    date            VARCHAR(100)    NOT NULL, 
+    time_out        VARCHAR(100)    NOT NULL, 
     status          VARCHAR(255)    NOT NULL, 
     capture         LONGBLOB, 
 
