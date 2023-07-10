@@ -9,8 +9,8 @@ if (!isset($_SESSION["admin-username"])) {
 }
 
 // Values to retrieve
-$tenant_fullName = $tenant_num = $tenant_emergencyNum = $tenant_email = $tenant_username = $tenant_pass = $tenant_room = $tenant_photo ="";
-$_err_tenant_fullName = $_err_tenant_num = $_err_tenant_emergencyNum = $_err_tenant_email = $_err_tenant_username = $_err_tenant_pass = $_err_tenant_room = $_err_tenant_photo = "";
+$tenant_fullName = $tenant_num = $tenant_emergencyNum = $tenant_email = $tenant_username = $tenant_pass = $tenant_room = $lease_start = $lease_end = "";
+$_err_tenant_fullName = $_err_tenant_num = $_err_tenant_emergencyNum = $_err_tenant_email = $_err_tenant_username = $_err_tenant_pass = $_err_tenant_room = $_err_lease_start = $_err_lease_end = $_err_tenant_photo = "";
 
 // Retrieve the id from the URL parameter after POST
 if(isset($_POST["id"]) && !empty($_POST["id"])) {
@@ -34,6 +34,8 @@ else {
         $tenant_username = $results["username"];
         $tenant_pass = $results["password"];
         $tenant_room = $results["room_assign"];
+        $lease_start = $results["lease_start"];
+        $lease_end = $results["lease_end"];
         $tenant_photo = $results["tenant_photo"];
     }
 }
@@ -153,6 +155,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
+    // Validate lease start
+    $input_lease_start = trim($_POST["tenant-lease-start"]);
+    if (empty($input_lease_start)) {
+        $lease_start = $input_lease_start; 
+    }
+    
+    else {
+        $lease_start = $input_lease_start; 
+    }
+
+    // Validate lease end
+    $input_lease_end = trim($_POST["tenant-lease-end"]);
+    if (empty($input_lease_end)) {
+        $lease_end = $input_lease_end; 
+    }
+    
+    else {
+        $lease_end = $input_lease_end; 
+    }
+
+
+
     // Validate photo
     if (isset($_FILES["face_photo_upload"])) {
         if ($_FILES["face_photo_upload"]["size"] > 500000) {
@@ -164,7 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if no errors occured
     if (empty($_err_tenant_fullName) && empty($_err_tenant_num) && empty($_err_tenant_emergencyNum) && empty($_err_tenant_email) &&
-        empty($_err_tenant_username) && empty($_err_tenant_pass) && empty($_err_tenant_room) && empty($_err_tenant_photo)) {
+        empty($_err_tenant_username) && empty($_err_tenant_pass) && empty($_err_tenant_room) && empty($_err_lease_start) && empty($_err_lease_end) && empty($_err_tenant_photo)) {
             
             // Create an UPDATE statement
             $sql = "UPDATE TENANT 
@@ -175,7 +199,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         email = '$tenant_email' ,
                         password = '$tenant_pass' ,
                         emergency_contact_num = '$tenant_emergencyNum' ,
-                        room_assign = '$tenant_room'
+                        room_assign = '$tenant_room' ,
+                        lease_start = '$lease_start' , 
+                        lease_end = '$lease_end'  
                     WHERE tenant_id=$id";
 
             // Once query executes
@@ -301,6 +327,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <span class="invalid-feedback"><?php echo $_err_tenant_pass ;?></span>
                 </div>
                 <br>
+                <!-- Tenant lease start -->
+                <div class="form-group">
+                        <label for="Lease start"><i class="fa-solid fa-calendar-day"></i> Start of lease</label>
+                        <small><b>The starting date for the tenant's stay</b></small>
+                        <input required type="date" id="fetchLeaseStart" name="tenant-lease-start" class="form-control <?php echo (!empty($_err_lease_start)) ? 'is-invalid' : ''; ?>" value="<?php echo $lease_start ; ?>">
+                        <span class="invalid-feedback"><?php echo $_err_lease_start ;?></span>
+                    </div>
+                    <br>
+                    <!-- Tenant lease end -->
+                    <div class="form-group">
+                        <label for="Lease end"><i class="fa-solid fa-calendar-check"></i> End of lease</label>
+                        <small><b>The ending date for the tenant's stay</b></small>
+                        <input required type="date" id="fetchLeaseEnd" name="tenant-lease-end" class="form-control <?php echo (!empty($_err_lease_end)) ? 'is-invalid' : ''; ?>" value="<?php echo $lease_end ; ?>">
+                        <span class="invalid-feedback"><?php echo $_err_lease_end ;?></span>
+                    </div>
+                    <br>
                 <!-- Tenant assigned room -->
                 <div class="form-group">
                     <label for="Tenant's room">Assign a room</label>

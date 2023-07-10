@@ -8,8 +8,8 @@ if (!isset($_SESSION["admin-username"])) {
 }
 
 // Values to retrieve
-$tenant_fullName = $tenant_num = $tenant_emergencyNum = $tenant_email = $tenant_username = $tenant_pass = $tenant_room = "";
-$_err_tenant_fullName = $_err_tenant_num = $_err_tenant_emergencyNum = $_err_tenant_email = $_err_tenant_username = $_err_tenant_pass = $_err_tenant_room = $_err_tenant_photo = "";
+$tenant_fullName = $tenant_num = $tenant_emergencyNum = $tenant_email = $tenant_username = $tenant_pass = $tenant_room = $lease_start = $lease_end = "";
+$_err_tenant_fullName = $_err_tenant_num = $_err_tenant_emergencyNum = $_err_tenant_email = $_err_tenant_username = $_err_tenant_pass = $_err_tenant_room = $_err_lease_start = $_err_lease_end = $_err_tenant_photo = "";
 
 // Flags 
 $isTaken_contactNum = false;
@@ -25,6 +25,8 @@ $isTaken_username = false;
  * name="tenant-username"
  * name="tenant-password"
  * name="tenant-assigned-room"
+ * name="tenant-lease-start"
+ * name="tenant-lease-end"
  * name="tenant-face-photo"
  */
 //  Check if form is submitted
@@ -218,6 +220,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
+    // Validate lease start
+    $input_lease_start = trim($_POST["tenant-lease-start"]);
+    if (empty($input_lease_start)) {
+        $lease_start = $input_lease_start; 
+    }
+    
+    else {
+        $lease_start = $input_lease_start; 
+    }
+
+    // Validate lease end
+    $input_lease_end = trim($_POST["tenant-lease-end"]);
+    if (empty($input_lease_end)) {
+        $lease_end = $input_lease_end; 
+    }
+    
+    else {
+        $lease_end = $input_lease_end; 
+    }
+
+
+
     // Validate photo
     if (isset($_FILES["face_photo_upload"])) {
         if ($_FILES["face_photo_upload"]["size"] > 5242880) {
@@ -229,7 +253,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if no errors occured
     if (empty($_err_tenant_fullName) && empty($_err_tenant_num) && empty($_err_tenant_emergencyNum) && empty($_err_tenant_email) &&
-        empty($_err_tenant_username) && empty($_err_tenant_pass) && empty($_err_tenant_room) && empty($_err_tenant_photo)) {
+        empty($_err_tenant_username) && empty($_err_tenant_pass) && empty($_err_tenant_room) && empty($_err_lease_start) && empty($_err_lease_end) && empty($_err_tenant_photo)) {
             
             // Set up a tenant img ref no
             $img_tenant_ref = rand(10, 10000);
@@ -243,6 +267,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["tenant-username"] = $tenant_username;
             $_SESSION["tenant-password"] = $tenant_pass;
             $_SESSION["tenant-assignRoom"] = $tenant_room;
+            $_SESSION["tenant-lease-start"] = $lease_start;
+            $_SESSION["tenant-lease-end"] = $lease_end;
             $_SESSION["tenant-ref-img"] = $img_tenant_ref;
             $_SESSION["tenant-photo"] = $tenant_image_to_upload;
             
@@ -552,6 +578,22 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
                         <span class="invalid-feedback"><?php echo $_err_tenant_pass ;?></span>
                     </div>
                     <br>
+                    <!-- Tenant lease start -->
+                    <div class="form-group">
+                        <label for="Lease start"><i class="fa-solid fa-calendar-day"></i> Start of lease</label>
+                        <small><b>The starting date for the tenant's stay</b></small>
+                        <input required type="date" id="fetchLeaseStart" name="tenant-lease-start" class="form-control <?php echo (!empty($_err_lease_start)) ? 'is-invalid' : ''; ?>" value="<?php echo $lease_start ; ?>">
+                        <span class="invalid-feedback"><?php echo $_err_lease_start ;?></span>
+                    </div>
+                    <br>
+                    <!-- Tenant lease end -->
+                    <div class="form-group">
+                        <label for="Lease end"><i class="fa-solid fa-calendar-check"></i> End of lease</label>
+                        <small><b>The ending date for the tenant's stay</b></small>
+                        <input required type="date" id="fetchLeaseEnd" name="tenant-lease-end" class="form-control <?php echo (!empty($_err_lease_end)) ? 'is-invalid' : ''; ?>" value="<?php echo $lease_end ; ?>">
+                        <span class="invalid-feedback"><?php echo $_err_lease_end ;?></span>
+                    </div>
+                    <br>
                     <!-- Tenant assigned room -->
                     <div class="form-group">
                         <label for="Tenant's room"><i class="fa-solid fa-people-roof"></i>  Assign a room</label>
@@ -643,6 +685,15 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
                                 </div>
                                 <h3 id="modalPreview_tenant-fullname" style="padding-top: 10px;"></h3>
                                 <h6><b id="modalPreview_tenant-room" ></b></h6>
+                                <div class="card">
+                                    <ul>
+                                        <li id="modalPreview_lease_start"></li>
+                                        <li id="modalPreview_lease_end"></li>
+                                    </ul>
+                                    <div class="card mx-2 px-2 mb-1 pt-1">
+                                        <p id="modalPreview_total_days"></p>
+                                    </div>
+                                </div>
                                 <!-- Tenant POST details -->
                                 <ul class="list-group list-group-flush">
                                     <li id="modalPreview_tenant-contactNum" class="list-group-item"></li>
@@ -670,6 +721,8 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
                                 function fetchData() {
                                     tenant_fullname = document.getElementById("fetchFullName").value; 
                                     tenant_room = document.getElementById("fetchRoom").value; 
+                                    lease_start = document.getElementById("fetchLeaseStart").value; 
+                                    lease_end = document.getElementById("fetchLeaseEnd").value; 
                                     tenant_contactNum = document.getElementById("fetchNumber").value; 
                                     tenant_emergencyNum = document.getElementById("fetchEmergencyNum").value; 
                                     tenant_email = document.getElementById("fetchEmail").value; 
@@ -677,12 +730,29 @@ $results_water_payments = mysqli_query($conn, $_sql_water_payments);
                                     tenant_password = document.getElementById("fetchPassword").value; 
     
                                     // Render the fetched values for modal preview
+                                    tenant_tot_days = calculateTotalDays(lease_start, lease_end);
                                     renderFetchedData_toModalPreview();
                                 }
-    
+
+                                function calculateTotalDays(startDate, endDate) {
+                                    const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
+
+                                    // Convert the start and end dates to JavaScript Date objects
+                                    const start = new Date(startDate);
+                                    const end = new Date(endDate);
+
+                                    // Calculate the difference in days
+                                    const totalDays = Math.round(Math.abs((end - start) / oneDay));
+
+                                    return totalDays;
+                                }
+
                                 function renderFetchedData_toModalPreview() {
                                     document.getElementById("modalPreview_tenant-fullname").innerHTML = tenant_fullname;
                                     document.getElementById("modalPreview_tenant-room").innerHTML = "@Room: " + tenant_room;
+                                    document.getElementById("modalPreview_lease_start").innerHTML = "Start of stay: " + lease_start;
+                                    document.getElementById("modalPreview_lease_end").innerHTML = "End of stay: " + lease_end;
+                                    document.getElementById("modalPreview_total_days").innerHTML = "The tenant will be staying at unit " + tenant_room + " for " + tenant_tot_days + " days.";
                                     document.getElementById("modalPreview_tenant-contactNum").innerHTML = "Contact No.: <b>" + tenant_contactNum + "</b>";
                                     document.getElementById("modalPreview_tenant-emergencyNum").innerHTML = "Emergency Contact No.: <b>" + tenant_emergencyNum + "</b>";
                                     document.getElementById("modalPreview_tenant-email").innerHTML = "Email: <b>" + tenant_email + "</b>";

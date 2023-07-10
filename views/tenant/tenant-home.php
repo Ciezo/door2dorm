@@ -8,7 +8,7 @@ if (!isset($_SESSION["tenant-username"])) {
 }
 
 // Values to retrieve to render tenant account information
-$tenant_id =  $tenant_full_name = $tenant_number = $tenant_emergNum = $tenant_email = $tenant_room_assign = $tenant_photo = ""; 
+$tenant_id =  $tenant_full_name = $tenant_number = $tenant_emergNum = $tenant_email = $tenant_room_assign = $lease_start = $lease_end = $tenant_photo = ""; 
 $tenant_username = $_SESSION["tenant-username"] ;
 // Create a query to select tenant_acc 
 $sql = "SELECT * FROM TENANT WHERE username = '$tenant_username'";
@@ -24,6 +24,8 @@ if($results->num_rows > 0) {
         $tenant_emergNum = $rows["emergency_contact_num"];
         $tenant_email = $rows["email"];
         $tenant_room_assign = $rows["room_assign"];
+        $lease_start = $rows["lease_start"];
+        $lease_end = $rows["lease_end"];
         $tenant_photo = $rows["tenant_photo"];
 
         // Load up Tenant session variables
@@ -34,6 +36,8 @@ if($results->num_rows > 0) {
         set_TenantSessionVars("tenant-emergencyNum", $tenant_emergNum); 
         set_TenantSessionVars("tenant-email", $tenant_email); 
         set_TenantSessionVars("tenant-room", $tenant_room_assign); 
+        set_TenantSessionVars("tenant-lease-start", $lease_start); 
+        set_TenantSessionVars("tenant-lease-end", $lease_end); 
     }
 }
 

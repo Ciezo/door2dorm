@@ -8,8 +8,10 @@
         public $username;
         public $password;
         public $room;
+        public $lease_start;
+        public $lease_end;
 
-        function __construct($full_name, $contact_no, $emerg_contact_no, $email, $username , $password, $room) {
+        function __construct($full_name, $contact_no, $emerg_contact_no, $email, $username , $password, $room, $lease_start, $lease_end) {
             $this->full_name = $full_name;
             $this->contact_no = $contact_no;
             $this->emerg_contact_no = $emerg_contact_no;
@@ -17,6 +19,8 @@
             $this->username = $username;
             $this->password = $password;
             $this->room = $room;
+            $this->lease_start = $lease_start;
+            $this->lease_end = $lease_end;
         }
 
         function getFullName() {
@@ -45,6 +49,14 @@
 
         function getAssignedRoom() {
             return $this->room;
+        }
+        
+        function getLeaseStart() {
+            return $this->lease_start;
+        }
+
+        function getLeaseEnd() {
+            return $this->lease_end;
         }
     }
 ?>

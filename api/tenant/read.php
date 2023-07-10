@@ -9,7 +9,21 @@ if (!isset($_SESSION["admin-username"])) {
 }
 
 // Values to retrieve 
-$tenant_full_name = $contactNum  = $emergencyContact = $email = $username = $password = $assigned_room = $tenant_photo = "";
+$tenant_full_name = $contactNum  = $emergencyContact = $email = $username = $password = $assigned_room = $lease_start = $lease_end = $lease_duration = $tenant_photo = "";
+
+function calculateTotalDays($startDate, $endDate) {
+    // Convert the start and end dates to UNIX timestamps
+    $startTimestamp = strtotime($startDate);
+    $endTimestamp = strtotime($endDate);
+  
+    // Calculate the difference in seconds
+    $totalSeconds = abs($endTimestamp - $startTimestamp);
+  
+    // Convert seconds to days
+    $totalDays = round($totalSeconds / (60 * 60 * 24));
+  
+    return $totalDays;
+}
 
 // Try and fetch the ID of a tenant
 if(isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
@@ -29,8 +43,13 @@ if(isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
         $username = $rows["username"];
         $password = $rows["password"];
         $assigned_room = $rows["room_assign"];
+        $lease_start = $rows["lease_start"];
+        $lease_end = $rows["lease_end"];
+        $lease_duration = calculateTotalDays($lease_start, $lease_end);
         $tenant_photo = $rows["tenant_photo"];
     }
+
+
 
     // Close connection
     $conn->close();
@@ -57,6 +76,9 @@ else {
             $username = $rows["username"];
             $password = $rows["password"];
             $assigned_room = $rows["room_assign"];
+            $lease_start = $rows["lease_start"];
+            $lease_end = $rows["lease_end"];
+            $lease_duration = calculateTotalDays($lease_start, $lease_end);
             $tenant_photo = $rows["tenant_photo"];
         }
     }  
@@ -148,6 +170,9 @@ else {
                     <li class="list-group-item" id="">Mobile: <b> <?php echo $contactNum; ?></b></li>
                     <li class="list-group-item" id="">Emergency Contact No.: <b><?php echo $emergencyContact; ?></b></li>
                     <li class="list-group-item" id="">Assigned Room: <b><?php echo $assigned_room; ?></b></li>
+                    <li class="list-group-item" id="">Lease Start: <b><?php echo $lease_start; ?></b></li>
+                    <li class="list-group-item" id="">Lease End: <b><?php echo $lease_end; ?></b></li>
+                    <li class="list-group-item" id="">Lease Duration: <b><?php echo $lease_duration; ?></b></li>
                 </ul>
             </div>
             <div class="card-footer">
