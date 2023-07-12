@@ -108,8 +108,8 @@ if (!isset($_SESSION["tenant-username"])) {
                                $current_room = $_SESSION["tenant-room"];
    
                                // Create queries to select all time-in and time-out tables from the current_room
-                               $get_time_ins = "SELECT * FROM SECURITY_LOGS_TIME_IN WHERE tenant_name = '$current_room'";
-                               $get_time_outs = "SELECT * FROM SECURITY_LOGS_TIME_OUT WHERE tenant_name = '$current_room'";
+                               $get_time_ins = "SELECT * FROM SECURITY_LOGS_TIME_IN WHERE tenant_room = '$current_room'";
+                               $get_time_outs = "SELECT * FROM SECURITY_LOGS_TIME_OUT WHERE tenant_room = '$current_room'";
                                $results_time_ins = mysqli_query($conn, $get_time_ins);
                                $results_time_outs = mysqli_query($conn, $get_time_outs);
                                
@@ -133,7 +133,7 @@ if (!isset($_SESSION["tenant-username"])) {
    
                                /** Time-outs */
                                if ($results_time_outs->num_rows > 0) {
-                                   while($rows = mysqli_fetch_assoc($results_time_ins)) {
+                                   while($rows = mysqli_fetch_assoc($results_time_outs)) {
                                        echo "<tr>";
                                        echo    "<td>".$rows["tenant_name"]."</td>";
                                        echo    "<td>".$rows["tenant_room"]."</td>";
@@ -168,7 +168,8 @@ if (!isset($_SESSION["tenant-username"])) {
                        </tr>
                        <tbody>
                            <?php
-                                $get_unauth = "SELECT * FROM SECURITY_LOGS_TIME_IN WHERE status = 'Unauthorized'";
+                                $current_room = $_SESSION["tenant-room"];
+                                $get_unauth = "SELECT * FROM SECURITY_LOGS_TIME_IN WHERE status = 'Unauthorized' AND tenant_room = '$current_room'" ;
                                 $results_unauth = mysqli_query($conn, $get_unauth);
 
                                 if ($results_unauth->num_rows > 0) {
