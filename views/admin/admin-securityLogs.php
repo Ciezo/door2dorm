@@ -113,9 +113,18 @@ if (!isset($_SESSION["admin-username"])) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-transparent border-0">
                                                 <i class="fa-solid fa-filter"></i>
-                                                <span style="padding-left: 5px;">Filter by:</span>
+                                                <span style="padding-left: 5px;padding-right: 5px;">Filter by:</span>
+                                                <select name="filter-opt" id="filter-opt" class="form-control">
+                                                    <option value="Name">Name</option>
+                                                    <option value="Room">Room</option>
+                                                    <option value="Date">Date</option>
+                                                    <option value="Status">Status</option>
+                                                </select>
                                             </span>
-                                            <input type="text" class="form-control" id="room-filter" placeholder="Room no.">
+                                            <span>
+                                                <input type="text" class="form-control" id="search-filter" placeholder="" style="">
+                                                <button class="btn btn-outline-primary btn-sm mt-2" id="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -152,20 +161,40 @@ if (!isset($_SESSION["admin-username"])) {
 
     <!-- Filter -->
     <script>
-        $(document).ready(function () {
-            $('#room-filter').keyup(function () {
-                var value = $(this).val().toLowerCase();
-                $('#room-table tbody tr').filter(function () {
-                    var roomNumber = $(this).find('td:nth-child(4)').text().toLowerCase();
-                    return roomNumber.indexOf(value) === -1;
-                }).toggle();
-                
-                if (value === "") {
-                    $('#room-table tbody tr').show();
+        $(document).ready(function() {
+            var filterValue = ''; // Variable to store the filter value
+            var filterOption = ''; // Variable to store the filter option
+
+            // Event listener for search button click
+            $('#search-btn').on('click', function() {
+                applyFilter();
+            });
+
+            // Event listener for pressing Enter key in the input field
+            $('#search-filter').on('keypress', function(e) {
+            if (e.which === 13) {
+                applyFilter();
+            }
+            });
+
+            function applyFilter() {
+                filterValue = $('#search-filter').val().toLowerCase();
+                filterOption = $('#filter-opt').val().toLowerCase();
+                filterTable();
+            }
+
+            function filterTable() {
+            $('.log-table tr').each(function() {
+                var rowValue = $(this).find('td[data-filter="' + filterOption + '"]').text().toLowerCase();
+                if (rowValue.indexOf(filterValue) > -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
                 }
+            });
+            }
         });
-        });
-    </script>
+</script>
 
 </body>
 </html>

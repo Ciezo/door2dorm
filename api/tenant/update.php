@@ -157,20 +157,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate lease start
     $input_lease_start = trim($_POST["tenant-lease-start"]);
+    $temp_date = date("Y-m-d");
     if (empty($input_lease_start)) {
         $lease_start = $input_lease_start; 
     }
-    
+
+    else if ($input_lease_start < $temp_date) {
+        $_err_lease_start = "Invalid date!";
+    }
+
     else {
         $lease_start = $input_lease_start; 
     }
 
     // Validate lease end
     $input_lease_end = trim($_POST["tenant-lease-end"]);
+    $temp_date = date("Y-m-d");
     if (empty($input_lease_end)) {
         $lease_end = $input_lease_end; 
     }
-    
+
+    else if ($input_lease_end < $temp_date) {
+        $_err_lease_end = "Invalid date!";
+    }
+
     else {
         $lease_end = $input_lease_end; 
     }
@@ -329,20 +339,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br>
                 <!-- Tenant lease start -->
                 <div class="form-group">
-                        <label for="Lease start"><i class="fa-solid fa-calendar-day"></i> Start of lease</label>
-                        <small><b>The starting date for the tenant's stay</b></small>
-                        <input required type="date" id="fetchLeaseStart" name="tenant-lease-start" class="form-control <?php echo (!empty($_err_lease_start)) ? 'is-invalid' : ''; ?>" value="<?php echo $lease_start ; ?>">
-                        <span class="invalid-feedback"><?php echo $_err_lease_start ;?></span>
-                    </div>
-                    <br>
-                    <!-- Tenant lease end -->
-                    <div class="form-group">
-                        <label for="Lease end"><i class="fa-solid fa-calendar-check"></i> End of lease</label>
-                        <small><b>The ending date for the tenant's stay</b></small>
-                        <input required type="date" id="fetchLeaseEnd" name="tenant-lease-end" class="form-control <?php echo (!empty($_err_lease_end)) ? 'is-invalid' : ''; ?>" value="<?php echo $lease_end ; ?>">
-                        <span class="invalid-feedback"><?php echo $_err_lease_end ;?></span>
-                    </div>
-                    <br>
+                    <label for="Lease start"><i class="fa-solid fa-calendar-day"></i> Start of lease</label>
+                    <small><b>The starting date for the tenant's stay</b></small>
+                    <input required type="date" id="fetchLeaseStart" name="tenant-lease-start" class="form-control <?php echo (!empty($_err_lease_start)) ? 'is-invalid' : ''; ?>" value="<?php echo $lease_start ; ?>">
+                    <span class="invalid-feedback"><?php echo $_err_lease_start ;?></span>
+                </div>
+                <br>
+                <!-- Tenant lease end -->
+                <div class="form-group">
+                    <label for="Lease end"><i class="fa-solid fa-calendar-check"></i> End of lease</label>
+                    <small><b>The ending date for the tenant's stay</b></small>
+                    <input required type="date" id="fetchLeaseEnd" name="tenant-lease-end" class="form-control <?php echo (!empty($_err_lease_end)) ? 'is-invalid' : ''; ?>" value="<?php echo $lease_end ; ?>">
+                    <span class="invalid-feedback"><?php echo $_err_lease_end ;?></span>
+                </div>
+                <br>
                 <!-- Tenant assigned room -->
                 <div class="form-group">
                     <label for="Tenant's room">Assign a room</label>

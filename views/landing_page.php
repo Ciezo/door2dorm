@@ -85,12 +85,18 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
         $visitor_contact = $input_contact_num; 
     }
 
+    
 
     // Validate date
     $input_visit_date = trim($_POST["visitor-date"]); 
+    $temp_date = date("Y-m-d");
     if (empty($input_visit_date)) {
         $_err_visit_date = "Please, pick a scheduled date!";
     } 
+    
+    else if ($input_visit_date < $temp_date) {
+        $_err_visit_date = "Invalid date!";
+    }
 
     else {
         $visit_date = $input_visit_date; 
@@ -271,7 +277,7 @@ if (isset($_POST["confirm-booking"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                 <!-- Visitor pick date -->
                 <div class="form-group">
                     <label for="Full name of visitor">Pick a date</label>
-                    <input type="date" name="visitor-date" id="fetch_visitDate" placeholder="" class="form-control">
+                    <input type="date" name="visitor-date" id="fetch_visitDate" class="form-control <?php echo (!empty($_err_visit_date)) ? 'is-invalid' : ''; ?>" value="<?php echo $visit_date ; ?>">
                     <span class="invalid-feedback"><?php echo $_err_visit_date ;?></span>
                 </div>
                 <br>

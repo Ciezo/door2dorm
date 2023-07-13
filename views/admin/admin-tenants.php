@@ -222,8 +222,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate lease start
     $input_lease_start = trim($_POST["tenant-lease-start"]);
+    $temp_date = date("Y-m-d");
     if (empty($input_lease_start)) {
         $lease_start = $input_lease_start; 
+    }
+
+    else if ($input_lease_start < $temp_date) {
+        $_err_lease_start = "Invalid date!";
     }
     
     else {
@@ -232,8 +237,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate lease end
     $input_lease_end = trim($_POST["tenant-lease-end"]);
+    $temp_date = date("Y-m-d");
     if (empty($input_lease_end)) {
         $lease_end = $input_lease_end; 
+    }
+
+    else if ($input_lease_end < $temp_date) {
+        $_err_lease_end = "Invalid date!";
     }
     
     else {

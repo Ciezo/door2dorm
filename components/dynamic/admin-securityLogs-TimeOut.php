@@ -20,12 +20,12 @@
                             
                             while($rows = mysqli_fetch_assoc($results)) {
                                 echo "<tr>";
-                                echo    "<td>".$rows["log_id"]."</td>";
-                                echo    "<td>".$rows["tenant_name"]."</td>";
-                                echo    "<td>".$rows["date"]."</td>";
-                                echo    "<td>".$rows["time_out"]."</td>";
-                                echo    "<td>".$rows["tenant_room"]."</td>";
-                                echo    "<td>".$rows["status"]."</td>";
+                                echo    "<td data-filter='id'>".$rows["log_id"]."</td>";
+                                echo    "<td data-filter='name'>".$rows["tenant_name"]."</td>";
+                                echo    "<td data-filter='date'>".$rows["date"]."</td>";
+                                echo    "<td data-filter='checked-in'>".$rows["time_out"]."</td>";
+                                echo    "<td data-filter='room'>".$rows["tenant_room"]."</td>";
+                                echo    "<td data-filter='status'>".$rows["status"]."</td>";
                                 echo "</tr>";
                             }
                             

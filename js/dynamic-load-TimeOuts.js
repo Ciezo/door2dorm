@@ -8,6 +8,6 @@ $(document).ready(function(){
       num_of_refreshes++;
       console.log("Refreshed content");
       console.log("Number of requests through jQuery: " + num_of_refreshes);
-    }, 1000); // Refresh every 1 second
+    }, 60000); // Refresh every 1 minute
 });
   
