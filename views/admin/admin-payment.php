@@ -214,8 +214,8 @@ if (isset($_POST["select-tenant"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                         </td>
                         <td>
                             <!-- Trigger a modal for inputs -->
-                            <button id="modal_rental_updates" class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_rental_charges">Update charges</button>
-                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal_rental_payment_acknowledgement">Review payments</button>
+                            <button id="modal_rental_updates" class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_rental_charges">Update rental bills</button>
+                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal_rental_payment_acknowledgement"><i class="fa-solid fa-check-to-slot"></i> </button>
                         </td>
                     </tr>
                     <!-- Electricty row billing type -->
@@ -251,8 +251,8 @@ if (isset($_POST["select-tenant"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                         </td>
                         <td>
                             <!-- Trigger a modal for inputs -->
-                            <button id="modal_electricity_updates" class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_electricity_charges">Update charges</button>
-                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal_electricity_payment_acknowledgement">Review payments</button>
+                            <button id="modal_electricity_updates" class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_electricity_charges">Update electricity bills</button>
+                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal_electricity_payment_acknowledgement"><i class="fa-solid fa-check-to-slot"></i></button>
                         </td>
                     </tr>
                     <!-- Water row billing type -->
@@ -288,8 +288,8 @@ if (isset($_POST["select-tenant"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
                         </td>
                         <td>
                             <!-- Trigger a modal for inputs -->
-                            <button id="modal_water_updates" class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_water_charges">Update charges</button>
-                            <button class="btn btn-outline-success" data-toggle="modal" data-target="#modal_water_payment_acknowledgement">Review payments</button>
+                            <button id="modal_water_updates" class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_water_charges">Update water bills</button>
+                            <button class="btn btn-outline-success" data-toggle="modal" data-target="#modal_water_payment_acknowledgement"><i class="fa-solid fa-check-to-slot"></i></button>
                         </td>
                     </tr>
                 </tbody>
