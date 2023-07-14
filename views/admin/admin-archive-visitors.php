@@ -108,6 +108,7 @@ if (!isset($_SESSION["admin-username"])) {
                         echo            '<li class="list-group-item">Date: '.$rows["date_visit"].'</li>';
                         echo        '</ul>';
                         echo    '</div>';
+                        echo '</div>';
                     }
                 } else {
                     echo '<div class="alert alert-danger" role="alert">No archive records found! </div>';
