@@ -3,9 +3,9 @@
 # Description: 
 #       Hardcode the admin credentials into Admin table
 
-host="us-cdbr-east-06.cleardb.net" 
-user="b08c35ce866050"
-password="d2655c71"
-database="heroku_9ee0e413f16e154"
+host="us-cluster-east-01.k8s.cleardb.net" 
+user="b6242f07ae4393"
+password="c5ba3043"
+database="heroku_f47e36bc84bb2cb"
 
 cat "admin_credentials.sql" | mysql -h "$host" -u "$user" "-p$password" "$database"
