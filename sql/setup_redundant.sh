@@ -7,10 +7,10 @@
 
 # Credentials
 # App name: door2dorm-backend
-host="us-cdbr-east-06.cleardb.net" 
-user="b9a3b4c95968d1"
-password="521b7aa0"
-database="heroku_253ee0abcc115bc"
+host="us-cluster-east-01.k8s.cleardb.net" 
+user="b6242f07ae4393"
+password="c5ba3043"
+database="heroku_f47e36bc84bb2cb"
 
 echo "Creating backup schema to the remote database!"
 cat "schema_redundant.sql" | mysql -h "$host" -u "$user" "-p$password" "$database"
