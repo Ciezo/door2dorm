@@ -1,8 +1,3 @@
-<!-- 
-    Filename: config.php
-    Description: The remote database configuration at ClearDB MySQL Heroku. 
- -->
-
 <?php
 require 'vendor/autoload.php';
 
