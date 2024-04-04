@@ -91,6 +91,18 @@ page, and a tenant may send any type of message for communication, which include
 
 ### Setup
 
+Install `npm packages`
+
+```
+npm install
+```
+
+Install `composer` packages for php
+
+```
+composer install
+```
+
 **Make sure that you have MySQL workbench. This is needed to create the schemas we need for the application to work.**
 
 <u>MySQL Schemas:</u>
