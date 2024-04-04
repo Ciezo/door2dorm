@@ -9,7 +9,7 @@
 host="localhost" 
 user="root"
 password="cloyd27feb2002"
-database="door2dorm"
+database="door2dorm_redundant"
 
 echo "Creating backup schema to the localhost database!"
 cat "schema_redundant.sql" | mysql -h "$host" -u "$user" "-p$password" "$database"
