@@ -1,10 +1,24 @@
 ### Project Introduction
 
-This project is a proposed application to manage Dormitories in Manila, Philippines. Door2Dorm is an IoT an IoT-based Dormitory Management System (DMS) that integrates facial and fingerprint recognition biometrics. The system enhances dormitory security and management by providing robust identity verification and access control. Through functionality testing, cross-browser testing, usability testing, user acceptance testing, and user experience testing, the study demonstrates the effectiveness of Door2Dorm. The conclusion confirms the successful development of the management system with facial recognition and fingerprint security features. It highlights additional key features such as records management, payment management, direct messaging, and security logging for administrators, tenants, and visitors. The integration of the Silent- Face-Anti-Spoofing library enhances system security. The study’s results show high user satisfaction, making Door2Dorm an efficient and credible solution for dormitory management with biometric security measures.
+This project is a proposed application to manage Dormitories in Manila, Philippines. Door2Dorm is an IoT-based Dormitory Management System (DMS) that integrates facial and fingerprint recognition biometrics. The system enhances dormitory security and management by providing robust identity verification and access control. Through functionality testing, cross-browser testing, usability testing, user acceptance testing, and user experience testing, the study demonstrates the effectiveness of Door2Dorm. The conclusion confirms the successful development of the management system with facial recognition and fingerprint security features. It highlights additional key features such as records management, payment management, direct messaging, and security logging for administrators, tenants, and visitors. The integration of the Silent- Face-Anti-Spoofing library enhances system security. The study’s results show high user satisfaction, making Door2Dorm an efficient and credible solution for dormitory management with biometric security measures.
 
 <a href="https://ieeexplore.ieee.org/document/10366658">Find out more with our paper! 😊</a>
 
 ---
+
+### Other features 
+
+- Door2Dorm - Face recognition 
+    - The face recognition model we used was based on FaceNet which used vector points and mappings to point out facial features such as left eye, right eye, nose, lips, and face shape. These are defined as boundaries to recognize a tenant's face then, 
+    after the face mappings (registration) a tenant's name is included in that array to uniquely identify a captured face.
+
+    <a href="https://github.com/Ciezo/door2dorm-facenet">Door2Dorm - FaceNet, Checkout the GitHub repository! 💻</a>
+
+ 
+- DoorDorm - Fingerprint recognition 
+    - Using AS608 fingeprint sensor and Arduino UNO R3 as a microcontroller we were able to capture a tenant's fingerprint. The fingerprint recognition technique was used as a counter-check for registered tenants.  
+
+    <a href="https://github.com/Ciezo/arduino-fingerprint-as608">Door2Dorm - AS608 Fingerprint, Checkout the GitHub repository! 💻 <a>
 
 ### Sitemaps
 
